@@ -52,13 +52,110 @@ body{background:#f2f4f9;color:#333c45;font-family:Arial,Helvetica,sans-serif;fon
 .row-icon:disabled{opacity:.4;cursor:not-allowed}
 .icon-key{font-size:11px;color:#5d6678;margin:7px 3px 4px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .icon-key span{white-space:nowrap}
+/* Profile & Account Settings view (UI-only prototype) */
+.ps-hide{display:none!important}
+.nav.active[role="button"]:hover{background:#1679f5;color:white}
+.top .ps-gear{font-size:19px;cursor:pointer;border-radius:4px;line-height:1}.top .ps-gear:hover{color:#087bfa}.top .ps-gear:focus-visible{outline:2px solid #087bfa;outline-offset:3px}
+.ps-title{font-size:12px;font-weight:700;color:#333;margin:2px 0 12px}
+.ps-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(230px,22%);gap:14px;align-items:start}
+.ps-card{background:#fff;border:1px solid #e3e6eb;border-radius:3px}
+.ps-tabs{display:flex;border-bottom:1px solid #e3e6eb;padding:0 8px;overflow-x:auto}
+.ps-tab{display:inline-flex;align-items:center;gap:6px;border:0;border-bottom:2px solid transparent;background:transparent;color:#9aa3ad;font-size:11px;padding:11px 12px 9px;margin-bottom:-1px;white-space:nowrap}
+.ps-tab svg{width:13px;height:13px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ps-tab:hover{color:#6b7580}.ps-tab.active{color:#333;border-bottom-color:#087bfa;font-weight:700}
+.ps-sec{margin:14px 12px 0}
+.ps-sec-h{display:flex;align-items:center;justify-content:space-between;background:#eef0f3;padding:6px 10px;font-size:11px;font-weight:700;color:#333;min-height:30px}
+.ps-sec-b{padding:12px 10px 4px}
+.ps-outline{background:#fff;color:#087bfa;border:1px solid #087bfa;border-radius:2px;font-size:10px;padding:4px 10px}.ps-outline:hover{background:#eef6ff}
+.ps-feat-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 16px;padding-bottom:10px}
+.ps-toggle{display:flex;align-items:center;gap:8px;font-size:11px;color:#333;cursor:pointer;position:relative}
+.ps-toggle input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.ps-track{flex:none;width:30px;height:16px;border-radius:8px;background:#d3d8de;position:relative;transition:background .15s}
+.ps-track::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:#fff;box-shadow:0 1px 2px #0003;transition:left .15s}
+.ps-toggle input:checked+.ps-track{background:#087bfa}.ps-toggle input:checked+.ps-track::after{left:16px}
+.ps-toggle input:focus-visible+.ps-track{outline:2px solid #087bfa;outline-offset:2px}
+.ps-subtabs{display:flex;gap:4px;border-bottom:1px solid #e3e6eb;margin:0 0 12px}
+.ps-subtab{border:0;border-bottom:2px solid transparent;background:transparent;color:#8d96a0;font-size:11px;padding:6px 10px 6px;margin-bottom:-1px}
+.ps-subtab.active{color:#333;font-weight:700;border-bottom-color:#087bfa}
+.ps-ms-btn{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid #d5d9df;border-radius:3px;padding:6px 12px;font-size:10px;font-weight:700;color:#333;margin-bottom:14px}
+.ps-ms-btn:hover{background:#f7f8fa}
+.ps-ms-logo{display:inline-grid;grid-template-columns:repeat(2,7px);gap:1px}.ps-ms-logo i{display:block;width:7px;height:7px}
+.ps-form2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px;padding-bottom:10px}
+.ps-form3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 16px;padding-bottom:12px}
+.ps-field label,.ps-field .ps-lab{display:block;font-size:10px;color:#555;margin:0 0 4px}
+.ps-req{color:#d92d20}
+.ps-field input,.ps-field select{width:100%;height:28px;background:#f1f2f4;border:1px solid #f1f2f4;border-radius:3px;padding:0 8px;font-size:11px;color:#333}
+.ps-field input:focus,.ps-field select:focus{outline:none;border-color:#087bfa;background:#fff}
+.ps-ms{position:relative}
+.ps-ms-box{display:flex;align-items:center;gap:4px;min-height:28px;background:#fff;border:1px solid #d5d9df;border-radius:3px;padding:2px 24px 2px 4px;cursor:pointer;position:relative;flex-wrap:wrap;font-size:11px}
+.ps-ms-box:focus-visible,.ps-ms.open .ps-ms-box{outline:none;border-color:#087bfa}
+.ps-ms-box::after{content:"▾";position:absolute;right:8px;top:50%;transform:translateY(-50%);color:#666;font-size:11px}
+.ps-chip{display:inline-flex;align-items:center;gap:5px;background:#dcecff;color:#0a5fc2;border-radius:3px;padding:2px 6px;font-size:10px}
+.ps-chip b{cursor:pointer;font-size:12px;line-height:1;font-weight:400}.ps-chip b:hover{color:#d92d20}
+.ps-ph{color:#9aa3ad;padding:0 4px;font-size:10px}
+.ps-ms-list{position:absolute;z-index:20;left:0;right:0;top:calc(100% + 2px);background:#fff;border:1px solid #d5d9df;border-radius:3px;box-shadow:0 4px 12px #0002;padding:4px 0;display:none}
+.ps-ms.open .ps-ms-list{display:block}
+.ps-ms-list label{display:flex;align-items:center;gap:8px;margin:0;padding:6px 10px;font-size:11px;color:#333;cursor:pointer}.ps-ms-list label:hover{background:#eef6ff}
+.ps-ms-list input{width:auto;height:auto;margin:0}
+.ps-color{position:relative}
+.ps-color select{appearance:none;-webkit-appearance:none;padding:0 26px 0 30px;font-weight:700;color:#0a5fc2;cursor:pointer}
+.ps-swatch{position:absolute;left:8px;top:50%;transform:translateY(-50%);width:14px;height:14px;background:#000;border-radius:2px;pointer-events:none}
+.ps-color::after{content:"▾";position:absolute;right:9px;top:50%;transform:translateY(-50%);color:#666;font-size:11px;pointer-events:none}
+.ps-foot{border-top:1px solid #e3e6eb;margin-top:14px;padding:12px;display:flex;justify-content:flex-end}
+.ps-pill{background:#087bfa;color:#fff;border:0;border-radius:16px;padding:7px 24px;font-size:11px;font-weight:700}.ps-pill:hover{filter:brightness(.93)}
+.ps-side{display:flex;flex-direction:column;gap:14px}
+.ps-side .ps-card{padding:10px}
+.ps-h{font-size:11px;font-weight:700;color:#333;margin:0 0 10px}
+.ps-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ps-tile{height:110px;border-radius:4px;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:8px 6px;text-align:center}
+.ps-tile span{font-size:10px}.ps-tile b{font-size:11px}
+.ps-tile .ps-ico{width:34px;height:34px;border:1.5px solid #fff;border-radius:8px;display:flex;align-items:center;justify-content:center}
+.ps-ico svg{width:20px;height:20px;stroke:#fff;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ps-attn-h{display:inline-block;border-bottom:2px solid #087bfa;padding-bottom:4px;margin-bottom:10px}
+.ps-empty{height:100px;background:#f5f6f8;border:1px solid #e3e6eb;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:11px;font-weight:700;color:#444}
+.ps-empty svg{width:24px;height:24px;stroke:#6b7580;stroke-width:1.6;fill:none;stroke-linecap:round}
+@media(max-width:1000px){.ps-grid{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:700px){.ps-feat-grid,.ps-form2,.ps-form3{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head><body>
-<header class="top"><span class="hamb">☰</span><span class="logo"><em>i4T</em>Maintenance</span><span class="brand-note">Strata&nbsp; | &nbsp;<b>iREALTY</b></span><span class="topspacer"></span><span style="font-size:17px">♧</span><span class="avatar"></span><span class="username"><b>Jane Thornton</b></span><span class="role">Manager | Administrator | Compliance Manager</span><span style="font-size:19px">⚙</span></header>
-<div class="layout"><aside class="sidebar"><button class="create">＋ &nbsp; Create New　›</button><div class="nav active">✉ <span>Inbox</span></div><div class="nav" onclick="openSRRegister()" role="button" tabindex="0" title="Open Service Requests register">▣ <span>Service Requests</span></div><div class="nav" onclick="toast('Existing Work Orders page – navigation preview')" role="button" tabindex="0">▣ <span>Work Orders</span></div><div class="nav">⚙ <span>Reports</span></div><div class="nav">▦ <span>Suppliers</span></div><div class="nav">▤ <span>Overview</span></div><div class="nav">♙ <span>Users</span></div><div class="nav">♧ <span>Occupants</span></div><div class="nav">⌂ <span>Strata Plans</span></div><div class="nav">✣ <span>Add-ons</span></div><div class="nav" onclick="openAutomationSettings()" role="button" tabindex="0">⚙ <span>Email Integration</span></div></aside>
-<main class="main"><div class="breadcrumb">HOME&nbsp; / &nbsp; INBOX</div><h1 class="mainhead">Inbox &nbsp; ⓘ</h1><div class="connected"><span class="dot">●</span> Connected: developer@i4tglobal.onmicrosoft.com &nbsp;▦</div><div class="sync">Sync Folders: <b style="background:#0969ed;color:white;border-radius:3px;padding:2px 5px">Inbox</b> &nbsp; · &nbsp; Auto (every 5 mins) <button class="syncbutton" onclick="simulateResync()">Sync Now</button></div>
+<header class="top"><span class="hamb">☰</span><span class="logo"><em>i4T</em>Maintenance</span><span class="brand-note">Strata&nbsp; | &nbsp;<b>iREALTY</b></span><span class="topspacer"></span><span style="font-size:17px">♧</span><span class="avatar"></span><span class="username"><b>Jane Thornton</b></span><span class="role">Manager | Administrator | Compliance Manager</span><span class="ps-gear" style="font-size:19px" onclick="showSettings()" onkeydown="psKey(event,showSettings)" role="button" tabindex="0" title="Profile &amp; Account Settings" aria-label="Profile &amp; Account Settings">⚙</span></header>
+<div class="layout"><aside class="sidebar"><button class="create">＋ &nbsp; Create New　›</button><div class="nav active" id="navInbox" onclick="showInbox()" onkeydown="psKey(event,showInbox)" role="button" tabindex="0">✉ <span>Inbox</span></div><div class="nav" onclick="openSRRegister()" role="button" tabindex="0" title="Open Service Requests register">▣ <span>Service Requests</span></div><div class="nav" onclick="toast('Existing Work Orders page – navigation preview')" role="button" tabindex="0">▣ <span>Work Orders</span></div><div class="nav">⚙ <span>Reports</span></div><div class="nav">▦ <span>Suppliers</span></div><div class="nav">▤ <span>Overview</span></div><div class="nav">♙ <span>Users</span></div><div class="nav">♧ <span>Occupants</span></div><div class="nav">⌂ <span>Strata Plans</span></div><div class="nav">✣ <span>Add-ons</span></div><div class="nav" onclick="openAutomationSettings()" role="button" tabindex="0">⚙ <span>Email Integration</span></div></aside>
+<main class="main"><div id="inboxView"><div class="breadcrumb">HOME&nbsp; / &nbsp; INBOX</div><h1 class="mainhead">Inbox &nbsp; ⓘ</h1><div class="connected"><span class="dot">●</span> Connected: developer@i4tglobal.onmicrosoft.com &nbsp;▦</div><div class="sync">Sync Folders: <b style="background:#0969ed;color:white;border-radius:3px;padding:2px 5px">Inbox</b></div>
 <div class="toolbar"><button class="scenario-btn" onclick="openScenarioLab()" title="Try 24-hour duplicates and same-email resynchronisation">◷ &nbsp; Test 24-hour rule</button><input id="search" placeholder="⌕  Search emails..." aria-label="Search emails"><select id="typeFilter" aria-label="Email type"><option value="all">All Types</option><option value="invoice">Invoice</option><option value="maintenance">Maintenance Request</option><option value="mixed">Mixed / Uncertain</option><option value="other">Other</option></select><select id="statusFilter" aria-label="Status"><option value="all">All Statuses</option><option value="linked">Linked</option><option value="created">Service Request Created</option><option value="needs">Needs Review</option><option value="failed">Processing Failed</option><option value="processing">Processing</option><option value="none">No Action</option></select></div>
-<div class="tablewrap"><table class="emailtable"><colgroup><col style="width:15%"><col style="width:24%"><col style="width:12%"><col style="width:12%"><col style="width:13%"><col style="width:10%"><col style="width:14%"></colgroup><thead><tr><th>Sender</th><th>Subject</th><th>Received Date ▾</th><th>Type</th><th>Status</th><th>Linked Record</th><th>Actions</th></tr></thead><tbody id="rows"></tbody></table><div class="footer"><span id="count"></span><span><button class="pager">‹</button> &nbsp;<button class="pager" style="background:#0066eb;color:white">1</button> &nbsp;<button class="pager">›</button></span></div></div><div class="statusline"><b>Confirmed Phase 1:</b> Reply emails retain original processing status • Same message never creates a second SR • New matching emails within 24 h do not auto-create another SR • After 24 h a separate email creates a new SR • Sender is the default site contact • Archived SRs remain linked to their emails.</div></main></div>
+<div class="tablewrap"><table class="emailtable"><colgroup><col style="width:15%"><col style="width:24%"><col style="width:12%"><col style="width:12%"><col style="width:13%"><col style="width:10%"><col style="width:14%"></colgroup><thead><tr><th>Sender</th><th>Subject</th><th>Received Date ▾</th><th>Type</th><th>Status</th><th>Linked Record</th><th>Actions</th></tr></thead><tbody id="rows"></tbody></table><div class="footer"><span id="count"></span><span><button class="pager">‹</button> &nbsp;<button class="pager" style="background:#0066eb;color:white">1</button> &nbsp;<button class="pager">›</button></span></div></div><div class="statusline"><b>Confirmed Phase 1:</b> Reply emails retain original processing status • Same message never creates a second SR • New matching emails within 24 h do not auto-create another SR • After 24 h a separate email creates a new SR • Sender is the default site contact • Archived SRs remain linked to their emails.</div></div>
+<section id="settingsView" class="ps-hide" aria-label="Profile & Account Settings"><h2 class="ps-title">Profile &amp; Account Settings</h2>
+<div class="ps-grid"><div class="ps-card">
+<div class="ps-tabs" role="tablist"><button class="ps-tab" role="tab" onclick="psPreviewTab()"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Profile Information</button><button class="ps-tab" role="tab" onclick="psPreviewTab()">⚙ Settings</button><button class="ps-tab" role="tab" onclick="psPreviewTab()"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Security</button><button class="ps-tab active" role="tab" aria-selected="true">⚙ Configurations</button></div>
+<div class="ps-sec"><div class="ps-sec-h">Features<button class="ps-outline" onclick="psSelectAll()">Select All</button></div><div class="ps-sec-b"><div class="ps-feat-grid">
+<label class="ps-toggle"><input type="checkbox"><span class="ps-track"></span>Allow Tenants to Select Supplier</label>
+<label class="ps-toggle"><input type="checkbox" checked><span class="ps-track"></span>Compliance Matrix</label>
+<label class="ps-toggle"><input type="checkbox" checked><span class="ps-track"></span>Email Integration</label>
+<label class="ps-toggle"><input type="checkbox" checked><span class="ps-track"></span>AI Invoice Capture</label>
+<label class="ps-toggle"><input type="checkbox"><span class="ps-track"></span>Budget Control</label>
+<label class="ps-toggle"><input type="checkbox" checked><span class="ps-track"></span>Allow SMS to Supplier</label></div></div></div>
+<div class="ps-sec"><div class="ps-sec-h">Applications Settings</div><div class="ps-sec-b">
+<div class="ps-subtabs" role="tablist"><button class="ps-subtab" id="psSubGeneral" role="tab" onclick="psSub('general')">General</button><button class="ps-subtab active" id="psSubEmail" role="tab" onclick="psSub('email')">Email Integration</button></div>
+<div id="psPaneGeneral" class="ps-hide" style="padding:6px 2px 14px;color:#555">General application settings (preview)</div>
+<div id="psPaneEmail"><button class="ps-ms-btn" onclick="toast('Microsoft sign-in is not available in this prototype')"><span class="ps-ms-logo"><i style="background:#f25022"></i><i style="background:#7fba00"></i><i style="background:#00a4ef"></i><i style="background:#ffb900"></i></span>Sign in with Microsoft</button>
+<div class="ps-form2"><div class="ps-field"><label for="psDays">Number of Past Days to Sync (Days) <span class="ps-req">*</span></label><input id="psDays" type="number" min="0" value="1"></div>
+<div class="ps-field"><span class="ps-lab" id="psFoldersLab">Sync Folders <span class="ps-req">*</span></span><div class="ps-ms" id="psMs"><div class="ps-ms-box" id="psMsBox" role="button" tabindex="0" aria-haspopup="listbox" aria-labelledby="psFoldersLab" onclick="psMsToggle()" onkeydown="psKey(event,psMsToggle)"></div><div class="ps-ms-list" id="psMsList" role="listbox"></div></div></div></div></div></div></div>
+<div class="ps-sec"><div class="ps-sec-h">WO/QR Settings</div><div class="ps-sec-b"><div class="ps-form3">
+<div class="ps-field"><label for="psTc">T&amp;C URL</label><input id="psTc" value="https://example.com.au/operations-and-insights/"></div>
+<div class="ps-field"><label for="psWrEmail">Work Request Email Address</label><input id="psWrEmail" value="masked-admin@example.com.au"></div>
+<div class="ps-field"><label for="psWoDays">Alert if not completed the WO within Days</label><input id="psWoDays" value="1400"></div>
+<div class="ps-field"><label for="psAckDays">Alert if not acknowledged within number of Days</label><input id="psAckDays" value="1400"></div>
+<div class="ps-field"><label for="psQrPre">Quote Request Number Prefix</label><input id="psQrPre" value="QR"></div>
+<div class="ps-field"><label for="psWoPre">Work Order Number Prefix</label><input id="psWoPre" value="WO"></div>
+<div class="ps-field"><label for="psColor">WO/QR PDF Brand Colour</label><div class="ps-color"><span class="ps-swatch" id="psSwatch"></span><select id="psColor" onchange="psColor()"><option>Black</option><option>Blue</option><option>Green</option><option>Red</option><option>Orange</option></select></div></div></div></div></div>
+<div class="ps-foot"><button class="ps-pill" onclick="toast('Configuration updated (prototype only)')">Update</button></div></div>
+<div class="ps-side"><div class="ps-card"><h3 class="ps-h">Summary</h3><div class="ps-tiles">
+<div class="ps-tile" style="background:#d94fdc"><span>Quote Requests</span><div class="ps-ico"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></div><b>3</b></div>
+<div class="ps-tile" style="background:#a64fb0"><span>Work Orders</span><div class="ps-ico"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM8 12h8M8 16h6"/></svg></div><b>3</b></div>
+<div class="ps-tile" style="background:#ff9a1a"><span>In Progress</span><div class="ps-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><b>0</b></div>
+<div class="ps-tile" style="background:#3d3573"><span>Completed</span><div class="ps-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></div><b>3</b></div>
+<div class="ps-tile" style="background:#4cd964"><span>Invoiced</span><div class="ps-ico"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></div><b>0</b></div>
+<div class="ps-tile" style="background:#17a34a"><span>Paid</span><div class="ps-ico"><svg viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 10v4M18 10v4"/></svg></div><b>0</b></div></div></div>
+<div class="ps-card"><h3 class="ps-h ps-attn-h">For Your Attention</h3><div class="ps-empty"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>No Data Available</div></div></div></div></section></main></div>
 <div class="devlabel">PROTOTYPE · Demonstration data · No live i4T connection</div>
 <div class="overlay" id="overlay" onclick="closePanel()"></div><aside class="panel" id="panel" aria-label="Selected email details"><div id="panelContent"></div></aside><div class="menu" id="menu"></div>
 <div class="dialogshade" id="shade"><div class="dialog" role="dialog" aria-modal="true"><div class="dhead"><span id="dialogTitle"></span><button class="close" onclick="closeDialog()">×</button></div><div class="dcontent" id="dialogContent"></div><div class="dfoot" id="dialogFoot"></div></div></div><div class="toast" id="toast"></div>
@@ -220,5 +317,25 @@ function simulateDuplicate(hours){const original=emails.find(e=>e.id===3),id=Mat
  if(after)srRegistry[record]={id:record,email:id,category:'Plumbing',contact:e.sender,address:e.address,archived:false,status:'Open',created:e.date};
  duplicateEvents.push({hours,id,record,after});closeDialog();openPanel(id);toast(after?`New email after ${hours} h → new ${record} created`:`New email within ${hours} h → existing SR0001 linked`);}
 document.querySelector('#search').addEventListener('input',renderRows);document.querySelector('#typeFilter').addEventListener('change',renderRows);document.querySelector('#statusFilter').addEventListener('change',renderRows);document.addEventListener('click',e=>{if(!e.target.closest('#menu')&&!e.target.closest('.dots'))hideMenu();});document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(document.querySelector('#shade').classList.contains('visible'))closeDialog();else closePanel();}});renderRows();
+
+/* Profile & Account Settings view (UI only, no persistence) */
+function psKey(e,fn){if(e.key==='Enter'||e.key===' '){e.preventDefault();fn();}}
+function showSettings(){closePanel();hideMenu();closeDialog();document.querySelector('#inboxView').classList.add('ps-hide');document.querySelector('#settingsView').classList.remove('ps-hide');document.querySelector('#navInbox').classList.remove('active');window.scrollTo(0,0);}
+function showInbox(){psMsClose();document.querySelector('#settingsView').classList.add('ps-hide');document.querySelector('#inboxView').classList.remove('ps-hide');document.querySelector('#navInbox').classList.add('active');renderRows();}
+function psPreviewTab(){toast('Preview only – Configurations tab shown');}
+function psSelectAll(){document.querySelectorAll('#settingsView .ps-feat-grid input').forEach(i=>i.checked=true);toast('All features selected (preview)');}
+function psSub(which){const g=which==='general';document.querySelector('#psSubGeneral').classList.toggle('active',g);document.querySelector('#psSubEmail').classList.toggle('active',!g);document.querySelector('#psPaneGeneral').classList.toggle('ps-hide',!g);document.querySelector('#psPaneEmail').classList.toggle('ps-hide',g);psMsClose();}
+const psFolders=['Inbox','Sent Items','Archive'];let psSel=new Set(psFolders);
+function psMsRender(){const all=psSel.size===psFolders.length;let chips=all?[['All','All']]:psFolders.filter(f=>psSel.has(f)).map(f=>[f,f]);
+ document.querySelector('#psMsBox').innerHTML=chips.length?chips.map(([k,l])=>`<span class="ps-chip">${l}<b role="button" aria-label="Remove ${l}" onclick="psMsRemove(event,'${k}')">×</b></span>`).join(''):'<span class="ps-ph">Select folders</span>';
+ document.querySelector('#psMsList').innerHTML=[['All',all]].concat(psFolders.map(f=>[f,psSel.has(f)])).map(([f,on])=>`<label><input type="checkbox" ${on?'checked':''} onchange="psMsPick('${f}',this.checked)"> ${f}</label>`).join('');}
+function psMsPick(f,on){if(f==='All')psSel=new Set(on?psFolders:[]);else on?psSel.add(f):psSel.delete(f);psMsRender();}
+function psMsRemove(ev,k){ev.stopPropagation();if(k==='All')psSel=new Set();else psSel.delete(k);psMsRender();}
+function psMsToggle(){document.querySelector('#psMs').classList.toggle('open');}
+function psMsClose(){document.querySelector('#psMs').classList.remove('open');}
+function psColor(){const m={Black:'#000',Blue:'#087bfa',Green:'#17a34a',Red:'#d92d20',Orange:'#ff9a1a'};document.querySelector('#psSwatch').style.background=m[document.querySelector('#psColor').value];}
+document.addEventListener('click',e=>{if(!e.target.closest('#psMs'))psMsClose();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')psMsClose();});
+psMsRender();
 </script>
 </body></html>
