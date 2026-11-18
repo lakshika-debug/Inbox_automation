@@ -101,19 +101,22 @@ body{background:#f2f4f9;color:#333c45;font-family:Arial,Helvetica,sans-serif;fon
 .ib-tab.ib-on,.ib-tab.ib-on span{color:#1a6dff}.ib-tab.ib-on{border-bottom-color:#1a6dff}
 .ib-filters{display:flex;gap:8px;padding:6px 0;flex-wrap:wrap}.ib-filters select{height:28px;border:1px solid #d9dee6;border-radius:4px;background:#fff;font-size:11px;padding:0 8px;color:#333c45}
 .ib-group{background:#f5f7fa;padding:6px 16px;font-size:11px;color:#1d2433;border-bottom:1px solid #eef0f4}.ib-group b{font-weight:600}.ib-group span{color:#6b7480}
-.ib-row{display:grid;grid-template-columns:16px minmax(0,1fr) auto;align-items:center;column-gap:8px;min-height:65px;padding:10px 16px 10px 8px;border-bottom:1px solid #eef0f4;background:#fff;cursor:pointer}
+.ib-row{display:grid;grid-template-columns:16px 220px minmax(0,1fr) auto;align-items:center;column-gap:14px;min-height:65px;padding:10px 16px 10px 8px;border-bottom:1px solid #eef0f4;background:#fff;cursor:pointer}
 .ib-row:hover{background:#f7f9fc}.ib-row.ib-unread{background:#f0f5ff}.ib-row.ib-unread:hover{background:#e8f0ff}
 .ib-row.ib-current,.ib-row.ib-current:hover{background:#e3edff;box-shadow:inset 3px 0 0 #1a6dff}.ib-row:focus-visible{outline:2px solid #1a6dff;outline-offset:-2px}
 .ib-gut{display:flex;justify-content:center;align-items:center}.ib-udot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#1a6dff}
-.ib-l1{display:flex;gap:6px;align-items:baseline;min-width:0;font-size:11px}.ib-from{font-weight:600;color:#1d2433;white-space:nowrap}.ib-addr{color:#6b7480;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
-.ib-l2{display:flex;align-items:center;gap:8px;margin-top:4px;min-width:0}.ib-subj{font-size:12.5px;color:#1d2433;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}.ib-unread .ib-subj{font-weight:700}
+.ib-sender{display:flex;flex-direction:column;gap:3px;min-width:0;font-size:11px}.ib-from{font-weight:600;color:#1d2433;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ib-addr{color:#6b7480;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ib-main{min-width:0}
+.ib-l2{display:flex;align-items:center;gap:8px;min-width:0}.ib-subj{font-size:12.5px;color:#1d2433;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}.ib-unread .ib-subj{font-weight:700}
 .ib-st{flex:none;font-size:10px;font-weight:600;border-radius:3px;padding:2px 6px;white-space:nowrap}.ib-st-need{background:#fff4e5;color:#b4690e}.ib-st-done{background:#e8f6ec;color:#2f7a45}.ib-st-none{background:#f0f1f3;color:#5b6470}
 .ib-l3{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.ib-att{display:inline-flex;align-items:center;gap:4px;max-width:150px;border:1px solid #dfe3ea;border-radius:4px;padding:2px 6px;font-size:10px;color:#5b6470;background:#fff}
 .ib-att span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}.ib-att svg{flex:none;width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .ib-date{font-size:11px;color:#6b7480;white-space:nowrap;text-align:right}.ib-unread .ib-date{font-weight:700;color:#1d2433}
 .ib-empty{padding:36px;text-align:center;color:#6b7480}
-.ib-foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 16px;font-size:11px;color:#6b7480}.ib-legend{display:inline-flex;align-items:center}.ib-legend .ib-udot{margin-right:4px}
-@media(max-width:700px){.ib-row{grid-template-columns:16px minmax(0,1fr)}.ib-date{grid-column:2;text-align:left;margin-top:4px}.ib-search{width:100%}.ib-tabsrow{padding:0 10px}.ib-top,.ib-foot{padding-left:10px;padding-right:10px}.ib-conn{margin-left:0;width:100%}}
+.ib-foot{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:10px 16px;font-size:11px;color:#6b7480}.ib-size{justify-self:end}
+.ib-pager{display:inline-flex;border:1px solid #dee2e6;border-radius:4px;overflow:hidden;background:#fff}.ib-pager button{border:0;border-left:1px solid #dee2e6;background:#fff;color:#1a6dff;font-size:12px;line-height:1;padding:7px 11px;min-width:32px}.ib-pager button:first-child{border-left:0}
+.ib-pager button:hover:not(:disabled):not(.ib-pg-on){background:#f0f5ff}.ib-pager button.ib-pg-on{background:#1a6dff;color:#fff;cursor:default}.ib-pager button:disabled{opacity:1;color:#8a929c;cursor:default}.ib-pager button:focus-visible{outline:2px solid #1a6dff;outline-offset:-3px}.ib-pager button.ib-pg-on:focus-visible{outline-color:#fff}
+.ib-size{display:inline-flex;align-items:center;gap:6px}.ib-size select{height:28px;border:1px solid #dee2e6;border-radius:4px;background:#fff;font-size:11px;padding:0 6px;color:#333c45}
+@media(max-width:700px){.ib-row{grid-template-columns:16px minmax(0,1fr) auto;column-gap:8px}.ib-gut,.ib-sender{grid-row:1}.ib-date{grid-column:3;grid-row:1;align-self:start}.ib-main{grid-column:2/4;grid-row:2;margin-top:6px}.ib-foot{display:flex;flex-direction:column;align-items:center}.ib-search{width:100%}.ib-tabsrow{padding:0 10px}.ib-top,.ib-foot{padding-left:10px;padding-right:10px}.ib-conn{margin-left:0;width:100%}}
 /* Profile & Account Settings view (UI-only prototype) */
 .ps-hide{display:none!important}
 .nav.active[role="button"]:hover{background:#1679f5;color:white}
@@ -213,7 +216,7 @@ body{background:#f2f4f9;color:#333c45;font-family:Arial,Helvetica,sans-serif;fon
 <div class="ib-headrow"><h1 class="ib-h1">Inbox</h1><span class="ib-pill" id="ibUnreadPill">4 unread</span><span class="ib-conn"><i class="ib-dot"></i>Connected: developer@i4tglobal.onmicrosoft.com</span></div><div class="ib-sync">Sync folder: <b>Inbox</b></div>
 <div class="ib-card"><div class="ib-top"><label class="ib-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="search" placeholder="Search sender, subject or email..." aria-label="Search emails"></label><button type="button" class="ib-markall" id="ibMarkAll" onclick="ibMarkAllRead()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Mark all as read</button></div>
 <div class="ib-tabsrow"><div class="ib-tabs" role="tablist" aria-label="Email list"><button type="button" role="tab" class="ib-tab" id="ibTabAll" onclick="ibSetTab('all')">All emails <span id="ibCntAll">12</span></button><button type="button" role="tab" class="ib-tab" id="ibTabUnread" onclick="ibSetTab('unread')">Unread <span id="ibCntUnread">4</span></button></div><div class="ib-filters"><select id="statusFilter" aria-label="Status"><option value="all">All statuses</option><option>Action needed</option><option>Done</option><option>No action</option></select><select id="ibSort" aria-label="Sort"><option value="desc">Newest first</option><option value="asc">Oldest first</option></select></div></div>
-<div id="rows" class="ib-list"></div><div class="ib-foot"><span id="count"></span><span class="ib-legend"><i class="ib-udot"></i>Unread · Read emails appear on white</span></div></div></div>
+<div id="rows" class="ib-list"></div><div class="ib-foot"><span id="count" aria-live="polite"></span><nav class="ib-pager" id="ibPager" aria-label="Pagination"></nav><label class="ib-size">Show <select id="ibSize" aria-label="Entries per page"><option>10</option><option>25</option><option>50</option><option>100</option></select> Entries</label></div></div></div>
 <section id="settingsView" class="ps-hide" aria-label="Profile & Account Settings"><h2 class="ps-title">Profile &amp; Account Settings</h2>
 <div class="ps-grid"><div class="ps-card">
 <div class="ps-tabs" role="tablist"><button class="ps-tab" role="tab" onclick="psPreviewTab()"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Profile Information</button><button class="ps-tab" role="tab" onclick="psPreviewTab()">⚙ Settings</button><button class="ps-tab" role="tab" onclick="psPreviewTab()"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Security</button><button class="ps-tab active" role="tab" aria-selected="true">⚙ Configurations</button></div>
@@ -273,6 +276,7 @@ const emails=[
 ];
 let selected=null,menuFor=null;
 let ibTab='all',ibKeep=null; // ibKeep: email just read from the Unread tab, kept listed until the panel closes
+let ibPage=1; // list pagination: current page (entries per page come from #ibSize)
 const ME='Jane Thornton',TODAY='18/11/2026';let qrSeq=2216,woSeq=620040,prevState=null;
 const STRATA=['RESVU – ESTATE','SP12345','HARBOUR VIEW SP4852'];
 function escapeHtml(str){return String(str??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
@@ -449,17 +453,26 @@ function renderRows(){
  [['all','#ibTabAll'],['unread','#ibTabUnread']].forEach(([t,sel])=>{const b=document.querySelector(sel);b.classList.toggle('ib-on',ibTab===t);b.setAttribute('aria-selected',String(ibTab===t));});
  const filtered=emails.filter(e=>(ibTab==='all'||e.unread||e.id===ibKeep)&&(s==='all'||statusOf(e)===s)&&[e.sender,e.address,e.subject,...e.links.map(l=>l.id)].join(' ').toLowerCase().includes(q))
   .sort((a,b)=>(asc?1:-1)*((ibTime(a)-ibTime(b))||(a.id-b.id)));
- document.querySelector('#count').textContent=`Showing ${filtered.length} of ${emails.length} emails`;
- const groups=[];filtered.forEach(e=>{const m=ibMonth(e),g=groups[groups.length-1];if(g&&g.m===m)g.list.push(e);else groups.push({m,list:[e]});});
+ const ibSize=Number(document.querySelector('#ibSize').value)||10,total=filtered.length,pages=Math.max(1,Math.ceil(total/ibSize));ibPage=Math.min(Math.max(1,ibPage),pages);
+ const first=(ibPage-1)*ibSize,shown=filtered.slice(first,first+ibSize);
+ document.querySelector('#count').textContent=`Showing ${total?first+1:0} to ${first+shown.length} of ${total} entries`;
+ const lo=Math.max(1,Math.min(ibPage-2,pages-4)),hi=Math.min(pages,lo+4),pb=(label,pg,dis,aria,cur)=>`<button type="button"${cur?' class="ib-pg-on" aria-current="page"':''}${aria?` aria-label="${aria}"`:''}${dis?' disabled':` onclick="ibGo(${pg})"`}>${label}</button>`;
+ let pager=pb('Previous',ibPage-1,ibPage===1);for(let n=lo;n<=hi;n++)pager+=pb(n,n,false,'Page '+n,n===ibPage);
+ document.querySelector('#ibPager').innerHTML=pager+pb('Next',ibPage+1,ibPage===pages);
+ const monthN={};filtered.forEach(e=>{const m=ibMonth(e);monthN[m]=(monthN[m]||0)+1;}); // group header count = whole filtered month, not just this page
+ const groups=[];shown.forEach(e=>{const m=ibMonth(e),g=groups[groups.length-1];if(g&&g.m===m)g.list.push(e);else groups.push({m,list:[e]});});
  const rowHtml=e=>{const cur=selected===e.id,att=e.attachments||[];
   return `<div class="ib-row${e.unread?' ib-unread':''}${cur?' ib-current':''}" role="button" tabindex="0" data-id="${e.id}"${cur?' aria-current="true"':''} aria-label="${escapeHtml((e.unread?'Unread email from ':'Email from ')+e.sender+': '+e.subject+'. '+statusOf(e)+'. '+ibWhen(e))}" onclick="openPanel(${e.id})" onkeydown="psKey(event,()=>openPanel(${e.id}))">`
-  +`<span class="ib-gut">${e.unread?'<i class="ib-udot"></i>':''}</span><div class="ib-main"><div class="ib-l1"><span class="ib-from">${escapeHtml(e.sender)}</span><span class="ib-addr">${escapeHtml(e.address)}</span></div>`
+  +`<span class="ib-gut">${e.unread?'<i class="ib-udot"></i>':''}</span><div class="ib-sender"><span class="ib-from" title="${escapeHtml(e.sender)}">${escapeHtml(e.sender)}</span><span class="ib-addr" title="${escapeHtml(e.address)}">${escapeHtml(e.address)}</span></div><div class="ib-main">`
   +`<div class="ib-l2"><span class="ib-subj">${escapeHtml(e.subject)}</span>${ibBadge(statusOf(e))}</div>`
   +(att.length?`<div class="ib-l3">${att.map(a=>`<span class="ib-att" title="${escapeHtml(a)}">${IB_CLIP}<span>${escapeHtml(a)}</span></span>`).join('')}</div>`:'')
   +`</div><span class="ib-date">${escapeHtml(ibWhen(e))}</span></div>`;};
- document.querySelector('#rows').innerHTML=groups.map(g=>`<div class="ib-group"><b>${escapeHtml(g.m)}</b> <span>· ${g.list.length} email${g.list.length===1?'':'s'}</span></div>`+g.list.map(rowHtml).join('')).join('')||'<div class="ib-empty">No emails match these filters.</div>';
+ document.querySelector('#rows').innerHTML=groups.map(g=>`<div class="ib-group"><b>${escapeHtml(g.m)}</b> <span>· ${monthN[g.m]} email${monthN[g.m]===1?'':'s'}</span></div>`+g.list.map(rowHtml).join('')).join('')||'<div class="ib-empty">No emails match these filters.</div>';
 }
-function ibSetTab(t){ibTab=t;ibKeep=null;renderRows();}
+function ibSetTab(t){ibTab=t;ibKeep=null;ibPage=1;renderRows();}
+function ibFirst(){ibPage=1;renderRows();}
+function ibGo(n){const f=document.activeElement,k=f&&f.closest&&f.closest('#ibPager')?f.textContent:null;ibPage=n;renderRows();
+ if(k!==null){const b=[...document.querySelectorAll('#ibPager button')].find(x=>x.textContent===k&&!x.disabled)||document.querySelector('#ibPager .ib-pg-on');if(b)b.focus();}}
 function ibMarkAllRead(){emails.forEach(e=>e.unread=false);renderRows();toast('All emails marked as read');}
 function showSRDetails(id,srId){let e=find(id),sr=srRegistry[srId]||currentSR(e);if(!sr){toast('No created Service Request is linked to this email');return;}
  const f=e.fields||{},link=e.links.find(l=>l.id===sr.id),status=link?link.status:sr.status;
@@ -473,7 +486,7 @@ function restoreSR(id,srId){let e=find(id),sr=srRegistry[srId]||currentSR(e);sr.
 function openSRRegister(){closePanel();const cards=Object.values(srRegistry).map(sr=>{const e=find(sr.email);return `<div class="sr-card"><div class="pills"><span class="badge ${sr.archived?'archived':'created'}">${sr.archived?'Archived':'Active'}</span></div><h3>${escapeHtml(sr.id)}</h3><p><b>${escapeHtml(sr.category)}</b> · ${escapeHtml(e?.fields?.['Strata Plan']||'Property not supplied')}</p><p class="muted">Site contact: ${escapeHtml(sr.contact)}</p><button class="btn mini" onclick="closeDialog();openRecord('${sr.id}')">View SR ↗</button></div>`}).join('');showDialog('Service Requests – Active and Archived',`<p class="help">Prototype of the existing Service Requests register, with a new archived-state view. Archiving an SR does not remove the source email from the Inbox.</p><div class="srgrid">${cards||'<p>No SR records yet</p>'}</div>`,[{label:'Close',run:'closeDialog()'}]);}
 function openAutomationSettings(){showDialog('Email Integration – Settings',`<div class="hint">These settings are independent of the existing Email Inbox synchronisation and AI Invoice Capture.</div><div class="field"><label><input type="checkbox" checked disabled style="width:auto"> Email Inbox synchronisation</label></div><div class="field"><label><input type="checkbox" checked disabled style="width:auto"> AI Invoice Capture (existing)</label></div><div class="field"><label><input type="checkbox" checked id="srAutoToggle" style="width:auto"> Automatically create Service Requests from eligible maintenance emails</label></div><p class="help">If switched off, incoming emails remain in the Inbox and the existing invoice workflow continues. Demonstration setting only.</p>`,[{label:'Cancel',run:'closeDialog()'},{label:'Save Configuration',primary:true,run:`saveSettings()`}]);}
 function saveSettings(){window.srAutomationEnabled=!!document.querySelector('#srAutoToggle').checked;closeDialog();toast('Email-to-SR automation '+(window.srAutomationEnabled?'enabled':'disabled')+' (demo configuration)');}
-document.querySelector('#search').addEventListener('input',renderRows);document.querySelector('#statusFilter').addEventListener('change',renderRows);document.querySelector('#ibSort').addEventListener('change',renderRows);document.addEventListener('click',e=>{if(!e.target.closest('#menu')&&!e.target.closest('.dots'))hideMenu();});document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(document.querySelector('#shade').classList.contains('visible'))closeDialog();else closePanel();}});renderRows();
+document.querySelector('#search').addEventListener('input',ibFirst);document.querySelector('#statusFilter').addEventListener('change',ibFirst);document.querySelector('#ibSort').addEventListener('change',ibFirst);document.querySelector('#ibSize').addEventListener('change',ibFirst);document.addEventListener('click',e=>{if(!e.target.closest('#menu')&&!e.target.closest('.dots'))hideMenu();});document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(document.querySelector('#shade').classList.contains('visible'))closeDialog();else closePanel();}});renderRows();
 
 /* Profile & Account Settings view (UI only, no persistence) */
 function psKey(e,fn){if(e.key==='Enter'||e.key===' '){e.preventDefault();fn();}}
