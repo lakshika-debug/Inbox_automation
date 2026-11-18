@@ -124,6 +124,20 @@ body{background:#f2f4f9;color:#333c45;font-family:Arial,Helvetica,sans-serif;fon
 .ps-ms-btn{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid #d5d9df;border-radius:3px;padding:6px 12px;font-size:10px;font-weight:700;color:#333;margin-bottom:14px}
 .ps-ms-btn:hover{background:#f7f8fa}
 .ps-ms-logo{display:inline-grid;grid-template-columns:repeat(2,7px);gap:1px}.ps-ms-logo i{display:block;width:7px;height:7px}
+.ps-signin{display:flex;flex-wrap:wrap;gap:0 10px}
+.ps-g-logo{width:15px;height:15px;display:block;flex:none}
+.ps-conn-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-bottom:14px;font-size:11px;color:#333}
+.ps-conn-box{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid #d5d9df;border-radius:3px;padding:6px 12px;font-size:10px;font-weight:700;color:#333}
+.ps-conn-ok{width:14px;height:14px;flex:none}
+.ps-conn-acct{word-break:break-all}.ps-conn-acct b{word-break:normal}
+.ps-link{background:transparent;border:0;padding:0;color:#087bfa;text-decoration:underline;font-size:11px;cursor:pointer}.ps-link:hover{color:#0066eb}.ps-link:focus-visible{outline:2px solid #087bfa;outline-offset:2px}
+.ps-ai{border-top:1px solid #e3e6eb;margin-top:4px;padding:12px 0 10px}
+.ps-ai-h{font-size:11px;font-weight:700;color:#333;margin:0 0 10px}
+.ps-ai-list{display:flex;flex-direction:column;gap:10px}
+.ps-check{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:8px;align-items:start}
+.ps-check input{margin:1px 0 0;width:13px;height:13px;accent-color:#087bfa;cursor:pointer}
+.ps-check label{font-size:11px;color:#333;font-weight:700;cursor:pointer}
+.ps-check small{grid-column:2;font-size:10px;color:#8d96a0;margin-top:2px}
 .ps-form2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px;padding-bottom:10px}
 .ps-form3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 16px;padding-bottom:12px}
 .ps-field label,.ps-field .ps-lab{display:block;font-size:10px;color:#555;margin:0 0 4px}
@@ -193,9 +207,14 @@ body{background:#f2f4f9;color:#333c45;font-family:Arial,Helvetica,sans-serif;fon
 <div class="ps-sec"><div class="ps-sec-h">Applications Settings</div><div class="ps-sec-b">
 <div class="ps-subtabs" role="tablist"><button class="ps-subtab" id="psSubGeneral" role="tab" onclick="psSub('general')">General</button><button class="ps-subtab active" id="psSubEmail" role="tab" onclick="psSub('email')">Email Integration</button></div>
 <div id="psPaneGeneral" class="ps-hide" style="padding:6px 2px 14px;color:#555">General application settings (preview)</div>
-<div id="psPaneEmail"><button class="ps-ms-btn" onclick="toast('Microsoft sign-in is not available in this prototype')"><span class="ps-ms-logo"><i style="background:#f25022"></i><i style="background:#7fba00"></i><i style="background:#00a4ef"></i><i style="background:#ffb900"></i></span>Sign in with Microsoft</button>
+<div id="psPaneEmail"><div class="ps-signin" id="psSignIn"><button type="button" class="ps-ms-btn" id="psSignMs" onclick="psConnect('ms')"><span class="ps-ms-logo"><i style="background:#f25022"></i><i style="background:#7fba00"></i><i style="background:#00a4ef"></i><i style="background:#ffb900"></i></span>Sign in with Microsoft</button><button type="button" class="ps-ms-btn" id="psSignG" onclick="psConnect('google')"><svg class="ps-g-logo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Sign in with Google</button></div>
+<div id="psConnected" class="ps-hide"><div class="ps-conn-row"><div class="ps-conn-box" role="status"><span class="ps-ms-logo" id="psConnLogoMs"><i style="background:#f25022"></i><i style="background:#7fba00"></i><i style="background:#00a4ef"></i><i style="background:#ffb900"></i></span><svg class="ps-g-logo ps-hide" id="psConnLogoG" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><svg class="ps-conn-ok" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#17a34a"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="psConnText">Microsoft is connected</span></div><div class="ps-conn-acct"><b id="psConnLab">Microsoft Connected Account :</b> <span id="psConnEmail">developer@i4tglobal.onmicrosoft.com</span></div><button type="button" class="ps-link" id="psDisconnect" onclick="psDisconnect()">Disconnect</button></div>
 <div class="ps-form2"><div class="ps-field"><label for="psDays">Number of Past Days to Sync (Days) <span class="ps-req">*</span></label><input id="psDays" type="number" min="0" value="1"></div>
-<div class="ps-field"><span class="ps-lab" id="psFoldersLab">Sync Folders <span class="ps-req">*</span></span><div class="ps-ms" id="psMs"><div class="ps-ms-box" id="psMsBox" role="button" tabindex="0" aria-haspopup="listbox" aria-labelledby="psFoldersLab" onclick="psMsToggle()" onkeydown="psKey(event,psMsToggle)"></div><div class="ps-ms-list" id="psMsList" role="listbox"></div></div></div></div></div></div></div>
+<div class="ps-field"><span class="ps-lab" id="psFoldersLab">Sync Folders <span class="ps-req">*</span></span><div class="ps-ms" id="psMs"><div class="ps-ms-box" id="psMsBox" role="button" tabindex="0" aria-haspopup="listbox" aria-labelledby="psFoldersLab" onclick="psMsToggle()" onkeydown="psKey(event,psMsToggle)"></div><div class="ps-ms-list" id="psMsList" role="listbox"></div></div></div></div>
+<div class="ps-ai" role="group" aria-labelledby="psAiH"><div class="ps-ai-h" id="psAiH">AI automations</div><div class="ps-ai-list">
+<div class="ps-check"><input type="checkbox" id="psAiSr" checked aria-describedby="psAiSrD"><label for="psAiSr">Service Request Creation</label><small id="psAiSrD">Create Service Requests from maintenance emails.</small></div>
+<div class="ps-check"><input type="checkbox" id="psAiQuote" checked aria-describedby="psAiQuoteD"><label for="psAiQuote">Quote Linking</label><small id="psAiQuoteD">Link emailed quotes to Quote Requests.</small></div>
+<div class="ps-check"><input type="checkbox" id="psAiInv" checked aria-describedby="psAiInvD"><label for="psAiInv">Invoice Linking</label><small id="psAiInvD">Link emailed invoices to Work Orders.</small></div></div></div></div></div></div></div>
 <div class="ps-sec"><div class="ps-sec-h">WO/QR Settings</div><div class="ps-sec-b"><div class="ps-form3">
 <div class="ps-field"><label for="psTc">T&amp;C URL</label><input id="psTc" value="https://example.com.au/operations-and-insights/"></div>
 <div class="ps-field"><label for="psWrEmail">Work Request Email Address</label><input id="psWrEmail" value="masked-admin@example.com.au"></div>
@@ -432,6 +451,12 @@ function psMsPick(f,on){if(f==='All')psSel=new Set(on?psFolders:[]);else on?psSe
 function psMsRemove(ev,k){ev.stopPropagation();if(k==='All')psSel=new Set();else psSel.delete(k);psMsRender();}
 function psMsToggle(){document.querySelector('#psMs').classList.toggle('open');}
 function psMsClose(){document.querySelector('#psMs').classList.remove('open');}
+const psAccounts={ms:{name:'Microsoft',email:'developer@i4tglobal.onmicrosoft.com'},google:{name:'Google',email:'developer@i4tglobal.com'}};
+function psConnect(p){const a=psAccounts[p];document.querySelector('#psSignIn').classList.add('ps-hide');document.querySelector('#psConnected').classList.remove('ps-hide');
+ document.querySelector('#psConnLogoMs').classList.toggle('ps-hide',p!=='ms');document.querySelector('#psConnLogoG').classList.toggle('ps-hide',p!=='google');
+ document.querySelector('#psConnText').textContent=a.name+' is connected';document.querySelector('#psConnLab').textContent=a.name+' Connected Account :';document.querySelector('#psConnEmail').textContent=a.email;
+ document.querySelector('#psDisconnect').focus();toast(a.name+' account connected (prototype)');}
+function psDisconnect(){psMsClose();document.querySelector('#psConnected').classList.add('ps-hide');document.querySelector('#psSignIn').classList.remove('ps-hide');document.querySelector('#psSignMs').focus();toast('Account disconnected (prototype)');}
 function psColor(){const m={Black:'#000',Blue:'#087bfa',Green:'#17a34a',Red:'#d92d20',Orange:'#ff9a1a'};document.querySelector('#psSwatch').style.background=m[document.querySelector('#psColor').value];}
 document.addEventListener('click',e=>{if(!e.target.closest('#psMs'))psMsClose();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')psMsClose();});
