@@ -133,7 +133,7 @@ body{background:#f2f4f9;color:#333c45;font-family:Arial,Helvetica,sans-serif;fon
 .ps-link{background:transparent;border:0;padding:0;color:#087bfa;text-decoration:underline;font-size:11px;cursor:pointer}.ps-link:hover{color:#0066eb}.ps-link:focus-visible{outline:2px solid #087bfa;outline-offset:2px}
 .ps-ai{border-top:1px solid #e3e6eb;margin-top:4px;padding:12px 0 10px}
 .ps-ai-h{font-size:11px;font-weight:700;color:#333;margin:0 0 10px}
-.ps-ai-list{display:flex;flex-direction:column;gap:10px}
+.ps-ai-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 24px}
 .ps-check{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:8px;align-items:start}
 .ps-check input{margin:1px 0 0;width:13px;height:13px;accent-color:#087bfa;cursor:pointer}
 .ps-check label{font-size:11px;color:#333;font-weight:700;cursor:pointer}
@@ -173,7 +173,7 @@ body{background:#f2f4f9;color:#333c45;font-family:Arial,Helvetica,sans-serif;fon
 .ps-empty{height:100px;background:#f5f6f8;border:1px solid #e3e6eb;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:11px;font-weight:700;color:#444}
 .ps-empty svg{width:24px;height:24px;stroke:#6b7580;stroke-width:1.6;fill:none;stroke-linecap:round}
 @media(max-width:1000px){.ps-grid{grid-template-columns:minmax(0,1fr)}}
-@media(max-width:700px){.ps-feat-grid,.ps-form2,.ps-form3{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:700px){.ps-feat-grid,.ps-form2,.ps-form3,.ps-ai-list{grid-template-columns:minmax(0,1fr)}}
 
 /* Shared application navigation: i4T AI Inbox + Work Orders + Calendar */
 .wo-parent{cursor:pointer}.wo-parent .wo-chevron{margin-left:auto;font-size:13px}
