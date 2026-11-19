@@ -1,0 +1,525 @@
+<title>AI Inbox v2 Prototype</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: existing i4T Maintenance shell (top bar, left nav, blue table toolbar) + right-side email panel. Single light theme to match the live product. */
+:root{
+  --page:#f2f4f9; --card:#ffffff; --ink:#333c45; --ink-strong:#242a30; --muted:#6b7480;
+  --line:#dce0e5; --line-soft:#e8ebef; --th:#f0f0f0; --blue:#0b7bff; --blue-dark:#0663d1; --blue-tint:#eaf3ff;
+  --orange:#f47b20; --pill:#2f3b48;
+  --ok-bg:#edf3ec; --ok-bd:#d3e3d1; --ok-fg:#3f6943;
+  --warn-bg:#fff5e8; --warn-bd:#ecdcc1; --warn-fg:#916020;
+  --bad-bg:#fdeeee; --bad-bd:#f0cfcf; --bad-fg:#a33b3b;
+  --neu-bg:#f4f4f4; --neu-bd:#dedfe3; --neu-fg:#4e5660;
+  --ai:#6a4fd8; --ai-tint:#f2effd;
+  --font:Arial, Helvetica, sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--page);color:var(--ink);font:12px/1.4 var(--font)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.top{height:40px;background:var(--card);border-bottom:1px solid var(--line-soft);display:flex;align-items:center;gap:14px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));position:sticky;top:env(safe-area-inset-top,0px);z-index:20}
+.logo{display:flex;align-items:center;gap:4px;font-size:15px;color:var(--orange);font-weight:700}
+.logo b{background:var(--orange);color:#fff;border-radius:5px;padding:2px 5px;font-size:12px}
+.org{border-left:1px solid var(--line);padding-left:14px;font-weight:700;color:var(--ink-strong)}
+.org span{color:#c0392b;font-weight:400;font-size:10px;letter-spacing:.12em;margin-left:6px}
+.spacer{flex:1}
+.user{display:flex;align-items:center;gap:10px;font-weight:700}
+.avatar{width:22px;height:22px;border-radius:50%;background:var(--line)}
+.rolepill{background:var(--pill);color:#fff;border-radius:12px;padding:4px 10px;font-size:10px;font-weight:700}
+.shell{display:flex;min-height:calc(100% - 40px)}
+.nav{width:180px;flex:none;background:var(--card);border-right:1px solid var(--line-soft);padding:12px 8px}
+.create{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:20px;padding:8px 16px;background:var(--card);margin:0 0 14px 2px}
+.nav a{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:3px;color:var(--ink-strong);font-size:12px}
+.nav a.on{background:var(--blue);color:#fff;font-weight:700}
+.nav a:hover{text-decoration:none;background:var(--blue-tint)}
+.nav a.on:hover{background:var(--blue)}
+.nav .ico{width:12px;text-align:center;opacity:.7}
+main{flex:1;min-width:0;padding:14px max(16px,env(safe-area-inset-right,0px)) 40px 14px}
+.crumb{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.06em}
+.crumb b{color:var(--ink-strong)}
+h1{font-size:15px;margin:14px 0 8px;color:var(--ink-strong);display:flex;align-items:center;gap:8px}
+.conn{display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--muted);margin-bottom:12px}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#2e9b4f;margin-right:5px}
+.chip{display:inline-block;background:var(--blue);color:#fff;border-radius:3px;padding:1px 6px;font-size:10px;font-weight:700;margin-right:4px}
+.panelcard{background:var(--card);border:1px solid var(--line-soft);border-radius:4px}
+.toolbar{background:var(--blue);padding:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-radius:4px 4px 0 0}
+.toolbar .note{color:#dbe9ff;font-size:11px;flex:1;min-width:180px}
+.toolbar input,.toolbar select{height:28px;border:0;border-radius:14px;padding:0 12px;font:inherit;background:#fff;color:var(--ink)}
+.toolbar input{width:180px}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:11px;min-width:880px}
+th{background:var(--th);border:1px solid var(--line);padding:10px 8px;text-align:left;color:var(--ink-strong);font-weight:700;white-space:nowrap}
+td{border:1px solid var(--line);padding:9px 8px;color:#454b54;vertical-align:middle}
+tbody tr{cursor:pointer;background:var(--card)}
+tbody tr:nth-child(even){background:#fafbfc}
+tbody tr:hover{background:#f3f7ff}
+tbody tr.sel{background:var(--blue-tint);box-shadow:inset 3px 0 0 var(--blue)}
+.sender b{display:block;color:var(--ink-strong)}
+.sender a{font-size:10px}
+.att{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.badge{display:inline-block;font-size:10px;padding:4px 7px;border-radius:4px;border:1px solid;white-space:nowrap}
+.b-ok{background:var(--ok-bg);border-color:var(--ok-bd);color:var(--ok-fg)}
+.b-warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-fg)}
+.b-bad{background:var(--bad-bg);border-color:var(--bad-bd);color:var(--bad-fg)}
+.b-neu{background:var(--neu-bg);border-color:var(--neu-bd);color:var(--neu-fg)}
+.b-proc{background:var(--blue-tint);border-color:#cfe2ff;color:var(--blue-dark)}
+.linkrec a{font-weight:700}
+.arrow{color:var(--muted);margin:0 3px}
+.foot{display:flex;justify-content:space-between;align-items:center;padding:10px;color:var(--muted);font-size:11px}
+.pager{display:flex;gap:4px}.pager span{border:1px solid var(--line);border-radius:3px;padding:3px 8px;background:#fff}.pager .cur{background:var(--blue);color:#fff;border-color:var(--blue)}
+/* split button */
+.split{display:inline-flex;align-items:stretch;border-radius:4px;position:relative;white-space:nowrap}
+.split .main{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:4px 0 0 4px;padding:5px 9px;font-size:11px;font-weight:700}
+.split .main.secondary{background:#fff;color:var(--blue)}
+.split .main:hover{background:var(--blue-dark);color:#fff}
+.split .more{border:1px solid var(--blue);border-left-color:rgba(255,255,255,.4);background:var(--blue);color:#fff;border-radius:0 4px 4px 0;padding:5px 7px;font-size:10px}
+.split .main.secondary + .more{background:#fff;color:var(--blue);border-left-color:var(--blue)}
+.split.only .more{border-radius:4px;border-left-color:var(--line);background:#fff;color:var(--ink);border-color:var(--line)}
+.spark{font-size:10px;line-height:1;color:#fff;background:var(--ai);border-radius:3px;padding:2px 3px}
+.split .main.secondary .spark{color:#fff}
+.menu{position:fixed;z-index:60;background:#fff;border:1px solid var(--line);border-radius:6px;box-shadow:0 8px 24px rgba(20,30,50,.16);padding:6px;min-width:220px}
+.menu .mh{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding:6px 8px 4px}
+.menu button{display:flex;width:100%;align-items:center;justify-content:space-between;gap:10px;border:0;background:none;padding:8px;border-radius:4px;text-align:left;font-size:12px}
+.menu button:hover{background:var(--blue-tint)}
+.menu button.cur{color:var(--muted)}
+.menu .tag{font-size:10px;color:var(--ai);background:var(--ai-tint);border-radius:3px;padding:1px 5px}
+.menu .curtag{font-size:10px;color:var(--muted)}
+.menu hr{border:0;border-top:1px solid var(--line-soft);margin:4px 0}
+/* side panel */
+.side{position:fixed;top:40px;right:0;bottom:0;width:min(440px,100%);background:#fff;border-left:1px solid var(--line);box-shadow:-8px 0 24px rgba(20,30,50,.08);z-index:30;display:flex;flex-direction:column;transform:translateX(102%);transition:transform .18s ease}
+.side.open{transform:none}
+@media (prefers-reduced-motion:reduce){.side{transition:none}}
+.side header{padding:12px 16px;border-bottom:1px solid var(--line-soft);padding-right:max(16px,env(safe-area-inset-right,0px))}
+.side .eyebrow{font-size:9px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.side h2{font-size:14px;margin:4px 30px 8px 0;color:var(--ink-strong);text-wrap:balance}
+.side .x{position:absolute;right:max(14px,env(safe-area-inset-right,0px));top:12px;border:1px solid var(--line);background:#fff;border-radius:50%;width:24px;height:24px;line-height:20px;font-size:14px}
+.side .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:10px;color:var(--muted)}
+.side .body{flex:1;overflow:auto;padding:12px 16px;display:flex;flex-direction:column;gap:12px;padding-right:max(16px,env(safe-area-inset-right,0px))}
+.side .ft{border-top:1px solid var(--line-soft);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;align-items:center;gap:8px;padding-right:max(16px,env(safe-area-inset-right,0px))}
+.side .ft .hint{font-size:10px;color:var(--muted)}
+.box{border:1px solid var(--line);border-radius:4px}
+.box h3{margin:0;font-size:11px;background:var(--th);padding:8px 10px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;color:var(--ink-strong)}
+.box .in{padding:10px}
+.ai{border:1px solid #d9d1f6;background:var(--ai-tint);border-radius:4px;padding:10px;display:flex;gap:8px;align-items:flex-start}
+.ai .spark{margin-top:1px}
+.ai p{margin:0;color:var(--ink-strong)}
+.ai small{display:block;color:var(--muted);margin-top:3px}
+.ai .change{border:0;background:none;color:var(--blue);font-weight:700;padding:0;margin-left:4px;text-decoration:underline}
+.reason{border:1px solid var(--warn-bd);background:var(--warn-bg);color:var(--warn-fg);border-radius:4px;padding:8px 10px}
+.kv{display:grid;grid-template-columns:120px 1fr;font-size:11px}
+.kv div{padding:7px 8px;border-bottom:1px solid var(--line-soft)}
+.kv .k{font-weight:700;color:var(--ink-strong);background:#fafbfc}
+.kv input,.kv select{width:100%;border:1px solid var(--line);border-radius:3px;padding:4px 6px;font:inherit}
+.kv .miss input,.kv .miss select{border-color:#e0b46a;background:var(--warn-bg)}
+.sugg{font-size:9px;color:var(--ai);background:var(--ai-tint);border-radius:3px;padding:1px 4px;margin-left:4px;white-space:nowrap}
+.req{font-size:9px;color:var(--warn-fg);margin-left:4px}
+.mail .hdr{display:grid;grid-template-columns:70px 1fr;gap:4px;font-size:11px;margin-bottom:8px}
+.mail .hdr b{color:var(--ink-strong)}
+.mail .msg{white-space:pre-line;color:var(--ink);border-top:1px solid var(--line-soft);padding-top:8px}
+.file{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line-soft);border-radius:4px;padding:6px 8px;margin-top:6px}
+.file button{border:1px solid var(--line);background:#fff;border-radius:3px;padding:3px 8px;font-size:10px}
+.recordcard{display:flex;justify-content:space-between;align-items:center;gap:8px}
+/* modal */
+.scrim{position:fixed;inset:0;background:rgba(20,30,45,.38);z-index:70;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal{background:#fff;border-radius:6px;width:min(520px,100%);max-height:calc(100% - 32px);display:flex;flex-direction:column;box-shadow:0 18px 50px rgba(0,0,0,.25)}
+.modal header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line-soft)}
+.modal header b{font-size:13px;color:var(--ink-strong)}
+.modal header button{border:0;background:none;font-size:16px}
+.modal .mb{padding:14px 16px;overflow:auto;display:flex;flex-direction:column;gap:10px}
+.modal .mf{display:flex;justify-content:flex-end;gap:8px;padding:12px 16px;border-top:1px solid var(--line-soft)}
+.btn{border:1px solid var(--line);background:#fff;border-radius:4px;padding:7px 14px;font-weight:700;font-size:11px}
+.btn.pri{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.pri:disabled{opacity:.45;cursor:not-allowed}
+.btn.ghost{border-color:transparent;color:var(--blue)}
+.confirm{display:flex;gap:12px;align-items:flex-start}
+.confirm .warn{flex:none;width:34px;height:34px;border-radius:50%;background:#6e7f89;color:#fff;font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:11px;font-weight:700;color:var(--ink-strong)}
+.field input,.field select{border:1px solid var(--line);border-radius:3px;padding:6px 8px;font:inherit}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:4px;padding:8px}
+.opt:has(input:checked){border-color:var(--blue);background:var(--blue-tint)}
+.empty{border:1px dashed var(--line);border-radius:4px;padding:12px;text-align:center;color:var(--muted)}
+.toggle{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line-soft)}
+.toggle small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.sw{position:relative;width:34px;height:18px;flex:none}
+.sw input{opacity:0;width:100%;height:100%;margin:0;cursor:pointer;position:absolute;inset:0;z-index:1}
+.sw span{position:absolute;inset:0;background:#c9cfd6;border-radius:9px;transition:background .15s}
+.sw span::after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;top:2px;left:2px;transition:left .15s}
+.sw input:checked + span{background:var(--blue)}
+.sw input:checked + span::after{left:18px}
+.new{font-size:9px;background:var(--ai);color:#fff;border-radius:3px;padding:1px 4px;margin-left:6px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--pill);color:#fff;border-radius:6px;padding:10px 14px;display:flex;gap:14px;align-items:center;z-index:80;box-shadow:0 8px 24px rgba(0,0,0,.2);max-width:calc(100% - 32px)}
+.toast button{border:0;background:none;color:#8fc2ff;font-weight:700;text-decoration:underline}
+.legend{margin-top:10px;font-size:10px;color:var(--muted)}
+
+.acts{display:inline-flex;align-items:center;gap:6px}
+.eye{display:inline-flex;align-items:center;justify-content:center;width:28px;height:26px;border:1px solid var(--line);background:#fff;border-radius:4px;color:var(--ink-strong)}
+.eye:hover{border-color:var(--blue);color:var(--blue)}
+.eye svg{width:15px;height:15px}
+.rec{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:4px;padding:2px 6px 2px 2px;background:#fff;white-space:nowrap;font-size:11px;color:var(--ink-strong);text-decoration:none}
+.rec:hover{border-color:var(--blue);text-decoration:none}
+.rt{font-size:9px;font-weight:700;border-radius:3px;padding:2px 4px;color:#fff;letter-spacing:.04em}
+.rt-WO{background:#0b7bff}.rt-QR{background:#7b4fd8}.rt-SR{background:#6e7f89}
+.rec .role{color:var(--muted);font-size:10px}
+.recs{display:flex;align-items:center;gap:4px;flex-wrap:nowrap}
+.plus{border:1px solid var(--line);background:var(--th);border-radius:10px;padding:1px 7px;font-size:10px;font-weight:700;color:var(--ink-strong)}
+.plus:hover{border-color:var(--blue);color:var(--blue)}
+.links{display:flex;flex-direction:column}
+.lrow{display:grid;grid-template-columns:1fr auto;gap:6px;padding:9px 10px;border-bottom:1px solid var(--line-soft);align-items:center}
+.lrow:last-of-type{border-bottom:0}
+.lrow .l1{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.lrow .l2{font-size:10px;color:var(--muted);margin-top:3px}
+.lrow .kebab{border:1px solid var(--line);background:#fff;border-radius:4px;padding:2px 8px}
+.addlink{border:0;border-top:1px solid var(--line-soft);background:#fbfcfd;color:var(--blue);font-weight:700;text-align:left;padding:9px 10px;width:100%}
+.pending{display:flex;gap:6px;align-items:center;padding:9px 10px;border-bottom:1px solid var(--line-soft);background:var(--warn-bg);color:var(--warn-fg);font-size:11px}
+@media (max-width:900px){.nav{display:none}main{padding-left:max(16px,env(safe-area-inset-left,0px))}.rolepill,.org{display:none}}
+@media (max-width:520px){.grid2{grid-template-columns:1fr}.kv{grid-template-columns:100px 1fr}.toolbar input{width:100%}}
+</style>
+
+<div class="top">
+  <span aria-hidden="true">☰</span>
+  <span class="logo"><b>i4T</b>Maintenance</span>
+  <span class="org">Strata<span>DEMO REALTY</span></span>
+  <span class="spacer"></span>
+  <span class="user"><span class="avatar"></span>Jane Thornton <span class="rolepill">Manager | Administrator</span></span>
+</div>
+
+<div class="shell">
+  <nav class="nav" aria-label="Main">
+    <span class="create">＋ Create New ›</span>
+    <a href="#" class="on"><span class="ico">✉</span>Inbox</a>
+    <a href="#"><span class="ico">▣</span>Service Requests</a>
+    <a href="#"><span class="ico">▣</span>Work Orders</a>
+    <a href="#"><span class="ico">▣</span>Calendar</a>
+    <a href="#"><span class="ico">○</span>Reports</a>
+    <a href="#"><span class="ico">▣</span>Suppliers</a>
+    <a href="#"><span class="ico">▣</span>Strata Plans</a>
+    <a href="#" id="openSettings"><span class="ico">⚙</span>Automation settings</a>
+  </nav>
+
+  <main>
+    <div class="crumb">HOME / <b>INBOX</b></div>
+    <h1>Inbox</h1>
+    <div class="conn">
+      <span><span class="dot"></span>Connected: maintenance@demorealty.com.au</span>
+      <span>Sync Folders/Labels: <span class="chip">Inbox</span><span class="chip">Invoices</span></span>
+    </div>
+
+    <section class="panelcard">
+      <div class="toolbar">
+        <span class="note">Click a row or 👁 to open the email. The blue button is the AI's recommended action; ▾ lists every action. +n shows more linked records.</span>
+        <input id="q" type="search" placeholder="Search emails…" aria-label="Search emails">
+        <select id="fStatus" aria-label="Filter by status">
+          <option value="">All statuses</option>
+          <option>Action needed</option><option>Done</option><option>No action</option>
+        </select>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Sender</th><th>Subject</th><th>Received Date ▾</th><th>Status</th><th>Linked Record</th><th>Action</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <div class="foot"><span id="count"></span><span class="pager"><span>‹</span><span class="cur">1</span><span>›</span></span></div>
+    </section>
+    <p class="legend"><span class="spark">✦</span> marks an action recommended by AI. Prototype with demonstration data; no live i4T connection.</p>
+  </main>
+</div>
+
+<aside class="side" id="side" aria-label="Email details" aria-hidden="true"></aside>
+<div id="layer"></div>
+
+<script>
+const ACTIONS = {
+  'link-wo':'Link to Work Order','link-qr':'Link to Quote Request',
+  'create-qr':'Create Quote Request','create-wo':'Create Work Order','create-sr':'Create Service Request','other':'Mark as Other'
+};
+const SHORT = {'create-qr':'Create QR','create-wo':'Create WO','create-sr':'Create Service Request','link-wo':'Link to WO','link-qr':'Link to QR','other':'Mark as Other','retry':'Retry','view':'View'};
+let seq = {qr:2216, wo:620040, sr:4};
+const L = (type,id,role,status,by,docs,from) => ({type,id,role,status,by:by||'AI · 17/11/2026',docs:docs||[],from:from||null});
+
+const emails = [
+ {id:1, name:'Spark Electrical', email:'quotes@sparkelectrical.com.au', subject:'Quote for QR002210 – switchboard upgrade', date:'17/11/2026 09:42 AM', att:['Quote_Q-8812.pdf'], isNew:true,
+  links:[L('QR','QR002210','Quote','Received','AI · 17/11/2026',['Quote_Q-8812.pdf'])], pending:null, primary:null,
+  ai:'Linked to QR002210 as the quote from Spark Electrical.', why:'QR002210 is in the subject and the sender is a contractor invited to that Quote Request.',
+  body:'Hi Jane,\n\nPlease find attached our quote for the switchboard upgrade at Harbour View (SP 30411).\n\nRegards,\nMia – Spark Electrical'},
+ {id:2, name:'Tommy Gennusa', email:'tommy.gennusa@outlook.com', subject:'Water leaking from ceiling in Lot 12 – Harbour View', date:'17/11/2026 08:15 AM', att:['ceiling_leak.jpg'],
+  links:[L('SR','SR0004','Request','Open')], pending:'Create a Quote Request or Work Order from SR0004', primary:'create-qr',
+  ai:'Service Request SR0004 created. Recommended next step: Create Quote Request.', why:'Property Harbour View (SP 30411) and category Plumbing found. Ceiling leaks usually need a site inspection and quote.',
+  body:'Hi Team,\n\nWater is leaking from the bathroom ceiling in Lot 12 at Harbour View. It started yesterday and is getting worse. Could you please arrange a plumber?\n\nRegards,\nTommy',
+  fields:{'Strata Plan':'Harbour View (SP 30411)','Lot / Unit':'Lot 12','Site Contact':'Tommy Gennusa','Service Category':'Plumbing','Issue':'Water leaking from bathroom ceiling in Lot 12; started yesterday, getting worse.','Priority':'High'}},
+ {id:3, name:'Lena Ortiz', email:'lena.ortiz@gmail.com', subject:'Water pressure very low – Unit 5', date:'16/11/2026 06:20 PM', att:[],
+  links:[], pending:'Property not found: "Unit 5" matches 3 strata plans. Choose the strata plan to continue.', primary:'create-wo',
+  ai:'Recommended: Create Work Order.', why:'Low water pressure is usually a small repair. The property could not be matched.',
+  body:'Hello,\n\nThe water pressure in Unit 5 has been very low since Friday. Can someone take a look?\n\nThanks,\nLena',
+  fields:{'Strata Plan':'','Lot / Unit':'Unit 5','Site Contact':'Lena Ortiz','Service Category':'Plumbing','Issue':'Low water pressure in Unit 5 since Friday.','Priority':'Medium'}, missing:['Strata Plan']},
+ {id:4, name:'Roofline Contractors', email:'admin@roofline.com.au', subject:'Quotation – roof membrane repair', date:'16/11/2026 02:05 PM', att:['Roofline_Quote_311.pdf','photos.zip'],
+  links:[], pending:'No matching Quote Request found for this quote. Search for the Quote Request and choose the contractor.', primary:'link-qr',
+  ai:'Recommended: Link to Quote Request.', why:'This looks like a quote, but no Quote Request number was found in the subject.',
+  body:'Hi,\n\nAttached is our quotation for the roof membrane repair at Parkside Gardens as discussed on site.\n\nKind regards,\nRoofline Contractors'},
+ {id:5, name:'David Franchisee', email:'david.franchisee@gmail.com', subject:'Invoice for WO619624', date:'15/11/2026 07:41 PM', att:['INV-1182.pdf'],
+  links:[L('WO','WO619624','Invoice','Invoice submitted','AI · 15/11/2026',['INV-1182.pdf'])], pending:null, primary:null,
+  ai:'Linked to WO619624 as an invoice.', why:'WO619624 is in the subject and the sender is the contractor on that Work Order.',
+  body:'Hi,\n\nInvoice attached for the completed lift service.\n\nDavid'},
+ {id:6, name:'ABC Plumbing Accounts', email:'accounts@abcplumbing.com.au', subject:'Invoice INV-2045', date:'15/11/2026 11:12 AM', att:['INV-2045.pdf'],
+  links:[], pending:'No matching Work Order found for this invoice. Search for the Work Order to link it.', primary:'link-wo',
+  ai:'Recommended: Link to Work Order.', why:'This looks like an invoice, but no Work Order number was found.',
+  body:'Please find invoice INV-2045 attached for the hot water unit replacement.\n\nABC Plumbing'},
+ {id:7, name:'Sara Browns', email:'sarabrowns@gmail.com', subject:'Re: Lighting out in car park', date:'14/11/2026 12:36 PM', att:[],
+  links:[L('SR','SR0003','Request','Converted','AI · 13/11/2026'), L('QR','QR002215','Request','Open','Jane Thornton · 14/11/2026',[],'SR0003')], pending:null, primary:null,
+  ai:'Service Request SR0003 converted to QR002215.', why:'Converted by Jane Thornton on 14/11/2026.',
+  body:'Hi,\n\nThe lights in the basement car park are still out. Please follow up.\n\nSara'},
+ {id:8, name:'Community Office', email:'office@harbourview.example', subject:'Swimming pool opening hours for summer', date:'13/11/2026 10:03 AM', att:[],
+  links:[], pending:null, primary:null, other:true,
+  ai:'Marked as Other: general correspondence.', why:'No request, invoice or quote found in the email.',
+  body:'Dear residents,\n\nThe pool will be open from 6am to 9pm from 1 December.\n\nCommunity Office'},
+ {id:9, name:'ABC Plumbing', email:'service@abcplumbing.com.au', subject:'Invoice and new leak found – SP 12345', date:'12/11/2026 03:45 PM', att:['INV-2031.pdf','leak.jpg'],
+  links:[L('WO','WO615003','Invoice','Invoice submitted','AI · 12/11/2026',['INV-2031.pdf'])], pending:'The email also reports a new leak under the stairwell. Create a job for it.', primary:'create-wo',
+  ai:'Invoice linked to WO615003. Recommended next step for the new leak: Create Work Order.', why:'The email has an invoice for WO615003 and also reports a new leak.',
+  body:'Hi,\n\nInvoice attached for WO615003. While on site we also found a new leak under the stairwell. Do you want us to quote?\n\nABC Plumbing',
+  fields:{'Strata Plan':'Elm Court (SP 12345)','Lot / Unit':'Common property – stairwell','Site Contact':'','Service Category':'Plumbing','Issue':'New leak found under the stairwell.','Priority':'Medium'}},
+ {id:10, name:'i4T Test', email:'supplier.testing001@gmail.com', subject:'Broken security door – Lot 7', date:'11/11/2026 08:26 AM', att:[],
+  links:[], pending:'The AI could not identify what this email needs. Choose an action from the menu.', primary:null,
+  ai:'No recommendation for this email.', why:'The AI could not identify the purpose of this email.',
+  fields:{'Strata Plan':'','Lot / Unit':'Lot 7','Site Contact':'','Service Category':'','Issue':'Security door at Lot 7 entrance does not close.','Priority':'Medium'}, missing:['Strata Plan','Service Category'],
+  body:'Security door at the Lot 7 entrance does not close.'}
+];
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let selected = null, prevState = null;
+const byId = id => emails.find(x=>x.id===+id);
+const visibleLinks = e => e.links.filter(l => !(l.type==='SR' && l.status==='Converted')).slice().reverse();
+const hasSR = e => e.links.some(l=>l.type==='SR');
+const blockedStatuses = ['Approved','Invoice submitted','Paid','Converted'];
+
+function statusOf(e){ if(e.pending) return 'Action needed'; return e.links.length ? 'Done' : 'No action'; }
+function badge(st){const m={'Done':'b-ok','Action needed':'b-warn','No action':'b-neu','Failed':'b-bad','Processing':'b-proc'};return `<span class="badge ${m[st]}">${st}</span>`}
+function chip(l){ return `<a href="#" class="rec" data-open="${l.id}" title="Open ${l.id}"><span class="rt rt-${l.type}">${l.type}</span>${l.id}<span class="role">· ${l.from?'from '+l.from:l.role}</span></a>`; }
+function recordCell(e){ const v = visibleLinks(e); if(!v.length) return '–'; return `<span class="recs">${chip(v[0])}${v.length>1?`<button class="plus" data-links="${e.id}" title="Show all linked records">+${v.length-1}</button>`:''}</span>`; }
+const EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+function dropHtml(e){
+  if(!e.primary) return `<span class="split only"><button class="more" data-menu="${e.id}" data-mode="add" aria-label="Actions">Actions ▾</button></span>`;
+  return `<span class="split"><button class="main" data-act="${e.primary}" data-id="${e.id}"><span class="spark" title="Recommended by AI">✦</span>${SHORT[e.primary]}</button><button class="more" data-menu="${e.id}" data-mode="add" aria-label="More actions">▾</button></span>`;
+}
+function actionsHtml(e, inPanel){
+  return `<span class="acts">${inPanel?'':`<button class="eye" data-view="${e.id}" title="View email" aria-label="View email">${EYE}</button>`}${dropHtml(e)}</span>`;
+}
+function render(){
+  const q = $('#q').value.toLowerCase(), f = $('#fStatus').value;
+  const list = emails.filter(e => (!f || statusOf(e)===f) && (!q || (e.name+e.subject+e.email+e.links.map(l=>l.id).join(' ')).toLowerCase().includes(q)));
+  $('#rows').innerHTML = list.map(e => `<tr data-row="${e.id}" class="${selected===e.id?'sel':''}">
+    <td class="sender"><b>${esc(e.name)}</b><a href="#" onclick="return false">${esc(e.email)}</a></td>
+    <td>${esc(e.subject)}${e.isNew?'<span class="new">NEW</span>':''}${e.att.length?`<span class="att">📎 Attachments (${e.att.length})</span>`:''}</td>
+    <td>${e.date}</td><td>${badge(statusOf(e))}</td><td onclick="event.stopPropagation()">${recordCell(e)}</td>
+    <td onclick="event.stopPropagation()">${actionsHtml(e,false)}</td></tr>`).join('');
+  $('#count').textContent = `Showing ${list.length} of ${emails.length} emails`;
+  if(selected) renderSide();
+}
+
+function linksBox(e){
+  const rows = e.links.slice().reverse().map((l,ri)=>{ const i = e.links.length-1-ri;
+    return `<div class="lrow"><div><div class="l1">${chip(l)}<span class="badge ${l.status==='Converted'||l.status==='Cancelled'?'b-neu':'b-ok'}">${esc(l.status)}</span></div>
+      <div class="l2">${l.docs.length?'📎 '+esc(l.docs.join(', '))+' · ':''}${l.by.startsWith('AI')?'✦ Linked by ':'Linked by '}${esc(l.by)}</div></div>
+      <button class="kebab" data-linkmenu="${e.id}" data-idx="${i}" aria-label="Link actions">⋯</button></div>`; }).join('');
+  const pend = e.pending ? `<div class="pending">⚠ ${esc(e.pending)}</div>` : '';
+  return `<div class="box" id="linksBox"><h3>Linked records (${e.links.length})</h3><div class="links">${pend}${rows || (pend?'':'<div class="lrow"><span style="color:var(--muted)">No linked records yet.</span></div>')}
+    <button class="addlink" data-menu="${e.id}" data-mode="add">＋ Add link</button></div></div>`;
+}
+
+function renderSide(){
+  const e = byId(selected); const s = $('#side');
+  if(!e){ s.classList.remove('open'); s.setAttribute('aria-hidden','true'); return; }
+  const canEdit = e.fields && e.pending;
+  const fields = e.fields ? `<div class="box"><h3>AI-filled details <span class="sugg">Suggested by AI${canEdit?' · editable':''}</span></h3><div class="kv">${Object.entries(e.fields).map(([k,v])=>{
+      const miss = (e.missing||[]).includes(k) && !v;
+      const input = k==='Strata Plan' && miss ? `<select id="sp-${e.id}"><option value="">Choose strata plan…</option><option>Harbour View (SP 30411)</option><option>Parkside Gardens (SP 22870)</option><option>Elm Court (SP 19052)</option></select>`
+        : canEdit ? `<input id="f-${e.id}-${k.replace(/\W/g,'')}" value="${esc(v)}">` : esc(v||'–');
+      return `<div class="k">${k}${miss?'<span class="req">Required</span>':''}</div><div class="${miss?'miss':''}">${input}</div>`}).join('')}</div></div>` : '';
+  const st = statusOf(e);
+  s.innerHTML = `<header><button class="x" id="closeSide" aria-label="Close">×</button>
+      <div class="eyebrow">Inbox / Email details</div><h2>${esc(e.subject)}</h2>
+      <div class="meta">${badge(st)} <span>${e.links.length} linked record${e.links.length===1?'':'s'}</span></div></header>
+    <div class="body">
+      <div class="ai"><span class="spark">✦</span><div><p>${esc(e.ai)}${e.links.length||e.primary||e.other?`<button class="change" data-menu="${e.id}" data-mode="${e.links.length?'replace':'add'}" data-idx="${e.links.length-1}">Change</button>`:''}</p><small>${esc(e.why)}</small></div></div>
+      ${linksBox(e)}
+      ${fields}
+      <div class="box mail"><h3>Original email</h3><div class="in"><div class="hdr"><b>From</b><span>${esc(e.name)} &lt;${esc(e.email)}&gt;</span><b>Received</b><span>${e.date}</span></div><div class="msg">${esc(e.body)}</div>
+        ${e.att.length?`<div style="margin-top:10px"><b>Attachments (${e.att.length})</b>${e.att.map(a=>`<div class="file"><span>📎 ${esc(a)}</span><button>Preview ↗</button></div>`).join('')}</div>`:''}</div></div>
+    </div>
+    <div class="ft"><span class="hint">${e.primary ? 'Recommended by AI' : st==='No action'?'No action needed':'Choose an action'}</span>${actionsHtml(e,true)}</div>`;
+  s.classList.add('open'); s.setAttribute('aria-hidden','false');
+}
+
+function placeMenu(m, anchor){
+  document.body.appendChild(m); const r = anchor.getBoundingClientRect(), w = m.offsetWidth, h = m.offsetHeight;
+  m.style.left = Math.max(8, Math.min(window.innerWidth - w - 8, r.right - w)) + 'px';
+  m.style.top = (r.bottom + h + 8 > window.innerHeight ? Math.max(8, r.top - h - 4) : r.bottom + 4) + 'px';
+  m.querySelector('button:not(:disabled)')?.focus();
+}
+/* mode 'add' = new link; mode 'replace' = replace link idx */
+function openMenu(id, anchor, mode, idx){
+  closeMenu(); const e = byId(id); const target = mode==='replace' ? e.links[idx] : null;
+  let keys = Object.keys(ACTIONS);
+  if(mode==='add') keys = keys.filter(k=>k!=='other' || !e.links.length);
+  if(target && (target.role==='Invoice'||target.role==='Quote')) keys = keys.filter(k=>k!=='create-sr');
+  const m = document.createElement('div'); m.className='menu'; m.id='menu';
+  m.innerHTML = `<div class="mh">${target?`Replace ${target.id} with`:'Add link'}</div>` + keys.map(k=>{
+    const cur = target && ((target.role==='Invoice'&&k==='link-wo')||(target.role==='Quote'&&k==='link-qr')||(target.type==='SR'&&k==='create-sr'));
+    const srBlocked = k==='create-sr' && hasSR(e) && !(target && target.type==='SR');
+    const rec = e.primary===k;
+    return `<button data-pick="${k}" data-id="${e.id}" data-mode="${mode}" data-idx="${idx??''}" ${srBlocked?'disabled title="This email already has a Service Request (rule L2)"':''} class="${cur?'cur':''}">${ACTIONS[k]}${cur?'<span class="curtag">Current</span>':srBlocked?'<span class="curtag">Already created</span>':rec?'<span class="tag">✦ Recommended</span>':''}</button>`}).join('');
+  placeMenu(m, anchor);
+}
+function openLinkMenu(id, idx, anchor){
+  closeMenu(); const e = byId(id), l = e.links[idx];
+  const m = document.createElement('div'); m.className='menu'; m.id='menu';
+  m.innerHTML = `<div class="mh">${l.id} · ${l.role}</div><button data-open="${l.id}">Open record</button><button data-menu="${e.id}" data-mode="replace" data-idx="${idx}">Replace with…</button><hr><button data-remove="${e.id}" data-idx="${idx}">Remove link</button>`;
+  placeMenu(m, anchor);
+}
+function closeMenu(){ $('#menu')?.remove(); }
+
+function modal(title, bodyHtml, actions){
+  $('#layer').innerHTML = `<div class="scrim" id="scrim"><div class="modal" role="dialog" aria-modal="true" aria-label="${esc(title)}"><header><b>${esc(title)}</b><button data-close aria-label="Close">×</button></header><div class="mb">${bodyHtml}</div><div class="mf">${actions}</div></div></div>`;
+  $('#layer .modal .mf .pri, #layer .modal .mf button')?.focus();
+}
+function closeModal(){ $('#layer').innerHTML=''; }
+const confirmBox = t => `<div class="confirm"><span class="warn">!</span><p style="margin:0">${esc(t)}</p></div>`;
+function snapshot(e){ prevState = JSON.parse(JSON.stringify(e)); }
+function toast(msg, undo){
+  $('.toast')?.remove(); const t=document.createElement('div'); t.className='toast'; t.innerHTML=`<span>${esc(msg)}</span>${undo?'<button id="undo">Undo</button>':''}`;
+  document.body.appendChild(t);
+  if(undo) $('#undo').onclick = ()=>{ const i = emails.findIndex(x=>x.id===prevState.id); emails[i]=prevState; prevState=null; t.remove(); render(); };
+  setTimeout(()=>t.remove(), 10000);
+}
+
+function blockMsg(e, l){
+  if(l.type==='SR' && l.status==='Converted'){ const q = e.links.find(x=>x.from===l.id); return `${l.id} is now ${q?q.id:'a Quote Request'}. Cancel ${q?q.id:'it'} first, then change this link.`; }
+  if(l.from) return `${l.id} was created from this email. Cancel ${l.id} on its own page first; the link then closes automatically.`;
+  if(blockedStatuses.includes(l.status)) return `${l.id}: the ${l.role.toLowerCase()} is already ${l.status.toLowerCase()} and cannot be removed from the record.`;
+  return null;
+}
+function removeEffect(l){ return l.type==='SR' ? `Service Request ${l.id} will be cancelled (created in error).` : `The ${l.role.toLowerCase()} will be removed from ${l.id}.`; }
+function showBlocked(msg){ modal('Change not possible', confirmBox(msg), `<button class="btn pri" data-close>OK</button>`); }
+
+function removeLink(id, idx){
+  closeMenu(); const e = byId(id), l = e.links[idx]; const b = blockMsg(e,l); if(b) return showBlocked(b);
+  modal('Please confirm', confirmBox(`${removeEffect(l)} The link will be removed from this email.`), `<button class="btn" data-close>Cancel</button><button class="btn pri" id="go">Remove link</button>`);
+  $('#go').onclick = ()=>{ snapshot(e); e.links.splice(idx,1); if(!e.links.length && !e.other){ e.pending = 'All links removed. Choose what to do with this email.'; e.primary=null; e.ai='No linked records.'; e.why='Choose an action from the menu.'; } closeModal(); render(); toast(`Link to ${l.id} removed`, true); };
+}
+
+function act(k, id, mode, idx){
+  closeMenu(); const e = byId(id);
+  if(k==='view'){ const v = visibleLinks(e)[0]; return toast(`Opens ${v.id} (prototype)`); }
+  if(k==='retry'){ snapshot(e); e.failed=false; e.processing=true; e.ai='Processing…'; e.why='Reading the email again.'; render();
+    setTimeout(()=>{ Object.assign(e,{processing:false,pending:'Property not found. Choose the strata plan to continue.',primary:'create-wo',ai:'Recommended: Create Work Order.',why:'Door repair is usually a small job. Property could not be matched.',fields:{'Strata Plan':'','Lot / Unit':'Lot 7','Site Contact':'','Service Category':'Security & Access','Issue':'Security door at Lot 7 entrance does not close.','Priority':'High'},missing:['Strata Plan']}); render(); }, 900); return; }
+  const target = mode==='replace' && idx!=='' ? e.links[+idx] : null;
+  if(target){ const b = blockMsg(e,target); if(b) return showBlocked(b);
+    modal('Please confirm', confirmBox(`${removeEffect(target)} Then: ${ACTIONS[k]}.`), `<button class="btn" data-close>Cancel</button><button class="btn pri" id="go">Confirm</button>`);
+    $('#go').onclick = ()=>{ closeModal(); run(k, e, +idx); }; return; }
+  if(k==='other' && e.links.length) return showBlocked('Remove the linked records first, then mark this email as Other.');
+  run(k, e, null);
+}
+
+/* replaceIdx: index of link to remove when the action completes */
+function run(k, e, replaceIdx){
+  if(k==='create-qr' || k==='create-wo') return createForm(k, e, replaceIdx);
+  if(k==='link-qr' || k==='link-wo') return linkForm(k, e, replaceIdx);
+  snapshot(e); if(replaceIdx!==null) e.links.splice(replaceIdx,1);
+  if(k==='create-sr'){ const id='SR000'+(++seq.sr); e.links.push(L('SR',id,'Request','Open','Jane Thornton · 18/11/2026')); Object.assign(e,{other:false,pending:`Create a Quote Request or Work Order from ${id}`,primary:'create-qr',ai:`Service Request ${id} created. Recommended next step: Create Quote Request.`,why:'Created by Jane Thornton.'}); render(); return toast(`Service Request ${id} created`, true); }
+  if(k==='other'){ Object.assign(e,{other:true,pending:null,primary:null,ai:'Marked as Other by Jane Thornton.',why:'No further action.'}); render(); return toast('Marked as Other', true); }
+}
+
+function createForm(k, e, replaceIdx){
+  const isQR = k==='create-qr', f = e.fields || {};
+  const sp = document.getElementById('sp-'+e.id)?.value || f['Strata Plan'] || '';
+  const val = n => esc(document.getElementById(`f-${e.id}-${n.replace(/\W/g,'')}`)?.value ?? f[n] ?? '');
+  const openSR = e.links.find(l=>l.type==='SR' && l.status==='Open');
+  modal(isQR?'New Quote Request':'New Work Order', `
+    <div class="ai"><span class="spark">✦</span><div><p>Filled in from the email by AI. Check the details, then choose contractors.</p><small>${openSR?`From Service Request ${openSR.id}`:'A Service Request will be created in the background and linked.'}</small></div></div>
+    <div class="grid2">
+      <div class="field"><label for="m-sp">Strata Plan <span class="sugg">AI</span></label><input id="m-sp" value="${esc(sp)}" placeholder="Required"></div>
+      <div class="field"><label for="m-lot">Lot / Unit <span class="sugg">AI</span></label><input id="m-lot" value="${val('Lot / Unit')}"></div>
+      <div class="field"><label for="m-cat">Service Category <span class="sugg">AI</span></label><input id="m-cat" value="${val('Service Category')}"></div>
+      <div class="field"><label for="m-pri">Priority <span class="sugg">AI</span></label><select id="m-pri">${['Low','Medium','High','Urgent'].map(p=>`<option ${p===(f['Priority']||'Medium')?'selected':''}>${p}</option>`).join('')}</select></div>
+      <div class="field"><label for="m-sc">Site Contact <span class="sugg">AI</span></label><input id="m-sc" value="${val('Site Contact')}"></div>
+      <div class="field"><label for="m-att">Attachments</label><input id="m-att" value="${esc(e.att.join(', ')||'None')}" readonly></div>
+    </div>
+    <div class="field"><label for="m-desc">Description <span class="sugg">AI</span></label><input id="m-desc" value="${val('Issue')}"></div>
+    <div class="field"><label>Contractors (manual)</label>
+      <label class="opt"><input type="checkbox" id="c1"> Rapid Plumbing Pty Ltd <span class="badge b-ok" style="margin-left:auto">Compliant · Agent Preferred</span></label>
+      <label class="opt"><input type="checkbox" id="c2"> Coastal Plumbing Services <span class="badge b-ok" style="margin-left:auto">Compliant</span></label>
+      <label class="opt"><input type="checkbox" disabled> BlueLine Plumbing <span class="badge b-bad" style="margin-left:auto">Public liability expired</span></label>
+    </div>`,
+    `<button class="btn" data-close>Cancel</button><button class="btn">Save Draft</button><button class="btn pri" id="submitForm" disabled>Submit</button>`);
+  const check = ()=> $('#submitForm').disabled = !($('#m-sp').value.trim() && ($('#c1').checked||$('#c2').checked));
+  ['#m-sp','#c1','#c2'].forEach(s=>{$(s).addEventListener('input',check);$(s).addEventListener('change',check);});
+  $('#submitForm').onclick = ()=>{
+    snapshot(e); if(replaceIdx!==null) e.links.splice(replaceIdx,1);
+    let sr = e.links.find(l=>l.type==='SR' && l.status==='Open');
+    if(!sr){ sr = L('SR','SR000'+(++seq.sr),'Request','Open','Jane Thornton · 18/11/2026'); e.links.push(sr); }
+    sr.status='Converted';
+    const rec = isQR ? 'QR00'+(++seq.qr) : 'WO'+(++seq.wo);
+    e.links.push(L(isQR?'QR':'WO',rec,'Request',isQR?'Open':'Issued','Jane Thornton · 18/11/2026',[],sr.id));
+    Object.assign(e,{other:false,pending:null,primary:null,ai:`Service Request ${sr.id} converted to ${rec}.`,why:'Submitted by Jane Thornton. Approval follows the normal workflow.'});
+    closeModal(); render(); toast(`${rec} submitted`, true);
+  };
+}
+
+function linkForm(k, e, replaceIdx){
+  const isQR = k==='link-qr';
+  const opts = isQR ? [['QR002208','Parkside Gardens – roof membrane repair','Open'],['QR002201','Elm Court – gutter clean','Received']] : [['WO615003','SP 12345 – stairwell plumbing','Issued'],['WO616120','Harbour View – hot water unit','Completed']];
+  const used = e.links.map(l=>l.id);
+  modal(isQR?'Link to Quote Request':'Link to Work Order', `
+    <div class="field"><label for="lk-q">Search ${isQR?'Quote Request':'Work Order'} by number or property</label><input id="lk-q" value="${isQR?'Parkside':''}"></div>
+    <div class="field"><label>Results</label>${opts.map((o,i)=>{const dis=used.includes(o[0]);return `<label class="opt"><input type="radio" name="lk" value="${o[0]}" ${dis?'disabled':''} ${!dis&&!opts.slice(0,i).some(p=>!used.includes(p[0]))?'checked':''}> <b>${o[0]}</b> ${esc(o[1])}<span class="badge b-neu" style="margin-left:auto">${dis?'Already linked':o[2]}</span></label>`}).join('')}</div>
+    ${isQR?`<div class="field"><label for="lk-c">Quote is from</label><select id="lk-c"><option>${esc(e.name)} (invited)</option><option>TopCover Roofing (invited)</option></select></div>`:''}
+    <div class="field"><label>Use as ${isQR?'quote':'invoice'}</label>${e.att.map((a,i)=>`<label class="opt"><input type="radio" name="lka" value="${esc(a)}" ${i===0?'checked':''}> ${esc(a)} <span style="margin-left:auto;color:var(--muted)">${i===0?(isQR?'Quote':'Invoice'):'Additional document'}</span></label>`).join('') || '<div class="empty">No attachments</div>'}</div>`,
+    `<button class="btn" data-close>Cancel</button><button class="btn pri" id="doLink">Link</button>`);
+  $('#doLink').onclick = ()=>{
+    const r = document.querySelector('input[name=lk]:checked'); if(!r) return;
+    const doc = document.querySelector('input[name=lka]:checked')?.value; snapshot(e);
+    if(replaceIdx!==null){ const old = e.links[replaceIdx]; if(old.type==='SR') old.status='Cancelled'; else e.links.splice(replaceIdx,1); }
+    e.links.push(L(isQR?'QR':'WO', r.value, isQR?'Quote':'Invoice', isQR?'Received':'Invoice submitted','Jane Thornton · 18/11/2026', doc?[doc]:[]));
+    Object.assign(e,{other:false,pending:null,primary:null,ai:`Linked to ${r.value} by Jane Thornton.`,why:isQR?'Added as the contractor\'s quote. The Quote Request moved to Received.':'Added as the invoice on the Work Order.'});
+    closeModal(); render(); toast(`Linked to ${r.value}`, true);
+  };
+}
+
+function settings(){
+  const t = (id,label,desc,on,isNew)=>`<div class="toggle"><div><b>${label}</b>${isNew?'<span class="new">NEW</span>':''}<small>${desc}</small></div><span class="sw"><input type="checkbox" id="${id}" ${on?'checked':''} aria-label="${label}"><span></span></span></div>`;
+  modal('Features', `<p style="margin:0;color:var(--muted)">Settings › Profile & Account Settings › Features. Each automation can be switched on separately.</p>
+    ${t('t-ei','Email Integration','Connect an Outlook or Gmail mailbox and show the Inbox.',true)}
+    ${t('t-inv','AI Invoice Capture','Link emailed invoices to Work Orders.',true)}
+    ${t('t-sr','AI Service Request Creation','Create Service Requests from maintenance emails and recommend QR or WO.',true,true)}
+    ${t('t-qr','AI Quote Linking','Link emailed quotes to Quote Requests.',true,true)}
+    <p style="margin:0;font-size:10px;color:var(--muted)">Applies to emails received after a toggle is switched on. Turning one off keeps records already created.</p>`,
+    `<button class="btn" data-close>Cancel</button><button class="btn pri" data-close id="saveSet">Update</button>`);
+  $('#saveSet').addEventListener('click', ()=>toast('Settings saved'));
+}
+
+document.addEventListener('click', ev=>{
+  const t = ev.target.closest('button,a,tr'); if(!t){ closeMenu(); return; }
+  if(t.matches('[data-view]')){ ev.stopPropagation(); selected=+t.dataset.view; closeMenu(); render(); return; }
+  if(t.matches('[data-open]')){ ev.preventDefault(); ev.stopPropagation(); closeMenu(); return toast(`Opens ${t.dataset.open} (prototype)`); }
+  if(t.matches('[data-links]')){ ev.stopPropagation(); selected=+t.dataset.links; render(); setTimeout(()=>$('#linksBox')?.scrollIntoView({block:'nearest'}),50); return; }
+  if(t.matches('[data-linkmenu]')){ ev.stopPropagation(); return openLinkMenu(t.dataset.linkmenu, +t.dataset.idx, t); }
+  if(t.matches('[data-remove]')) return removeLink(t.dataset.remove, +t.dataset.idx);
+  if(t.matches('[data-menu]')){ ev.stopPropagation(); return openMenu(t.dataset.menu, t, t.dataset.mode||'add', t.dataset.idx!==undefined&&t.dataset.idx!==''?+t.dataset.idx:null); }
+  if(t.matches('[data-pick]')) return act(t.dataset.pick, t.dataset.id, t.dataset.mode, t.dataset.idx);
+  if(t.matches('[data-act]')) return act(t.dataset.act, t.dataset.id, 'add', '');
+  if(t.matches('[data-close]')) return closeModal();
+  if(t.id==='closeSide'){ selected=null; render(); renderSide(); return; }
+  if(t.id==='openSettings'){ ev.preventDefault(); return settings(); }
+  if(t.matches('tr[data-row]')){ selected=+t.dataset.row; closeMenu(); render(); return; }
+  closeMenu();
+});
+document.addEventListener('keydown', ev=>{ if(ev.key==='Escape'){ if($('#menu')) closeMenu(); else if($('#scrim')) closeModal(); else if(selected){selected=null;render();renderSide();} } });
+$('#q').addEventListener('input', render); $('#fStatus').addEventListener('change', render);
+selected = 9; render();
+</script>

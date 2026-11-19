@@ -1,0 +1,14 @@
+{
+  "verdict": "APPROVED",
+  "findings": [
+    {
+      "id": "toast-lift-persists-after-panel-close",
+      "blocking": false,
+      "confidence": "confirmed",
+      "title": "At <=1000 px the toast stays lifted after the side panel is closed",
+      "detail": "toast() sets #toast's inline style.bottom from the panel footer position when the panel is open and innerWidth <= 1000. closePanel() does not reset it, so the toast floats 105 px (900 px viewport) to 170 px (600 px viewport) above its normal spot over the table until it times out (up to 10 s). The next toast resets it. Screenshot /tmp/rv-check/shots2/t-toast-900-closed.png.",
+      "action": "Clear #toast's inline bottom in closePanel() (or when the toast hides). Cosmetic, optional."
+    }
+  ],
+  "reviewDoc": "/Users/arjuna/Documents/inbox automation/Inbox_automation/.agents/tasks/inbox-v2/review.md"
+}
