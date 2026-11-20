@@ -36,12 +36,12 @@ body{background:#f2f4f9;color:#333c45;font-family:Arial,Helvetica,sans-serif;fon
 
 /* Contextual row action icons – consistent with existing Work Orders screen */
 .rowactions{display:flex;align-items:center;gap:5px;flex-wrap:nowrap;white-space:nowrap}
-/* Inbox v2: linked record chips, split action button, action menus, side panel, dialogs, Undo toast (scoped to the Inbox) */
-#panel .rec{display:inline-flex;align-items:center;gap:5px;border:1px solid #dce0e5;border-radius:4px;padding:2px 6px 2px 2px;background:#fff;white-space:nowrap;font-size:11px;font-weight:500;color:#242a30;text-decoration:none}
-#panel .rec:hover{border-color:#0b7bff}
-#panel .rt{font-size:9px;font-weight:700;border-radius:3px;padding:2px 4px;color:#fff;letter-spacing:.04em}
-#panel .rt-WO{background:#0b7bff}#panel .rt-QR{background:#7b4fd8}#panel .rt-SR{background:#6e7f89}
-#panel .rec .rrole{color:#6b7480;font-size:10px}
+/* Inbox v2: linked record chips (panel and list rows), split action button, action menus, side panel, dialogs, toast (scoped to the Inbox) */
+#panel .rec,#rows .rec{display:inline-flex;align-items:center;gap:5px;border:1px solid #dce0e5;border-radius:4px;padding:2px 6px 2px 2px;background:#fff;white-space:nowrap;font-size:11px;font-weight:500;color:#242a30;text-decoration:none}
+#panel .rec:hover,#rows .rec:hover{border-color:#0b7bff}
+#panel .rt,#rows .rt{font-size:9px;font-weight:700;border-radius:3px;padding:2px 4px;color:#fff;letter-spacing:.04em}
+#panel .rt-WO,#rows .rt-WO{background:#0b7bff}#panel .rt-QR,#rows .rt-QR{background:#7b4fd8}#panel .rt-SR,#rows .rt-SR{background:#6e7f89}
+#panel .rec .rrole,#rows .rec .rrole{color:#6b7480;font-size:10px}
 #panel .split{display:inline-flex;white-space:nowrap}
 #panel .smain{display:inline-flex;align-items:center;gap:5px;border:1px solid #0b7bff;background:#0b7bff;color:#fff;border-radius:4px 0 0 4px;padding:5px 9px;font-size:11px;font-weight:700;cursor:pointer}
 #panel .smore{border:1px solid #0b7bff;border-left-color:rgba(255,255,255,.4);background:#0b7bff;color:#fff;border-radius:0 4px 4px 0;padding:5px 7px;font-size:10px;cursor:pointer}
@@ -56,7 +56,9 @@ body{background:#f2f4f9;color:#333c45;font-family:Arial,Helvetica,sans-serif;fon
 #panel .ai,#shade .ai{border:1px solid #d9d1f6;background:#f2effd;border-radius:4px;padding:10px;display:flex;gap:8px;margin-bottom:14px;line-height:1.45}
 #panel .ai p,#shade .ai p{margin:0}
 #panel .ai small,#shade .ai small{display:block;color:#6b7480;margin-top:3px}
-#panel .ai .change{border:0;background:none;color:#0b7bff;font-weight:700;text-decoration:underline;cursor:pointer;padding:0 2px}
+#panel .ai .change,#panel .dismissed .change{border:0;background:none;color:#0b7bff;font-weight:700;text-decoration:underline;cursor:pointer;padding:0 2px}
+.ai-sep{color:#9aa3ad;margin:0 2px}
+.dismissed{margin:0 0 14px;padding:8px 10px;border:1px solid #e3e6eb;border-radius:6px;background:#f7f8fa;color:#5b6470;font-size:11.5px}
 #panel .lrow{display:grid;grid-template-columns:1fr auto;gap:6px;padding:9px 10px;border-bottom:1px solid #e8ebef;align-items:center}
 #panel .lrow .l1{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 #panel .lrow .meta2{font-size:10px;color:#6b7480;margin-top:3px}
@@ -81,7 +83,6 @@ body{background:#f2f4f9;color:#333c45;font-family:Arial,Helvetica,sans-serif;fon
 #shade .confirm .bang{flex:none;width:34px;height:34px;border-radius:50%;background:#6e7f89;color:#fff;font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center}
 #shade .lk-none{border:1px dashed #dce0e5;border-radius:4px;padding:12px;text-align:center;color:#6b7480}
 #toast.visible{display:flex;align-items:center}
-#toast button{border:0;background:none;color:#8fc2ff;font-weight:700;text-decoration:underline;margin-left:12px;cursor:pointer}
 @media(min-width:1001px){#panel.visible~#toast{right:calc(min(595px,96vw) + 16px);max-width:calc(100vw - min(595px,96vw) - 40px)}}
 @media(max-width:620px){#shade .grid2{grid-template-columns:1fr}}
 /* Inbox email list (ib-) */
@@ -107,7 +108,10 @@ body{background:#f2f4f9;color:#333c45;font-family:Arial,Helvetica,sans-serif;fon
 .ib-gut{display:flex;justify-content:center;align-items:center}.ib-udot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#1a6dff}
 .ib-sender{display:flex;flex-direction:column;gap:3px;min-width:0;font-size:11px}.ib-from{font-weight:600;color:#1d2433;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ib-addr{color:#6b7480;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ib-main{min-width:0}
 .ib-l2{display:flex;align-items:center;gap:8px;min-width:0}.ib-subj{font-size:12.5px;color:#1d2433;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}.ib-unread .ib-subj{font-weight:700}
-.ib-st{flex:none;font-size:10px;font-weight:600;border-radius:3px;padding:2px 6px;white-space:nowrap}.ib-st-need{background:#fff4e5;color:#b4690e}.ib-st-done{background:#e8f6ec;color:#2f7a45}.ib-st-none{background:#f0f1f3;color:#5b6470}
+.ib-st{flex:none;font-size:10px;font-weight:600;border-radius:3px;padding:2px 6px;white-space:nowrap}.ib-st-need{background:#fff4e5;color:#b4690e}
+.ib-chips{display:inline-flex;align-items:center;gap:4px;flex:none}
+.ib-more{border:1px solid #dce0e5;background:#fff;border-radius:4px;font-size:10px;font-weight:700;color:#0b7bff;padding:2px 5px;cursor:pointer}
+@media(max-width:700px){.ib-l2{flex-wrap:wrap}}
 .ib-l3{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.ib-att{display:inline-flex;align-items:center;gap:4px;max-width:150px;border:1px solid #dfe3ea;border-radius:4px;padding:2px 6px;font-size:10px;color:#5b6470;background:#fff}
 .ib-att span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}.ib-att svg{flex:none;width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .ib-date{font-size:11px;color:#6b7480;white-space:nowrap;text-align:right}.ib-unread .ib-date{font-weight:700;color:#1d2433}
@@ -215,7 +219,7 @@ body{background:#f2f4f9;color:#333c45;font-family:Arial,Helvetica,sans-serif;fon
 <main class="main"><div id="inboxView"><div class="ib-crumb">Home <span>/</span> <b>Inbox</b></div>
 <div class="ib-headrow"><h1 class="ib-h1">Inbox</h1><span class="ib-pill" id="ibUnreadPill">4 unread</span><span class="ib-conn"><i class="ib-dot"></i>Connected: developer@i4tglobal.onmicrosoft.com</span></div><div class="ib-sync">Sync folder: <b>Inbox</b></div>
 <div class="ib-card"><div class="ib-top"><label class="ib-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="search" placeholder="Search sender, subject or email..." aria-label="Search emails"></label><button type="button" class="ib-markall" id="ibMarkAll" onclick="ibMarkAllRead()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Mark all as read</button></div>
-<div class="ib-tabsrow"><div class="ib-tabs" role="tablist" aria-label="Email list"><button type="button" role="tab" class="ib-tab" id="ibTabAll" onclick="ibSetTab('all')">All emails <span id="ibCntAll">12</span></button><button type="button" role="tab" class="ib-tab" id="ibTabUnread" onclick="ibSetTab('unread')">Unread <span id="ibCntUnread">4</span></button></div><div class="ib-filters"><select id="statusFilter" aria-label="Status"><option value="all">All statuses</option><option>Action needed</option><option>Done</option><option>No action</option></select><select id="ibSort" aria-label="Sort"><option value="desc">Newest first</option><option value="asc">Oldest first</option></select></div></div>
+<div class="ib-tabsrow"><div class="ib-tabs" role="tablist" aria-label="Email list"><button type="button" role="tab" class="ib-tab" id="ibTabAll" onclick="ibSetTab('all')">All emails <span id="ibCntAll">12</span></button><button type="button" role="tab" class="ib-tab" id="ibTabUnread" onclick="ibSetTab('unread')">Unread <span id="ibCntUnread">4</span></button><button type="button" role="tab" class="ib-tab" id="ibTabFlag" onclick="ibSetTab('flag')">Action needed <span id="ibCntFlag">0</span></button></div><div class="ib-filters"><select id="ibSort" aria-label="Sort"><option value="desc">Newest first</option><option value="asc">Oldest first</option></select></div></div>
 <div id="rows" class="ib-list"></div><div class="ib-foot"><span id="count" aria-live="polite"></span><nav class="ib-pager" id="ibPager" aria-label="Pagination"></nav><label class="ib-size">Show <select id="ibSize" aria-label="Entries per page"><option>10</option><option>25</option><option>50</option><option>100</option></select> Entries</label></div></div></div>
 <section id="settingsView" class="ps-hide" aria-label="Profile & Account Settings"><h2 class="ps-title">Profile &amp; Account Settings</h2>
 <div class="ps-grid"><div class="ps-card">
@@ -234,10 +238,10 @@ body{background:#f2f4f9;color:#333c45;font-family:Arial,Helvetica,sans-serif;fon
 <div id="psConnected" class="ps-hide"><div class="ps-conn-row"><div class="ps-conn-box" role="status"><span class="ps-ms-logo" id="psConnLogoMs"><i style="background:#f25022"></i><i style="background:#7fba00"></i><i style="background:#00a4ef"></i><i style="background:#ffb900"></i></span><svg class="ps-g-logo ps-hide" id="psConnLogoG" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><svg class="ps-conn-ok" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#17a34a"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="psConnText">Microsoft is connected</span></div><div class="ps-conn-acct"><b id="psConnLab">Microsoft Connected Account :</b> <span id="psConnEmail">developer@i4tglobal.onmicrosoft.com</span></div><button type="button" class="ps-link" id="psDisconnect" onclick="psDisconnect()">Disconnect</button></div>
 <div class="ps-form2"><div class="ps-field"><label for="psDays">Number of Past Days to Sync (Days) <span class="ps-req">*</span></label><input id="psDays" type="number" min="0" value="1"></div>
 <div class="ps-field"><span class="ps-lab" id="psFoldersLab">Sync Folders <span class="ps-req">*</span></span><div class="ps-ms" id="psMs"><div class="ps-ms-box" id="psMsBox" role="button" tabindex="0" aria-haspopup="listbox" aria-labelledby="psFoldersLab" onclick="psMsToggle()" onkeydown="psKey(event,psMsToggle)"></div><div class="ps-ms-list" id="psMsList" role="listbox"></div></div></div></div>
-<div class="ps-ai" role="group" aria-labelledby="psAiH"><div class="ps-ai-h" id="psAiH">AI automations</div><div class="ps-ai-list">
-<div class="ps-check"><input type="checkbox" id="psAiSr" checked aria-describedby="psAiSrD"><label for="psAiSr">Service Request Creation</label><small id="psAiSrD">Create Service Requests from maintenance emails.</small></div>
-<div class="ps-check"><input type="checkbox" id="psAiQuote" checked aria-describedby="psAiQuoteD"><label for="psAiQuote">Quote Linking</label><small id="psAiQuoteD">Link emailed quotes to Quote Requests.</small></div>
-<div class="ps-check"><input type="checkbox" id="psAiInv" checked aria-describedby="psAiInvD"><label for="psAiInv">Invoice Linking</label><small id="psAiInvD">Link emailed invoices to Work Orders.</small></div></div></div></div></div></div></div>
+<div class="ps-ai" role="group" aria-labelledby="psAiH"><div class="ps-ai-h" id="psAiH">AI Automation</div><div class="ps-ai-list">
+<div class="ps-check"><input type="checkbox" id="psAiSr" checked aria-describedby="psAiSrD"><label for="psAiSr">Service request creation</label><small id="psAiSrD">Create Service Requests from maintenance emails and recommend QR or WO.</small></div>
+<div class="ps-check"><input type="checkbox" id="psAiQuote" checked aria-describedby="psAiQuoteD"><label for="psAiQuote">Link to Quote</label><small id="psAiQuoteD">Link emailed quotes to Quote Requests.</small></div>
+<div class="ps-check"><input type="checkbox" id="psAiInv" checked aria-describedby="psAiInvD"><label for="psAiInv">Link to Invoice</label><small id="psAiInvD">Link emailed invoices to Work Orders.</small></div></div></div></div></div></div></div>
 <div class="ps-sec"><div class="ps-sec-h">WO/QR Settings</div><div class="ps-sec-b"><div class="ps-form3">
 <div class="ps-field"><label for="psTc">T&amp;C URL</label><input id="psTc" value="https://example.com.au/operations-and-insights/"></div>
 <div class="ps-field"><label for="psWrEmail">Work Request Email Address</label><input id="psWrEmail" value="masked-admin@example.com.au"></div>
@@ -265,77 +269,83 @@ const emails=[
 {id:11,sender:'Spark Electrical',address:'quotes@sparkelectrical.com.au',subject:'Quote for QR002210 – switchboard upgrade',date:'30/10/2026 09:42 AM',attachments:['Quote_Q-8812.pdf'],body:'Hi Jane,\n\nPlease find attached our quote for the switchboard upgrade at RESVU – ESTATE.\n\nRegards,\nMia – Spark Electrical',links:[L('QR','QR002210','Quote','Received','AI · 30/10/2026',['Quote_Q-8812.pdf'])],pending:null,recommended:null,other:false,ai:'Linked to QR002210 as the quote from Spark Electrical.',why:'QR002210 is in the subject and the sender is a contractor invited to that Quote Request.'},
 {id:1,sender:'David Franchisee',address:'david.franchisee@gmail.com',subject:'Invoice for WO619624',date:'29/10/2026 07:41 PM',attachments:['Invoice_WO619624.pdf'],body:'Hi Team,\n\nPlease find attached the invoice for completed maintenance works associated with Work Order WO619624.\n\nRegards,\nDavid',links:[L('WO','WO619624','Invoice','Invoice submitted','AI · 29/10/2026',['Invoice_WO619624.pdf'])],pending:null,recommended:null,other:false,ai:'Linked to WO619624 as an invoice.',why:'WO619624 is in the subject and the sender is the contractor on that Work Order.'},
 {id:2,sender:'David Franchisee',address:'david.franchisee@gmail.com',subject:'Invoice – WO613048 – Lift service',date:'29/10/2026 06:48 PM',attachments:['Lift_Invoice_613048.pdf'],body:'Please find our invoice for the lift service completed under Work Order WO613048.',links:[L('WO','WO613048','Invoice','Received','AI · 29/10/2026',['Lift_Invoice_613048.pdf'])],pending:null,recommended:null,other:false,ai:'Linked to WO613048 as an invoice.',why:'WO613048 is in the subject and the sender is the contractor on that Work Order.'},
-{id:3,unread:true,sender:'Tommy Gennusa',address:'tommy.gennusa@testdata.net.au',subject:'[MAINTENANCE REQUEST] Water leaking in Lot 12 – RESVU ESTATE',date:'29/10/2026 10:36 AM',attachments:['ceiling_leak.jpg'],body:'Hi Team,\n\nThere is water leaking from the bathroom ceiling in Lot 12 at RESVU ESTATE. It started yesterday and is getting worse. Could you please arrange a plumber?\n\nRegards,\nTommy',links:[L('SR','SR0001','Request','Open','AI · 29/10/2026')],pending:'Create a Quote Request or Work Order from SR0001',recommended:'create-qr',other:false,ai:'Service Request SR0001 created. Recommended next step: Create Quote Request.',why:'Property RESVU – ESTATE and category Plumbing found. Ceiling leaks usually need a site inspection and quote.',fields:{'Strata Plan':'RESVU – ESTATE','Lot / Unit':'Lot 12','Site Contact':'Tommy Gennusa','Service Category':'Plumbing','Issue':'Water leaking from bathroom ceiling in Lot 12. The problem started yesterday and is worsening.','Priority':'High'}},
+{id:3,unread:true,sender:'Tommy Gennusa',address:'tommy.gennusa@testdata.net.au',subject:'[MAINTENANCE REQUEST] Water leaking in Lot 12 – RESVU ESTATE',date:'29/10/2026 10:36 AM',attachments:['ceiling_leak.jpg'],body:'Hi Team,\n\nThere is water leaking from the bathroom ceiling in Lot 12 at RESVU ESTATE. It started yesterday and is getting worse. Could you please arrange a plumber?\n\nRegards,\nTommy',links:[L('SR','SR0001','Service Request','Open','AI · 29/10/2026')],pending:'Create a Quote Request or Work Order from SR0001',recommended:'create-qr',other:false,ai:'Service Request SR0001 created. Recommended next step: Create Quote Request.',why:'Property RESVU – ESTATE and category Plumbing found. Ceiling leaks usually need a site inspection and quote.',fields:{'Strata Plan':'RESVU – ESTATE','Lot / Unit':'Lot 12','Site Contact':'Tommy Gennusa','Service Category':'Plumbing','Issue':'Water leaking from bathroom ceiling in Lot 12. The problem started yesterday and is worsening.','Priority':'High'}},
 {id:4,unread:true,sender:'i4T Test',address:'supplier.testing001@gmail.com',subject:'Water pressure issue – Unit 5',date:'16/10/2026 09:20 AM',attachments:['water_pressure.jpg'],body:'Hi team, there is very low water pressure in Unit 5. Could someone arrange an inspection? I am not sure of the Strata Plan number. Thanks.',links:[],pending:'Property not found: "Unit 5" matches 3 strata plans. Choose the strata plan to continue.',recommended:'create-wo',other:false,ai:'Recommended: Create Work Order.',why:'Low water pressure is usually a small repair. The property could not be matched.',fields:{'Strata Plan':'','Lot / Unit':'Unit 5','Site Contact':'i4T Test','Service Category':'Plumbing','Issue':'Low water pressure in Unit 5; inspection requested.','Priority':'Routine'},missing:['Strata Plan']},
 {id:5,unread:true,sender:'i4T Test',address:'supplier.testing001@gmail.com',subject:'Broken security door – Lot 7',date:'03/10/2026 08:26 AM',attachments:['security_door.jpg'],body:'The main security door near Lot 7 is broken and does not close properly. Please arrange someone to check it.',links:[],pending:'The AI could not identify what this email needs. Choose an action from the menu.',recommended:null,other:false,ai:'No recommendation for this email.',why:'The AI could not identify the purpose of this email.',fields:{'Strata Plan':'','Lot / Unit':'Lot 7','Site Contact':'i4T Test','Service Category':'Security / Access','Issue':'Broken common-area security door near Lot 7; it does not close properly.','Priority':'Urgent'},missing:['Strata Plan']},
-{id:6,sender:'Sara Browns',address:'sarabrowns@gmail.com',subject:'Re: Maintenance – lighting in car park',date:'21/09/2026 12:36 PM',attachments:[],body:'Hi team, following up on the car park lighting issue I reported earlier. Are there any updates?',links:[L('SR','SR0003','Request','Converted','AI · 21/09/2026'),L('QR','QR002215','Request','Open','Jane Thornton · 22/09/2026',[],'SR0003')],pending:null,recommended:null,other:false,ai:'Service Request SR0003 converted to QR002215.',why:'Converted by Jane Thornton on 22/09/2026.',fields:{'Strata Plan':'RESVU – ESTATE','Lot / Unit':'Car park','Site Contact':'Sara Browns','Service Category':'Electrical','Issue':'Follow-up on previously reported car park lighting issue.','Priority':'Medium'}},
+{id:6,sender:'Sara Browns',address:'sarabrowns@gmail.com',subject:'Re: Maintenance – lighting in car park',date:'21/09/2026 12:36 PM',attachments:[],body:'Hi team, following up on the car park lighting issue I reported earlier. Are there any updates?',links:[L('SR','SR0003','Service Request','Converted','AI · 21/09/2026'),L('QR','QR002215','Request','Open','Jane Thornton · 22/09/2026',[],'SR0003')],pending:null,recommended:null,other:false,ai:'Service Request SR0003 converted to QR002215.',why:'Converted by Jane Thornton on 22/09/2026.',fields:{'Strata Plan':'RESVU – ESTATE','Lot / Unit':'Car park','Site Contact':'Sara Browns','Service Category':'Electrical','Issue':'Follow-up on previously reported car park lighting issue.','Priority':'Medium'}},
 {id:7,sender:'Facilities Support',address:'support@facilities.com.au',subject:'Invoice for WO609221',date:'18/09/2026 08:30 AM',attachments:['Invoice609221.pdf'],body:'Please find our invoice for maintenance carried out under Work Order WO609221 at Strata Plan SP12345.',links:[L('WO','WO609221','Invoice','Received','AI · 18/09/2026',['Invoice609221.pdf'])],pending:null,recommended:null,other:false,ai:'Linked to WO609221 as an invoice.',why:'WO609221 is in the subject and the sender is the contractor on that Work Order.'},
 {id:8,sender:'ABC Plumbing Accounts',address:'accounts@abcplumbing.com.au',subject:'Invoice INV-2045 for WO615003',date:'12/09/2026 11:12 AM',attachments:['INV-2045.pdf'],body:'Hi Team, attached is our invoice for the completed plumbing repairs at SP12345, Lot 12. Please process this invoice under WO615003.',links:[],pending:'WO615003 found, but the sender is not the contractor on that Work Order. Confirm the link.',recommended:'link-wo',other:false,ai:'Recommended: Link to Work Order.',why:'WO615003 is in the subject, but the sender is not the contractor on that Work Order.'},
-{id:9,sender:'Community Office',address:'office@resvu.example',subject:'Swimming pool opening hours for summer',date:'10/09/2026 10:03 AM',attachments:[],body:'Good morning, can you please confirm the clubhouse pool opening hours over the summer holiday period? Thanks.',links:[],pending:null,recommended:null,other:true,ai:'Marked as Other: general correspondence.',why:'No request, invoice or quote found in the email.'},
+{id:9,sender:'Community Office',address:'office@resvu.example',subject:'Swimming pool opening hours for summer',date:'10/09/2026 10:03 AM',attachments:[],body:'Good morning, can you please confirm the clubhouse pool opening hours over the summer holiday period? Thanks.',links:[],pending:null,recommended:null,ai:'No request, invoice or quote found in this email.',why:'General correspondence. Nothing to do.'},
 {id:10,sender:'ABC Plumbing',address:'service@abcplumbing.com.au',subject:'Invoice and new leak found – SP12345',date:'09/09/2026 03:45 PM',attachments:['INV-2046.pdf'],body:'Hi Team,\n\nPlease find our invoice for completed repairs under WO615003. While onsite, we also identified a new leak in the kitchen at Lot 12 that needs a separate repair. Please arrange a new job for this issue.\n\nRegards, ABC Plumbing',links:[L('WO','WO615003','Invoice','Received','AI · 09/09/2026',['INV-2046.pdf'])],pending:'The email also reports a new leak in the kitchen at Lot 12. Create a job for it.',recommended:'create-wo',other:false,ai:'Invoice linked to WO615003. Recommended next step for the new leak: Create Work Order.',why:'The email has an invoice for WO615003 and also reports a new leak.',fields:{'Strata Plan':'SP12345','Lot / Unit':'Lot 12','Site Contact':'ABC Plumbing','Service Category':'Plumbing','Issue':'New leak in the kitchen at Lot 12 needing a separate repair.','Priority':'Medium'}}
 ];
 let selected=null,menuFor=null;
-let ibTab='all',ibKeep=null; // ibKeep: email just read from the Unread tab, kept listed until the panel closes
+let ibTab='all',ibKeep=null; // ibKeep: email just read from the Unread tab (or opened from the Action needed tab), kept listed until the panel closes
 let ibPage=1; // list pagination: current page (entries per page come from #ibSize)
-const ME='Jane Thornton',TODAY='18/11/2026';let qrSeq=2216,woSeq=620040,prevState=null;
+const ME='Jane Thornton',TODAY='18/11/2026';let qrSeq=2216,woSeq=620040;
 const STRATA=['RESVU – ESTATE','SP12345','HARBOUR VIEW SP4852'];
 function escapeHtml(str){return String(str??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function find(id){return emails.find(e=>e.id===Number(id));}
-const statusOf=e=>e.pending?'Action needed':(e.links.length?'Done':'No action');
+// CR02 (PRD v3 s.3): emails carry no status. The flag shows while a purpose is open and the email is not dismissed.
+const isFlagged=e=>!!e.pending&&!e.dismissed;
+const ibFlag=e=>isFlagged(e)?'<span class="ib-st ib-st-need">Action needed</span>':'';
 // Inbox list date helpers: e.date is 'dd/mm/yyyy hh:mm AM|PM'
 const IB_MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
 function ibParts(e){const m=/^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2}) (AM|PM)$/.exec(e.date)||[];return {d:+m[1],m:+m[2],y:+m[3],h:+m[4],mi:+m[5],ap:m[6]};}
 function ibTime(e){const p=ibParts(e);return new Date(p.y,p.m-1,p.d,p.h%12+(p.ap==='PM'?12:0),p.mi).getTime();}
 function ibWhen(e){const p=ibParts(e);return `${p.d} ${IB_MON[p.m-1].slice(0,3)} · ${p.h}:${String(p.mi).padStart(2,'0')} ${p.ap}`;}
 function ibMonth(e){const p=ibParts(e);return IB_MON[p.m-1]+' '+p.y;}
-function ibBadge(st){const m={'Action needed':'need','Done':'done','No action':'none'};return `<span class="ib-st ib-st-${m[st]||'none'}">${escapeHtml(st)}</span>`;}
 // A converted SR is shown through the record created from it, not as its own chip
 const visibleLinks=e=>e.links.filter(l=>!(l.type==='SR'&&l.status==='Converted')).slice().reverse();
 const hasSR=e=>e.links.some(l=>l.type==='SR');
-function badge(st){const m={'Done':'linked','Action needed':'needs','No action':'other'};return `<span class="badge ${m[st]||'other'}">${escapeHtml(st)}</span>`;}
 function linkBadge(l){return `<span class="badge ${l.status==='Converted'||l.status==='Cancelled'?'other':'linked'}">${escapeHtml(l.status)}</span>`;}
-const ACTIONS={'link-wo':'Link to Work Order','link-qr':'Link to Quote Request','create-qr':'Create Quote Request','create-wo':'Create Work Order','create-sr':'Create Service Request','other':'Mark as Other'};
+const ACTIONS={'link-wo':'Link to Work Order','link-qr':'Link to Quote Request','create-qr':'Create Quote Request','create-wo':'Create Work Order','create-sr':'Create Service Request'};
 const SHORT={'create-qr':'Create QR','create-wo':'Create WO','create-sr':'Create Service Request','link-wo':'Link to WO','link-qr':'Link to QR'};
 function chip(l){return `<a href="#" class="rec" title="Open ${escapeHtml(l.id)}" onclick="event.preventDefault();event.stopPropagation();openRecord('${escapeHtml(l.id)}')"><span class="rt rt-${l.type}">${l.type}</span>${escapeHtml(l.id)}<span class="rrole">· ${escapeHtml(l.from?'from '+l.from:l.role)}</span></a>`;}
+// CR02 (PRD v3 s.6.1): first linked record as a chip, then +n (opens the panel at Linked records)
+function ibChips(e){const v=visibleLinks(e);if(!v.length)return '';
+ return `<span class="ib-chips">${chip(v[0])}${v.length>1?`<button type="button" class="ib-more" title="Show all linked records" onclick="event.stopPropagation();openPanel(${e.id},'links')">+${v.length-1}</button>`:''}</span>`;}
 function actionCell(e){
- const drop=e.recommended
-  ?`<span class="split"><button type="button" class="smain" title="Recommended by AI" onclick="event.stopPropagation();runAction('${e.recommended}',${e.id})"><span class="spark">✦</span>${SHORT[e.recommended]}</button><button type="button" class="smore" onclick="event.stopPropagation();openActionMenu(event,${e.id},'add')" aria-label="More actions">▾</button></span>`
+ const rec=isFlagged(e)?e.recommended:null;
+ const drop=rec
+  ?`<span class="split"><button type="button" class="smain" title="Recommended by AI" onclick="event.stopPropagation();runAction('${rec}',${e.id})"><span class="spark">✦</span>${SHORT[rec]}</button><button type="button" class="smore" onclick="event.stopPropagation();openActionMenu(event,${e.id},'add')" aria-label="More actions">▾</button></span>`
   :`<span class="split only"><button type="button" class="smore" onclick="event.stopPropagation();openActionMenu(event,${e.id},'add')">Actions ▾</button></span>`;
  return `<div class="rowactions">${drop}</div>`;
 }
-function openPanel(id,focus){selected=Number(id);hideMenu();const em=find(id);if(em){if(em.unread){em.unread=false;ibKeep=em.id;}else if(ibKeep!==em.id)ibKeep=null;}document.querySelector('#panelContent').innerHTML=panelMarkup(find(id));document.querySelector('#overlay').classList.add('visible');document.querySelector('#panel').classList.add('visible');renderRows();if(focus==='links'){const p=document.querySelector('#panel'),b=document.querySelector('#linksBox');if(b)p.scrollTop=b.offsetTop-p.querySelector('.panelhead').offsetHeight-8;}}
+function openPanel(id,focus){selected=Number(id);hideMenu();const em=find(id);if(em){if(em.unread||(ibTab==='flag'&&isFlagged(em))){em.unread=false;ibKeep=em.id;}else if(ibKeep!==em.id)ibKeep=null;}document.querySelector('#panelContent').innerHTML=panelMarkup(find(id));document.querySelector('#overlay').classList.add('visible');document.querySelector('#panel').classList.add('visible');renderRows();if(focus==='links'){const p=document.querySelector('#panel'),b=document.querySelector('#linksBox');if(b)p.scrollTop=b.offsetTop-p.querySelector('.panelhead').offsetHeight-8;}}
 function closePanel(){selected=null;ibKeep=null;document.querySelector('#overlay').classList.remove('visible');document.querySelector('#panel').classList.remove('visible');document.querySelector('#toast').style.bottom='';hideMenu();renderRows();}
 function refresh(){renderRows();if(selected)document.querySelector('#panelContent').innerHTML=panelMarkup(find(selected));}
 function setField(id,k,v){const e=find(id);if(e&&e.fields)e.fields[k]=v;}
 function panelMarkup(e){
- const st=statusOf(e),n=e.links.length,canEdit=!!(e.fields&&e.pending),att=e.attachments||[];
+ const fl=isFlagged(e),n=e.links.length,canEdit=!!(e.fields&&fl),att=e.attachments||[];
  const rows=e.links.slice().reverse().map((l,ri)=>{const i=n-1-ri;return `<div class="lrow"><div><div class="l1">${chip(l)}${linkBadge(l)}</div><div class="meta2">${l.docs.length?'📎 '+escapeHtml(l.docs.join(', '))+' · ':''}${l.by.startsWith('AI')?'✦ ':''}Linked by ${escapeHtml(l.by)}</div></div><button type="button" class="kebab" onclick="event.stopPropagation();openLinkMenu(event,${e.id},${i})" aria-label="Link actions for ${escapeHtml(l.id)}">⋯</button></div>`;}).join('');
- const pend=e.pending?`<div class="pending">⚠ ${escapeHtml(e.pending)}</div>`:'';
+ const pend=fl?`<div class="pending">⚠ ${escapeHtml(e.pending)}</div>`:'';
  const fields=e.fields?`<div class="section"><h3>AI-filled details <span class="sugg">Suggested by AI${canEdit?' · editable':''}</span></h3><div class="kv">${Object.entries(e.fields).map(([k,v])=>{
    const req=(e.missing||[]).includes(k),miss=req&&!v;
    const input=canEdit&&req&&k==='Strata Plan'?`<select id="sp-${e.id}" onchange="setField(${e.id},'${k}',this.value)"><option value="">Choose strata plan…</option>${STRATA.map(p=>`<option ${p===v?'selected':''}>${escapeHtml(p)}</option>`).join('')}</select>`
     :canEdit?`<input id="f-${e.id}-${k.replace(/\W/g,'')}" value="${escapeHtml(v)}" oninput="setField(${e.id},'${k}',this.value)">`:escapeHtml(v||'–');
    return `<div class="k">${escapeHtml(k)}${miss?' <span class="req">Required</span>':''}</div><div class="${miss?'miss':''}">${input}</div>`;}).join('')}</div></div>`:'';
- const change=`<button type="button" class="change" onclick="event.stopPropagation();openActionMenu(event,${e.id},'${n?'replace':'add'}',${n?n-1:'null'})">Change</button>`;
- return `<div class="panelhead"><div class="paneltop"><div><div style="font-size:11px;color:#66758c;margin-bottom:6px">Email Details</div><div class="ptitle">${escapeHtml(e.subject)}</div></div><button class="close" onclick="closePanel()" aria-label="Close email side panel">×</button></div><div class="tags">${badge(st)}<span class="small muted">${n} linked record${n===1?'':'s'}</span>${e.links.some(l=>l.type==='SR'&&srRegistry[l.id]?.archived)?'<span class="badge archived">SR Archived</span>':''}</div></div>`
- +`<div class="panelbody"><div class="ai"><span class="spark">✦</span><div><p>${escapeHtml(e.ai)} ${change}</p><small>${escapeHtml(e.why)}</small></div></div>`
+ const change=`<button type="button" class="change" onclick="event.stopPropagation();openActionMenu(event,${e.id},'${n?'replace':'add'}',${n?n-1:'null'})">Change</button>`
+  +(fl?`<span class="ai-sep">|</span><button type="button" class="change" onclick="event.stopPropagation();dismissEmail(${e.id})">Dismiss</button>`:'');
+ const dis=e.dismissed?`<div class="dismissed">Dismissed by ${escapeHtml(e.dismissed.by)} · ${escapeHtml(e.dismissed.date)} · <button type="button" class="change" onclick="event.stopPropagation();flagAgain(${e.id})">Flag again</button></div>`:'';
+ return `<div class="panelhead"><div class="paneltop"><div><div style="font-size:11px;color:#66758c;margin-bottom:6px">Email Details</div><div class="ptitle">${escapeHtml(e.subject)}</div></div><button class="close" onclick="closePanel()" aria-label="Close email side panel">×</button></div><div class="tags">${fl?'<span class="badge needs">Action needed</span>':''}<span class="small muted">${n} linked record${n===1?'':'s'}</span>${e.links.some(l=>l.type==='SR'&&srRegistry[l.id]?.archived)?'<span class="badge archived">SR Archived</span>':''}</div></div>`
+ +`<div class="panelbody"><div class="ai"><span class="spark">✦</span><div><p>${escapeHtml(e.ai)} ${change}</p><small>${escapeHtml(e.why)}</small></div></div>${dis}`
  +`<div class="section" id="threadBox"><h3>✉ &nbsp; Email thread</h3><div class="sectioninner"><div class="meta"><label>From</label><span>${escapeHtml(e.sender)} &lt;${escapeHtml(e.address)}&gt;</span><label>To</label><span>developers@i4tglobal.com</span><label>Received</label><span>${escapeHtml(e.date)}</span></div><hr style="border:0;border-top:1px solid #e5eaf1;margin:14px 0"><div class="message">${escapeHtml(e.body)}</div>${att.length?`<hr style="border:0;border-top:1px solid #e5eaf1;margin:14px 0"><strong>Attachments (${att.length})</strong>${att.map(a=>`<div class="attachment" style="margin-top:9px"><span>📎 ${escapeHtml(a)}</span><button class="btn mini" onclick="toast('Sample attachment – no document is downloaded')">Preview ↗</button></div>`).join('')}`:''}</div></div>`
  +`<div class="section" id="linksBox"><h3>Linked records (${n})</h3>${pend}${rows||(pend?'':'<div class="lrow"><span class="muted">No linked records yet.</span></div>')}<button type="button" class="addlink" onclick="event.stopPropagation();openActionMenu(event,${e.id},'add')">＋ Add link</button></div>`
  +fields+`</div>`
- +`<div class="panelfoot"><span class="small muted">${e.recommended?'Recommended by AI':st==='No action'?'No action needed':'Choose an action'}</span>${actionCell(e)}</div>`;
+ +`<div class="panelfoot"><span class="small muted">${fl&&e.recommended?'Recommended by AI':fl?'Choose an action':'No action needed'}</span>${actionCell(e)}</div>`;
 }
 function placeMenu(m,r,html){m.innerHTML=html;m.style.left='0px';m.style.top='0px';m.classList.add('visible');const w=m.offsetWidth,h=m.offsetHeight;m.style.left=Math.max(8,Math.min(window.innerWidth-w-8,r.right-w))+'px';m.style.top=(r.bottom+h+8>window.innerHeight?Math.max(8,r.top-h-4):r.bottom+4)+'px';}
 /* mode 'add' adds a new link; mode 'replace' replaces e.links[idx] */
 function openActionMenu(ev,id,mode,idx){const m=document.querySelector('#menu'),a=ev.currentTarget;if(menuFor===a&&m.classList.contains('visible')){hideMenu();return;}
  const r=a.getBoundingClientRect(),e=find(id),target=mode==='replace'?e.links[idx]:null;
  let keys=Object.keys(ACTIONS);
- if(mode==='add')keys=keys.filter(k=>k!=='other'||!e.links.length);
  if(target&&(target.role==='Invoice'||target.role==='Quote'))keys=keys.filter(k=>k!=='create-sr');
  const html=`<div class="mh">${target?'Replace '+escapeHtml(target.id)+' with':'Add link'}</div>`+keys.map(k=>{
    const cur=target&&((target.role==='Invoice'&&k==='link-wo')||(target.role==='Quote'&&k==='link-qr')||(target.type==='SR'&&k==='create-sr'));
    const srBlocked=k==='create-sr'&&hasSR(e)&&!(target&&target.type==='SR');
-   const tag=cur?'<span class="curtag">Current</span>':srBlocked?'<span class="curtag">Already created</span>':e.recommended===k?'<span class="tag">✦ Recommended</span>':'';
-   return `<button type="button"${cur||srBlocked?' disabled':''}${srBlocked?' title="This email already has a Service Request"':''} onclick="event.stopPropagation();runAction('${k}',${e.id},'${mode}',${target?idx:'null'})">${ACTIONS[k]}${tag}</button>`;}).join('');
+   const tag=cur?'<span class="curtag">Current</span>':srBlocked?'<span class="curtag">Already created</span>':isFlagged(e)&&e.recommended===k?'<span class="tag">✦ Recommended</span>':'';
+   return `<button type="button"${cur||srBlocked?' disabled':''}${srBlocked?' title="This email already has a Service Request"':''} onclick="event.stopPropagation();runAction('${k}',${e.id},'${mode}',${target?idx:'null'})">${ACTIONS[k]}${tag}</button>`;}).join('')
+  +(mode==='add'&&isFlagged(e)?`<hr><button type="button" onclick="event.stopPropagation();dismissEmail(${e.id})">Dismiss</button>`:'');
  placeMenu(m,r,html);menuFor=a;}
 function openLinkMenu(ev,id,idx){const m=document.querySelector('#menu'),a=ev.currentTarget;if(menuFor===a&&m.classList.contains('visible')){hideMenu();return;}
  const e=find(id),l=e.links[idx];
@@ -356,22 +366,34 @@ function showBlocked(msg){showDialog('Change not possible',confirmBox(msg),[{lab
 function runAction(k,id,mode='add',idx=null){hideMenu();const e=find(id),t=mode==='replace'&&idx!==null?e.links[idx]:null;
  if(t){const b=blockMsg(e,t);if(b){showBlocked(b);return;}
   showDialog('Please confirm',confirmBox(removeEffect(t)+' Then: '+ACTIONS[k]+'.'),[{label:'Cancel',run:'closeDialog()'},{label:'Confirm',primary:true,run:`closeDialog();doAction('${k}',${e.id},${idx})`}]);return;}
- if(k==='other'&&e.links.length){showBlocked('Remove the linked records first, then mark this email as Other.');return;}
  doAction(k,e.id,null);}
 /* replaceIdx: index of the link that is removed (SR: cancelled) when the action completes */
 function doAction(k,id,replaceIdx){const e=find(id);
  if(k==='create-qr'||k==='create-wo'){createForm(k,e,replaceIdx);return;}
  if(k==='link-wo'||k==='link-qr'){linkForm(k,e,replaceIdx);return;}
- snapshot(e);dropOld(e,replaceIdx);
- if(k==='create-sr'){const sid='SR'+String(++demoSRSeq).padStart(4,'0');e.links.push(L('SR',sid,'Request','Open',ME+' · '+TODAY));srRegistry[sid]={id:sid,email:e.id,category:e.fields?.['Service Category']||'',contact:e.sender,address:e.address,archived:false,status:'Open',created:TODAY};
-  Object.assign(e,{other:false,pending:'Create a Quote Request or Work Order from '+sid,recommended:'create-qr',ai:'Service Request '+sid+' created. Recommended next step: Create Quote Request.',why:'Created by Jane Thornton.'});refresh();toast(sid+' created',true);return;}
- if(k==='other'){Object.assign(e,{other:true,pending:null,recommended:null,ai:'Marked as Other by Jane Thornton.',why:'No further action.'});refresh();toast('Marked as Other',true);}}
+ dropOld(e,replaceIdx);
+ if(k==='create-sr'){const sid='SR'+String(++demoSRSeq).padStart(4,'0');e.links.push(L('SR',sid,'Service Request','Open',ME+' · '+TODAY));srRegistry[sid]={id:sid,email:e.id,category:e.fields?.['Service Category']||'',contact:e.sender,address:e.address,archived:false,status:'Open',created:TODAY};
+  Object.assign(e,{dismissed:null,pending:'Create a Quote Request or Work Order from '+sid,recommended:'create-qr',ai:'Service Request '+sid+' created. Recommended next step: Create Quote Request.',why:'Created by Jane Thornton.'});refresh();toast(sid+' created');return;}}
 function dropOld(e,idx){if(idx===null||idx===undefined)return;const l=e.links[idx];if(!l)return;if(l.type==='SR'){l.status='Cancelled';if(srRegistry[l.id])srRegistry[l.id].status='Cancelled';}else e.links.splice(idx,1);}
+// CR02 (PRD v3 s.3.1): Dismiss follows the flag. It clears the open purpose only; links stay.
+function dismissEmail(id){hideMenu();const e=find(id);if(!isFlagged(e))return;
+ const sr=e.links.find(l=>l.type==='SR'&&l.status==='Open');
+ if(sr){showDialog('Please confirm',confirmBox(`${sr.id} will be cancelled: no action needed. This email will no longer be flagged.`),[{label:'Cancel',run:'closeDialog()'},{label:'Dismiss',primary:true,run:`closeDialog();doDismiss(${e.id})`}]);return;}
+ doDismiss(e.id);}
+function doDismiss(id){const e=find(id),sr=e.links.find(l=>l.type==='SR'&&l.status==='Open');
+ if(sr){sr.status='Cancelled';if(srRegistry[sr.id])srRegistry[sr.id].status='Cancelled';}
+ e.dismissed={by:ME,date:TODAY,pending:e.pending,recommended:e.recommended,sr:sr?sr.id:null};
+ refresh();toast(sr?sr.id+' cancelled. Email dismissed':'Email dismissed');}
+// Flag again fully reverses Dismiss, including reopening an SR that Dismiss cancelled
+function flagAgain(id){const e=find(id),d=e.dismissed;if(!d)return;
+ if(d.sr){const l=e.links.find(x=>x.type==='SR'&&x.id===d.sr);if(l&&l.status==='Cancelled')l.status='Open';if(srRegistry[d.sr]&&srRegistry[d.sr].status==='Cancelled')srRegistry[d.sr].status='Open';}
+ Object.assign(e,{pending:d.pending||'Flagged again by '+ME+'. Choose an action.',recommended:d.recommended,dismissed:null});
+ refresh();toast('Email flagged again');}
 function removeLink(id,idx){hideMenu();const e=find(id),l=e.links[idx],b=blockMsg(e,l);if(b){showBlocked(b);return;}
  showDialog('Please confirm',confirmBox(removeEffect(l)+' The link will be removed from this email.'),[{label:'Cancel',run:'closeDialog()'},{label:'Remove link',primary:true,run:`closeDialog();doRemove(${e.id},${idx})`}]);}
-function doRemove(id,idx){const e=find(id);snapshot(e);const l=e.links.splice(idx,1)[0];if(l.type==='SR'&&srRegistry[l.id])srRegistry[l.id].status='Cancelled';
- if(!e.links.length&&!e.other)Object.assign(e,{pending:'All links removed. Choose what to do with this email.',recommended:null,ai:'No linked records.',why:'Choose an action from the menu.'});
- refresh();toast('Link to '+l.id+' removed',true);}
+function doRemove(id,idx){const e=find(id);const l=e.links.splice(idx,1)[0];if(l.type==='SR'&&srRegistry[l.id])srRegistry[l.id].status='Cancelled';
+ if(!e.links.length)Object.assign(e,{dismissed:null,pending:'All links removed. Choose what to do with this email.',recommended:null,ai:'No linked records.',why:'Choose an action from the menu.'});
+ refresh();toast('Link to '+l.id+' removed');}
 const CONTRACTORS=[['c1','Rapid Plumbing Pty Ltd','Compliant · Agent Preferred',true],['c2','Coastal Plumbing Services','Compliant',true],['c3','BlueLine Plumbing','Public liability expired',false]];
 function createForm(k,e,replaceIdx){const isQR=k==='create-qr',f=e.fields||{},att=e.attachments||[];
  const sp=document.querySelector('#sp-'+e.id)?.value||f['Strata Plan']||'',plans=!sp||STRATA.includes(sp)?STRATA:[sp,...STRATA];
@@ -393,15 +415,15 @@ function createForm(k,e,replaceIdx){const isQR=k==='create-qr',f=e.fields||{},at
 function submitCreate(k,id,replaceIdx){const e=find(id),isQR=k==='create-qr',v=s=>document.querySelector(s).value;
  const vals={'Strata Plan':v('#m-sp'),'Lot / Unit':v('#m-lot'),'Service Category':v('#m-cat'),'Priority':v('#m-pri'),'Site Contact':v('#m-sc'),'Issue':v('#m-desc')};
  if(!vals['Strata Plan']||!(document.querySelector('#c1').checked||document.querySelector('#c2').checked))return;
- snapshot(e);dropOld(e,replaceIdx);
+ dropOld(e,replaceIdx);
  let sr=e.links.find(l=>l.type==='SR'&&l.status==='Open');
- if(!sr){const sid='SR'+String(++demoSRSeq).padStart(4,'0');sr=L('SR',sid,'Request','Open',ME+' · '+TODAY);e.links.push(sr);srRegistry[sid]={id:sid,email:e.id,category:vals['Service Category'],contact:e.sender,address:e.address,archived:false,status:'Open',created:TODAY};}
+ if(!sr){const sid='SR'+String(++demoSRSeq).padStart(4,'0');sr=L('SR',sid,'Service Request','Open',ME+' · '+TODAY);e.links.push(sr);srRegistry[sid]={id:sid,email:e.id,category:vals['Service Category'],contact:e.sender,address:e.address,archived:false,status:'Open',created:TODAY};}
  sr.status='Converted';if(srRegistry[sr.id])srRegistry[sr.id].status='Converted';
  const rec=isQR?'QR00'+(++qrSeq):'WO'+(++woSeq);
  e.links.push(L(isQR?'QR':'WO',rec,'Request',isQR?'Open':'Issued',ME+' · '+TODAY,[],sr.id));
  if(e.fields)Object.keys(vals).forEach(key=>{if(key in e.fields)e.fields[key]=vals[key];});
- Object.assign(e,{other:false,pending:null,recommended:null,ai:'Service Request '+sr.id+' converted to '+rec+'.',why:'Submitted by Jane Thornton. Approval follows the normal workflow.'});
- closeDialog();refresh();toast(rec+' submitted',true);}
+ Object.assign(e,{dismissed:null,pending:null,recommended:null,ai:'Service Request '+sr.id+' converted to '+rec+'.',why:'Submitted by Jane Thornton. Approval follows the normal workflow.'});
+ closeDialog();refresh();toast(rec+' submitted');}
 const WO_OPTIONS=[['WO615003','SP12345 – Lot 12 plumbing repairs','Completed'],['WO620021','HARBOUR VIEW SP4852 – hot water unit','Issued'],['WO619624','RESVU – ESTATE – maintenance works','Completed'],['WO613048','RESVU – ESTATE – lift service','Completed']];
 const QR_OPTIONS=[['QR002208','HARBOUR VIEW SP4852 – roof membrane repair','Open'],['QR002210','RESVU – ESTATE – switchboard upgrade','Received'],['QR002201','SP12345 – gutter clean','Received']];
 function linkForm(k,e,replaceIdx){const isQR=k==='link-qr',att=e.attachments||[];
@@ -416,10 +438,10 @@ function renderLinkResults(k,id){const e=find(id),q=(document.querySelector('#lk
  document.querySelector('#lk-results').innerHTML=opts.map(([rid,prop,st])=>{const dis=used.includes(rid),chk=!dis&&first;if(chk)first=false;return `<label class="opt"><input type="radio" name="lk" value="${rid}"${dis?' disabled':''}${chk?' checked':''}> <b>${rid}</b> ${escapeHtml(prop)} <span class="badge ${dis?'archived':'other'}">${dis?'Already linked':escapeHtml(st)}</span></label>`;}).join('')||'<div class="lk-none">No matching records</div>';}
 function submitLink(k,id,replaceIdx){const r=document.querySelector('input[name=lk]:checked');if(!r){toast('Select a record first');return;}
  const e=find(id),isQR=k==='link-qr',doc=document.querySelector('input[name=lka]:checked')?.value;
- snapshot(e);dropOld(e,replaceIdx);
+ dropOld(e,replaceIdx);
  e.links.push(L(isQR?'QR':'WO',r.value,isQR?'Quote':'Invoice',isQR?'Received':'Invoice submitted',ME+' · '+TODAY,doc?[doc]:[]));
- Object.assign(e,{other:false,pending:null,recommended:null,ai:'Linked to '+r.value+' by Jane Thornton.',why:isQR?'Added as the contractor\'s quote. The Quote Request moved to Received.':'Added as the invoice on the Work Order.'});
- closeDialog();refresh();toast('Linked to '+r.value,true);}
+ Object.assign(e,{dismissed:null,pending:null,recommended:null,ai:'Linked to '+r.value+' by Jane Thornton.',why:isQR?'Added as the contractor\'s quote. The Quote Request moved to Received.':'Added as the invoice on the Work Order.'});
+ closeDialog();refresh();toast('Linked to '+r.value);}
 function openRecord(rid){hideMenu();const e=emails.find(x=>x.links.some(l=>l.id===rid));
  if(rid.startsWith('SR')){const em=e||find(srRegistry[rid]?.email);if(em)showSRDetails(em.id,rid);else toast('Service Request not found');return;}
  if(!e){toast('Record not found');return;}
@@ -427,11 +449,9 @@ function openRecord(rid){hideMenu();const e=emails.find(x=>x.links.some(l=>l.id=
  showDialog(kind+' – '+rid,`<div class="hint"><b>Navigation to existing ${kind} record</b><br>In the real system, this link opens the existing ${kind} record.</div><div class="details"><div>Record</div><div>${escapeHtml(rid)}</div><div>Status</div><div>${escapeHtml(l.status)}</div><div>Role</div><div>${escapeHtml(l.role)}</div><div>Documents</div><div>${escapeHtml(l.docs.join(', ')||'None')}</div>${l.from?`<div>Created from</div><div>${escapeHtml(l.from)}</div>`:''}<div>Related email</div><div>${escapeHtml(e.subject)}</div></div>`,[{label:'Close',run:'closeDialog()'}]);}
 function rejectSR(id){showDialog('Reject Service Request',`<div class="field"><label>Rejection reason *</label><textarea id="rejectReason" placeholder="Enter the reason for rejecting this Service Request"></textarea></div><p class="help">The SR remains in the record history; this action does not delete the original email.</p>`,[{label:'Cancel',run:'closeDialog()'},{label:'Confirm Rejection',danger:true,run:`confirmReject(${id})`}]);}
 function confirmReject(id){if(!document.querySelector('#rejectReason').value.trim()){toast('Enter a rejection reason');return;}closeDialog();toast('Service Request rejected (prototype only). Original email retained.');}
-function snapshot(e){prevState={email:JSON.parse(JSON.stringify(e)),sr:JSON.parse(JSON.stringify(srRegistry))};}
-let toastHandle;function toast(msg,undo){const el=document.querySelector('#toast'),canUndo=!!(undo&&prevState);el.innerHTML=`<span>${escapeHtml(msg)}</span>${canUndo?'<button type="button" id="undoBtn">Undo</button>':''}`;el.classList.add('visible');
+let toastHandle;function toast(msg){const el=document.querySelector('#toast');el.innerHTML=`<span>${escapeHtml(msg)}</span>`;el.classList.add('visible');
  const pf=document.querySelector('#panel.visible .panelfoot');el.style.bottom=pf&&innerWidth<=1000?(innerHeight-pf.getBoundingClientRect().top+8)+'px':'';
- if(canUndo)document.querySelector('#undoBtn').onclick=()=>{const s=prevState;if(!s)return;const i=emails.findIndex(x=>x.id===s.email.id);s.email.unread=emails[i].unread;emails[i]=s.email;Object.keys(srRegistry).forEach(k=>{if(!(k in s.sr))delete srRegistry[k];});Object.assign(srRegistry,s.sr);prevState=null;el.classList.remove('visible');renderRows();if(selected)openPanel(selected);};
- clearTimeout(toastHandle);toastHandle=setTimeout(()=>el.classList.remove('visible'),canUndo?10000:3500);}
+ clearTimeout(toastHandle);toastHandle=setTimeout(()=>el.classList.remove('visible'),3500);}
 
 // CONFIRMED PHASE 1 RULES – interactive demonstration state, no backend.
 // Important distinction: provider message ID idempotency is permanent; the 24-hour window
@@ -445,13 +465,16 @@ const defaultContact=e=>({name:e.sender,email:e.address,registered:!!e.registere
 const currentSR=e=>{const l=e.links.slice().reverse().find(x=>x.type==='SR');return l?srRegistry[l.id]||null:Object.values(srRegistry).find(s=>s.email===e.id)||null;};
 const IB_CLIP='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5l-8.6 8.6a5 5 0 01-7.1-7.1l8.6-8.6a3.3 3.3 0 014.7 4.7l-8.6 8.6a1.7 1.7 0 01-2.4-2.4l7.9-7.9"/></svg>';
 function renderRows(){
- const q=document.querySelector('#search').value.toLowerCase(),s=document.querySelector('#statusFilter').value,asc=document.querySelector('#ibSort').value==='asc';
+ const q=document.querySelector('#search').value.toLowerCase(),asc=document.querySelector('#ibSort').value==='asc';
  const unreadN=emails.filter(e=>e.unread).length;
  document.querySelector('#ibUnreadPill').textContent=`${unreadN} unread`;
  document.querySelector('#ibCntAll').textContent=emails.length;document.querySelector('#ibCntUnread').textContent=unreadN;
+ const flagN=emails.filter(isFlagged).length;
+ document.querySelector('#ibCntFlag').textContent=flagN;
  document.querySelector('#ibMarkAll').disabled=!unreadN;
- [['all','#ibTabAll'],['unread','#ibTabUnread']].forEach(([t,sel])=>{const b=document.querySelector(sel);b.classList.toggle('ib-on',ibTab===t);b.setAttribute('aria-selected',String(ibTab===t));});
- const filtered=emails.filter(e=>(ibTab==='all'||e.unread||e.id===ibKeep)&&(s==='all'||statusOf(e)===s)&&[e.sender,e.address,e.subject,...e.links.map(l=>l.id)].join(' ').toLowerCase().includes(q))
+ [['all','#ibTabAll'],['unread','#ibTabUnread'],['flag','#ibTabFlag']].forEach(([t,sel])=>{const b=document.querySelector(sel);b.classList.toggle('ib-on',ibTab===t);b.setAttribute('aria-selected',String(ibTab===t));});
+ const inTab=e=>ibTab==='all'||e.id===ibKeep||(ibTab==='unread'&&e.unread)||(ibTab==='flag'&&isFlagged(e));
+ const filtered=emails.filter(e=>inTab(e)&&[e.sender,e.address,e.subject,...e.links.map(l=>l.id)].join(' ').toLowerCase().includes(q))
   .sort((a,b)=>(asc?1:-1)*((ibTime(a)-ibTime(b))||(a.id-b.id)));
  const ibSize=Number(document.querySelector('#ibSize').value)||10,total=filtered.length,pages=Math.max(1,Math.ceil(total/ibSize));ibPage=Math.min(Math.max(1,ibPage),pages);
  const first=(ibPage-1)*ibSize,shown=filtered.slice(first,first+ibSize);
@@ -462,9 +485,9 @@ function renderRows(){
  const monthN={};filtered.forEach(e=>{const m=ibMonth(e);monthN[m]=(monthN[m]||0)+1;}); // group header count = whole filtered month, not just this page
  const groups=[];shown.forEach(e=>{const m=ibMonth(e),g=groups[groups.length-1];if(g&&g.m===m)g.list.push(e);else groups.push({m,list:[e]});});
  const rowHtml=e=>{const cur=selected===e.id,att=e.attachments||[];
-  return `<div class="ib-row${e.unread?' ib-unread':''}${cur?' ib-current':''}" role="button" tabindex="0" data-id="${e.id}"${cur?' aria-current="true"':''} aria-label="${escapeHtml((e.unread?'Unread email from ':'Email from ')+e.sender+': '+e.subject+'. '+statusOf(e)+'. '+ibWhen(e))}" onclick="openPanel(${e.id})" onkeydown="psKey(event,()=>openPanel(${e.id}))">`
+  return `<div class="ib-row${e.unread?' ib-unread':''}${cur?' ib-current':''}" role="button" tabindex="0" data-id="${e.id}"${cur?' aria-current="true"':''} aria-label="${escapeHtml((e.unread?'Unread email from ':'Email from ')+e.sender+': '+e.subject+'. '+(isFlagged(e)?'Action needed. ':'')+(visibleLinks(e).length?'Linked to '+visibleLinks(e).map(l=>l.id).join(', ')+'. ':'')+ibWhen(e))}" onclick="openPanel(${e.id})" onkeydown="if(event.target===this)psKey(event,()=>openPanel(${e.id}))">`
   +`<span class="ib-gut">${e.unread?'<i class="ib-udot"></i>':''}</span><div class="ib-sender"><span class="ib-from" title="${escapeHtml(e.sender)}">${escapeHtml(e.sender)}</span><span class="ib-addr" title="${escapeHtml(e.address)}">${escapeHtml(e.address)}</span></div><div class="ib-main">`
-  +`<div class="ib-l2"><span class="ib-subj">${escapeHtml(e.subject)}</span>${ibBadge(statusOf(e))}</div>`
+  +`<div class="ib-l2"><span class="ib-subj">${escapeHtml(e.subject)}</span>${ibChips(e)}${ibFlag(e)}</div>`
   +(att.length?`<div class="ib-l3">${att.map(a=>`<span class="ib-att" title="${escapeHtml(a)}">${IB_CLIP}<span>${escapeHtml(a)}</span></span>`).join('')}</div>`:'')
   +`</div><span class="ib-date">${escapeHtml(ibWhen(e))}</span></div>`;};
  document.querySelector('#rows').innerHTML=groups.map(g=>`<div class="ib-group"><b>${escapeHtml(g.m)}</b> <span>· ${monthN[g.m]} email${monthN[g.m]===1?'':'s'}</span></div>`+g.list.map(rowHtml).join('')).join('')||'<div class="ib-empty">No emails match these filters.</div>';
@@ -486,7 +509,7 @@ function restoreSR(id,srId){let e=find(id),sr=srRegistry[srId]||currentSR(e);sr.
 function openSRRegister(){closePanel();const cards=Object.values(srRegistry).map(sr=>{const e=find(sr.email);return `<div class="sr-card"><div class="pills"><span class="badge ${sr.archived?'archived':'created'}">${sr.archived?'Archived':'Active'}</span></div><h3>${escapeHtml(sr.id)}</h3><p><b>${escapeHtml(sr.category)}</b> · ${escapeHtml(e?.fields?.['Strata Plan']||'Property not supplied')}</p><p class="muted">Site contact: ${escapeHtml(sr.contact)}</p><button class="btn mini" onclick="closeDialog();openRecord('${sr.id}')">View SR ↗</button></div>`}).join('');showDialog('Service Requests – Active and Archived',`<p class="help">Prototype of the existing Service Requests register, with a new archived-state view. Archiving an SR does not remove the source email from the Inbox.</p><div class="srgrid">${cards||'<p>No SR records yet</p>'}</div>`,[{label:'Close',run:'closeDialog()'}]);}
 function openAutomationSettings(){showDialog('Email Integration – Settings',`<div class="hint">These settings are independent of the existing Email Inbox synchronisation and AI Invoice Capture.</div><div class="field"><label><input type="checkbox" checked disabled style="width:auto"> Email Inbox synchronisation</label></div><div class="field"><label><input type="checkbox" checked disabled style="width:auto"> AI Invoice Capture (existing)</label></div><div class="field"><label><input type="checkbox" checked id="srAutoToggle" style="width:auto"> Automatically create Service Requests from eligible maintenance emails</label></div><p class="help">If switched off, incoming emails remain in the Inbox and the existing invoice workflow continues. Demonstration setting only.</p>`,[{label:'Cancel',run:'closeDialog()'},{label:'Save Configuration',primary:true,run:`saveSettings()`}]);}
 function saveSettings(){window.srAutomationEnabled=!!document.querySelector('#srAutoToggle').checked;closeDialog();toast('Email-to-SR automation '+(window.srAutomationEnabled?'enabled':'disabled')+' (demo configuration)');}
-document.querySelector('#search').addEventListener('input',ibFirst);document.querySelector('#statusFilter').addEventListener('change',ibFirst);document.querySelector('#ibSort').addEventListener('change',ibFirst);document.querySelector('#ibSize').addEventListener('change',ibFirst);document.addEventListener('click',e=>{if(!e.target.closest('#menu')&&!e.target.closest('.dots'))hideMenu();});document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(document.querySelector('#shade').classList.contains('visible'))closeDialog();else closePanel();}});renderRows();
+document.querySelector('#search').addEventListener('input',ibFirst);document.querySelector('#ibSort').addEventListener('change',ibFirst);document.querySelector('#ibSize').addEventListener('change',ibFirst);document.addEventListener('click',e=>{if(!e.target.closest('#menu')&&!e.target.closest('.dots'))hideMenu();});document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(document.querySelector('#shade').classList.contains('visible'))closeDialog();else closePanel();}});renderRows();
 
 /* Profile & Account Settings view (UI only, no persistence) */
 function psKey(e,fn){if(e.key==='Enter'||e.key===' '){e.preventDefault();fn();}}
