@@ -102,14 +102,17 @@ body{background:#f2f4f9;color:#333c45;font-family:Arial,Helvetica,sans-serif;fon
 .ib-tab.ib-on,.ib-tab.ib-on span{color:#1a6dff}.ib-tab.ib-on{border-bottom-color:#1a6dff}
 .ib-filters{display:flex;gap:8px;padding:6px 0;flex-wrap:wrap}.ib-filters select{height:28px;border:1px solid #d9dee6;border-radius:4px;background:#fff;font-size:11px;padding:0 8px;color:#333c45}
 .ib-group{background:#f5f7fa;padding:6px 16px;font-size:11px;color:#1d2433;border-bottom:1px solid #eef0f4}.ib-group b{font-weight:600}.ib-group span{color:#6b7480}
-.ib-row{display:grid;grid-template-columns:16px 220px minmax(0,1fr) auto;align-items:center;column-gap:14px;min-height:65px;padding:10px 16px 10px 8px;border-bottom:1px solid #eef0f4;background:#fff;cursor:pointer}
+.ib-row{display:grid;grid-template-columns:16px 220px minmax(0,1fr) 360px 96px;align-items:center;column-gap:14px;min-height:65px;padding:10px 16px 10px 8px;border-bottom:1px solid #eef0f4;background:#fff;cursor:pointer}
 .ib-row:hover{background:#f7f9fc}.ib-row.ib-unread{background:#f0f5ff}.ib-row.ib-unread:hover{background:#e8f0ff}
 .ib-row.ib-current,.ib-row.ib-current:hover{background:#e3edff;box-shadow:inset 3px 0 0 #1a6dff}.ib-row:focus-visible{outline:2px solid #1a6dff;outline-offset:-2px}
 .ib-gut{display:flex;justify-content:center;align-items:center}.ib-udot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#1a6dff}
 .ib-sender{display:flex;flex-direction:column;gap:3px;min-width:0;font-size:11px}.ib-from{font-weight:600;color:#1d2433;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ib-addr{color:#6b7480;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ib-main{min-width:0}
 .ib-l2{display:flex;align-items:center;gap:8px;min-width:0}.ib-subj{font-size:12.5px;color:#1d2433;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}.ib-unread .ib-subj{font-weight:700}
 .ib-st{flex:none;font-size:10px;font-weight:600;border-radius:3px;padding:2px 6px;white-space:nowrap}.ib-st-need{background:#fff4e5;color:#b4690e}
-.ib-chips{display:inline-flex;align-items:center;gap:4px;flex:none}
+.ib-links{display:flex;flex-wrap:wrap;align-items:center;gap:4px;min-width:0}
+@media(max-width:1280px){.ib-row{grid-template-columns:16px 200px minmax(0,1fr) 290px 96px}}
+@media(max-width:1150px){.ib-row{grid-template-columns:16px 160px minmax(0,1fr) 200px 96px}}
+@media(max-width:800px){.ib-row{grid-template-columns:16px 120px minmax(0,1fr) 170px 96px}}
 .ib-more{border:1px solid #dce0e5;background:#fff;border-radius:4px;font-size:10px;font-weight:700;color:#0b7bff;padding:2px 5px;cursor:pointer}
 @media(max-width:700px){.ib-l2{flex-wrap:wrap}}
 .ib-l3{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.ib-att{display:inline-flex;align-items:center;gap:4px;max-width:150px;border:1px solid #dfe3ea;border-radius:4px;padding:2px 6px;font-size:10px;color:#5b6470;background:#fff}
@@ -120,7 +123,7 @@ body{background:#f2f4f9;color:#333c45;font-family:Arial,Helvetica,sans-serif;fon
 .ib-pager{display:inline-flex;border:1px solid #dee2e6;border-radius:4px;overflow:hidden;background:#fff}.ib-pager button{border:0;border-left:1px solid #dee2e6;background:#fff;color:#1a6dff;font-size:12px;line-height:1;padding:7px 11px;min-width:32px}.ib-pager button:first-child{border-left:0}
 .ib-pager button:hover:not(:disabled):not(.ib-pg-on){background:#f0f5ff}.ib-pager button.ib-pg-on{background:#1a6dff;color:#fff;cursor:default}.ib-pager button:disabled{opacity:1;color:#8a929c;cursor:default}.ib-pager button:focus-visible{outline:2px solid #1a6dff;outline-offset:-3px}.ib-pager button.ib-pg-on:focus-visible{outline-color:#fff}
 .ib-size{display:inline-flex;align-items:center;gap:6px}.ib-size select{height:28px;border:1px solid #dee2e6;border-radius:4px;background:#fff;font-size:11px;padding:0 6px;color:#333c45}
-@media(max-width:700px){.ib-row{grid-template-columns:16px minmax(0,1fr) auto;column-gap:8px}.ib-gut,.ib-sender{grid-row:1}.ib-date{grid-column:3;grid-row:1;align-self:start}.ib-main{grid-column:2/4;grid-row:2;margin-top:6px}.ib-foot{display:flex;flex-direction:column;align-items:center}.ib-search{width:100%}.ib-tabsrow{padding:0 10px}.ib-top,.ib-foot{padding-left:10px;padding-right:10px}.ib-conn{margin-left:0;width:100%}}
+@media(max-width:700px){.ib-row{grid-template-columns:16px minmax(0,1fr) auto;column-gap:8px}.ib-gut,.ib-sender{grid-row:1}.ib-date{grid-column:3;grid-row:1;align-self:start}.ib-main{grid-column:2/4;grid-row:2;margin-top:6px}.ib-links{grid-column:2/4;grid-row:3;margin-top:6px}.ib-links:empty{display:none}.ib-foot{display:flex;flex-direction:column;align-items:center}.ib-search{width:100%}.ib-tabsrow{padding:0 10px}.ib-top,.ib-foot{padding-left:10px;padding-right:10px}.ib-conn{margin-left:0;width:100%}}
 /* Profile & Account Settings view (UI-only prototype) */
 .ps-hide{display:none!important}
 .nav.active[role="button"]:hover{background:#1679f5;color:white}
@@ -301,9 +304,9 @@ function linkBadge(l){return `<span class="badge ${l.status==='Converted'||l.sta
 const ACTIONS={'link-wo':'Link to Work Order','link-qr':'Link to Quote Request','create-qr':'Create Quote Request','create-wo':'Create Work Order','create-sr':'Create Service Request'};
 const SHORT={'create-qr':'Create QR','create-wo':'Create WO','create-sr':'Create Service Request','link-wo':'Link to WO','link-qr':'Link to QR'};
 function chip(l){return `<a href="#" class="rec" title="Open ${escapeHtml(l.id)}" onclick="event.preventDefault();event.stopPropagation();openRecord('${escapeHtml(l.id)}')"><span class="rt rt-${l.type}">${l.type}</span>${escapeHtml(l.id)}<span class="rrole">· ${escapeHtml(l.from?'from '+l.from:l.role)}</span></a>`;}
-// CR02 (PRD v3 s.6.1): first linked record as a chip, then +n (opens the panel at Linked records)
-function ibChips(e){const v=visibleLinks(e);if(!v.length)return '';
- return `<span class="ib-chips">${chip(v[0])}${v.length>1?`<button type="button" class="ib-more" title="Show all linked records" onclick="event.stopPropagation();openPanel(${e.id},'links')">+${v.length-1}</button>`:''}</span>`;}
+// CR03: up to 2 linked records (newest first) as chips, then +n (opens the panel at Linked records)
+function ibChips(e){const v=visibleLinks(e);
+ return v.slice(0,2).map(chip).join('')+(v.length>2?`<button type="button" class="ib-more" title="Show all linked records" onclick="event.stopPropagation();openPanel(${e.id},'links')">+${v.length-2}</button>`:'');}
 function actionCell(e){
  const rec=isFlagged(e)?e.recommended:null;
  const drop=rec
@@ -487,9 +490,9 @@ function renderRows(){
  const rowHtml=e=>{const cur=selected===e.id,att=e.attachments||[];
   return `<div class="ib-row${e.unread?' ib-unread':''}${cur?' ib-current':''}" role="button" tabindex="0" data-id="${e.id}"${cur?' aria-current="true"':''} aria-label="${escapeHtml((e.unread?'Unread email from ':'Email from ')+e.sender+': '+e.subject+'. '+(isFlagged(e)?'Action needed. ':'')+(visibleLinks(e).length?'Linked to '+visibleLinks(e).map(l=>l.id).join(', ')+'. ':'')+ibWhen(e))}" onclick="openPanel(${e.id})" onkeydown="if(event.target===this)psKey(event,()=>openPanel(${e.id}))">`
   +`<span class="ib-gut">${e.unread?'<i class="ib-udot"></i>':''}</span><div class="ib-sender"><span class="ib-from" title="${escapeHtml(e.sender)}">${escapeHtml(e.sender)}</span><span class="ib-addr" title="${escapeHtml(e.address)}">${escapeHtml(e.address)}</span></div><div class="ib-main">`
-  +`<div class="ib-l2"><span class="ib-subj">${escapeHtml(e.subject)}</span>${ibChips(e)}${ibFlag(e)}</div>`
+  +`<div class="ib-l2"><span class="ib-subj">${escapeHtml(e.subject)}</span>${ibFlag(e)}</div>`
   +(att.length?`<div class="ib-l3">${att.map(a=>`<span class="ib-att" title="${escapeHtml(a)}">${IB_CLIP}<span>${escapeHtml(a)}</span></span>`).join('')}</div>`:'')
-  +`</div><span class="ib-date">${escapeHtml(ibWhen(e))}</span></div>`;};
+  +`</div><div class="ib-links">${ibChips(e)}</div><span class="ib-date">${escapeHtml(ibWhen(e))}</span></div>`;};
  document.querySelector('#rows').innerHTML=groups.map(g=>`<div class="ib-group"><b>${escapeHtml(g.m)}</b> <span>· ${monthN[g.m]} email${monthN[g.m]===1?'':'s'}</span></div>`+g.list.map(rowHtml).join('')).join('')||'<div class="ib-empty">No emails match these filters.</div>';
 }
 function ibSetTab(t){ibTab=t;ibKeep=null;ibPage=1;renderRows();}
