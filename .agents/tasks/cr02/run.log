@@ -1,0 +1,152 @@
+PASS [table] default order (newest first) :: [12,11,1,2,3,4,5,6,7,8,9,10]
+PASS [3c] row aria-label reads flag and links :: Unread email from Tommy Gennusa: [MAINTENANCE REQUEST] Water leaking in Lot 12 – RESVU ESTATE. Action needed. Linked to SR0001. 29 Oct · 10:36 AM
+PASS [3c] email 9 aria-label has no status :: Email from Community Office: Swimming pool opening hours for summer. 10 Sep · 10:03 AM
+PASS [table] email 1: line 2 "WO WO619624 · Invoice", panel button "Actions ▾" :: line2="WO WO619624 · Invoice" btn="Actions ▾"
+PASS [check1] email 1: panel has no Done / No action status text
+PASS [table] email 2: line 2 "WO WO613048 · Invoice", panel button "Actions ▾" :: line2="WO WO613048 · Invoice" btn="Actions ▾"
+PASS [check1] email 2: panel has no Done / No action status text
+PASS [table] email 3: line 2 "SR SR0001 · Service Request + Action needed", panel button "✦Create QR" :: line2="SR SR0001 · Service Request + Action needed" btn="✦Create QR"
+PASS [check1] email 3: panel has no Done / No action status text
+PASS [table] email 4: line 2 "Action needed", panel button "✦Create WO" :: line2="Action needed" btn="✦Create WO"
+PASS [check1] email 4: panel has no Done / No action status text
+PASS [table] email 5: line 2 "Action needed", panel button "Actions ▾" :: line2="Action needed" btn="Actions ▾"
+PASS [check1] email 5: panel has no Done / No action status text
+PASS [table] email 6: line 2 "QR QR002215 · from SR0003", panel button "Actions ▾" :: line2="QR QR002215 · from SR0003" btn="Actions ▾"
+PASS [check1] email 6: panel has no Done / No action status text
+PASS [table] email 7: line 2 "WO WO609221 · Invoice", panel button "Actions ▾" :: line2="WO WO609221 · Invoice" btn="Actions ▾"
+PASS [check1] email 7: panel has no Done / No action status text
+PASS [table] email 8: line 2 "Action needed", panel button "✦Link to WO" :: line2="Action needed" btn="✦Link to WO"
+PASS [check1] email 8: panel has no Done / No action status text
+PASS [table] email 9: line 2 "", panel button "Actions ▾" :: line2="" btn="Actions ▾"
+PASS [check1] email 9: panel has no Done / No action status text
+PASS [table] email 10: line 2 "WO WO615003 · Invoice + Action needed", panel button "✦Create WO" :: line2="WO WO615003 · Invoice + Action needed" btn="✦Create WO"
+PASS [check1] email 10: panel has no Done / No action status text
+PASS [table] email 11: line 2 "QR QR002210 · Quote", panel button "Actions ▾" :: line2="QR QR002210 · Quote" btn="Actions ▾"
+PASS [check1] email 11: panel has no Done / No action status text
+PASS [table] email 12: line 2 "Action needed", panel button "✦Link to QR" :: line2="Action needed" btn="✦Link to QR"
+PASS [check1] email 12: panel has no Done / No action status text
+PASS [check1] list has no Done / No action text
+PASS [check1] #statusFilter removed
+PASS [check2] Action needed tab reads 6 :: 6
+PASS [check2] tab label
+PASS [check2] Action needed tab lists 12,3,4,5,8,10 :: [12,3,4,5,8,10]
+PASS [check2] tab aria-selected
+PASS [M1] row chip styled (border, QR tag purple/white, no underline) :: {"b":"1px solid","tbg":"rgb(123, 79, 216)","tc":"rgb(255, 255, 255)","dec":"none"}
+PASS [check3] click row chip opens record, not panel :: Quote Request – QR002210
+PASS [check3] Enter on row chip opens record, not panel :: Quote Request – QR002210
+PASS [check3] SR chip opens SR details :: Service Request – SR0001
+PASS [check3] email 10 after Create WO shows chip +1 :: WO WO620041 · from SR0005 + +1
+PASS [check3] click +1 opens panel at Linked records
+PASS [check3] Enter on +1 opens panel at Linked records
+PASS [check3] Space on +1 opens panel at Linked records
+PASS [check3] Enter on row still opens panel (M3 regression)
+PASS [check3] Space on row still opens panel
+PASS [V13] flagged email 5: AI-filled details editable
+PASS [V14] flagged email 5 footer hint "Choose an action"
+PASS [check4] AI line shows Change | Dismiss :: ["Change","|","Dismiss"]
+PASS [check4] Dismiss runs with no confirmation
+PASS [check4] toast "Email dismissed" with no Undo button :: Email dismissed
+PASS [check4] flag gone from row and panel header
+PASS [check4] dismissed line text :: Dismissed by Jane Thornton · 18/11/2026 · Flag again
+PASS [check4] Action needed count 5 :: 5
+PASS [check4] pending reason hidden while dismissed
+PASS [check4] AI line shows only Change while dismissed :: ["Change"]
+PASS [M2] Flag again styled as link; 14px gaps around dismissed line :: {"border":"none","color":"rgb(11, 123, 255)","ul":"underline","bg":"rgba(0, 0, 0, 0)","gapAbove":14,"gapBelow":14}
+PASS [check8] dismissed email 5: AI-filled details read-only
+PASS [check8] dismissed email 5: footer "No action needed", Actions ▾ :: No action needed / Actions ▾
+PASS [check8] dismissed email 5: ▾ menu has no Dismiss :: ["Link to Work Order","Link to Quote Request","Create Quote Request","Create Work Order","Create Service Request"]
+PASS [check4] toast visible at ~3.0 s, gone by ~3.9 s :: 3s=true 3.9s=false
+PASS [check5] Flag again: toast :: Email flagged again
+PASS [check5] Flag again: flag back in row and header, count 6 :: 6
+PASS [check5] Flag again: original reason restored :: ⚠ The AI could not identify what this email needs. Choose an action from the menu.
+PASS [check5] Flag again: dismissed line gone, Dismiss back on AI line
+PASS [check5] Flag again: details editable again
+PASS [tab-keep] dismissed email 5 stays listed in Action needed tab while panel open :: [12,3,4,5,8,10]
+PASS [tab-keep] after closing panel email 5 leaves the tab :: [12,3,4,8,10]
+PASS [V14] email 3 footer hint "Recommended by AI"
+PASS [check6] Dismiss (AI line) asks for confirmation :: ! SR0001 will be cancelled: no action needed. This email will no longer be flagged.
+PASS [check6] Cancel leaves SR0001 Open and email flagged
+PASS [check6] ▾ menu: Dismiss is last, below a divider :: ["Link to Work Order","Link to Quote Request","Create Quote Request ✦ Recommended","Create Work Order","Create Service Request Already created","Dismiss"]
+PASS [check6] ▾ menu: ✦ Recommended on Create QR, Dismiss not recommended :: ["Link to Work Order","Link to Quote Request","Create Quote Request ✦ Recommended","Create Work Order","Create Service Request Already created","Dismiss"]
+PASS [check1] ▾ menu has no Mark as Other
+PASS [check6] Dismiss (▾ menu) asks for confirmation :: ! SR0001 will be cancelled: no action needed. This email will no longer be flagged.
+PASS [check6] toast "SR0001 cancelled. Email dismissed" :: SR0001 cancelled. Email dismissed
+PASS [check6] SR0001 Cancelled in Linked records; flag cleared :: Cancelled
+PASS [check6] srRegistry SR0001 Cancelled
+PASS [D2] row chip for cancelled SR unchanged
+PASS [check6] SR details from chip shows Status Cancelled :: Existing SR review workflow (simulation) Service category is visible within this SR detail view. Archiving affects the SR record only, not this Inbox email. Service Request SR0001 Status Cancelled Strata Plan RESVU – ESTATE Lot Lot 12 Service Category Plumbing Site Contact Tommy Gennusa <tommy.gennusa@testdata.net.au> Issue Water leaking from bathroom ceiling in Lot 12. The problem started yesterday and is worsening. Source email [MAINTENANCE REQUEST] Water leaking in Lot 12 – RESVU ESTATE
+PASS [D1] Flag again: toast "Email flagged again"
+PASS [D1] Flag again: SR0001 Open in Linked records and srRegistry :: Open/Open
+PASS [D1] Flag again: flag, reason, recommendation restored :: ✦Create QR
+PASS [D1] SR details shows Status Open with Create QR/WO buttons :: Existing SR review workflow (simulation) Service category is visible within this SR detail view. Archiving affects the SR record only, not this Inbox email. Service Request SR0001 Status Open Strata Plan RESVU – ESTATE Lot Lot 12 Service Category Plumbing Site Contact Tommy Gennusa <tommy.gennusa@testdata.net.au> Issue Water leaking from bathroom ceiling in Lot 12. The problem started yesterday and is worsening. Source email [MAINTENANCE REQUEST] Water leaking in Lot 12 – RESVU ESTATE
+PASS [D1] Create QR form says "From Service Request SR0001"
+PASS [D1] row shows QR QR002217 · from SR0001, no flag :: QR QR002217 · from SR0001
+PASS [D1] no SR0005 created :: {"reg":false,"link":false}
+PASS [D1] SR0001 Converted, count 5
+PASS [check7] no confirmation (no open SR)
+PASS [check7] flag cleared; WO615003 · Invoice stays in row and Linked records :: WO WO615003 · Invoice
+PASS [check8] email 11: AI line only Change :: ["Change"]
+PASS [check8] email 11 ▾ menu: no Dismiss, no ✦ Recommended :: ["Link to Work Order","Link to Quote Request","Create Quote Request","Create Work Order","Create Service Request"]
+PASS [check8] email 11 Add link menu: no Dismiss :: ["Link to Work Order","Link to Quote Request","Create Quote Request","Create Work Order","Create Service Request"]
+PASS [check8] email 6: AI-filled details read-only
+PASS [check8] dismissed email 12: footer Actions ▾, hint No action needed :: Actions ▾
+PASS [check8] dismissed email 12: ▾ menu has no ✦ and no Dismiss :: ["Link to Work Order","Link to Quote Request","Create Quote Request","Create Work Order","Create Service Request"]
+PASS [check8] dismissed email 12: Change menu has no ✦ and no Dismiss :: ["Link to Work Order","Link to Quote Request","Create Quote Request","Create Work Order","Create Service Request"]
+PASS [seed9] email 9 AI text and why :: No request, invoice or quote found in this email. Change
+PASS [seed9] email 9: no flag, footer No action needed / Actions ▾, AI line only Change
+PASS [seed9] email 9 Change opens 5-item add menu, no Dismiss / Other :: ["Link to Work Order","Link to Quote Request","Create Quote Request","Create Work Order","Create Service Request"]
+PASS [check9] row shows QR QR002217 · from SR0001 with no flag :: QR QR002217 · from SR0001
+PASS [check9] Action needed count 6 → 5
+PASS [check9] toast has no Undo :: QR002217 submitted
+PASS [check10] after Link to WO the dismissed line disappears
+PASS [check10] row shows WO WO615003 · Invoice, no flag; count 5 :: WO WO615003 · Invoice
+PASS [check10] toast "Linked to WO615003", no Undo
+PASS [check10] Remove last link on dismissed email clears dismissal and re-flags :: Link to WO615003 removed
+PASS [settings] sign-in buttons shown first
+PASS [check11] AI Automation labels :: {"h":"AI Automation","sr":"Service request creation","srd":"Create Service Requests from maintenance emails and recommend QR or WO.","q":"Link to Quote","i":"Link to Invoice","checked":[true,true,true]}
+PASS [settings] Microsoft connected state
+PASS [settings] 3 AI options in one row at 1440 :: [494,494,494]
+PASS [settings] folders multiselect opens
+PASS [settings] folders: unchecking Archive leaves Inbox + Sent Items :: Inbox × Sent Items ×
+PASS [settings] Disconnect returns to sign-in buttons
+PASS [settings] Google connected state
+PASS [regression] page 1: Showing 1 to 10 of 12; groups
+PASS [regression] Enter on Next → page 2, focus kept in pager :: Showing 11 to 12 of 12 entries
+PASS [regression] 25 per page → one page
+PASS [regression] tab change resets to page 1 :: Showing 1 to 6 of 6 entries
+PASS [regression] Unread tab 4 entries
+PASS [regression] opened unread email stays listed while panel open
+PASS [regression] after close it leaves Unread tab
+PASS [regression] search sender
+PASS [regression] search subject
+PASS [regression] search by record id :: [8,10]
+PASS [regression] search by SR id
+PASS [regression] sort oldest first
+PASS [regression] Mark all as read: pill 0, button disabled
+PASS [regression] SR register opens with 2 cards
+PASS [regression] View SR opens SR details
+PASS [regression] sidebar Email Integration dialog
+PASS [regression] Work Orders All iframe loads
+PASS [regression] Future & Recurring
+PASS [regression] Calendar
+PASS [regression] back to Inbox
+PASS [responsive] 390px list: no horizontal scroll :: 390/390
+PASS [responsive] 390px tabs fit without overflow :: {"ov":true,"right":true}
+PASS [responsive] 390px: .ib-l2 wraps; email 3 chip below subject :: {"wrap":"wrap","sTop":866,"sBot":880,"cTop":888,"fTop":891,"cRight":246,"lRight":364}
+PASS [responsive] 390px panel open: no horizontal scroll
+PASS [responsive] 390px toast sits above the panel footer :: {"tBot":790,"fTop":798,"tRight":365,"pLeft":8}
+PASS [responsive] 390px dismissed panel: no horizontal scroll
+PASS [responsive] 390px settings: no horizontal scroll
+PASS [responsive] 700px list: no horizontal scroll :: 700/700
+PASS [responsive] 700px tabs fit without overflow :: {"ov":true,"right":true}
+PASS [responsive] 700px: .ib-l2 wraps; email 3 chip below subject :: {"wrap":"wrap","sTop":770,"sBot":784,"cTop":792,"fTop":795,"cRight":261,"lRight":674}
+PASS [responsive] 700px panel open: no horizontal scroll
+PASS [responsive] 700px toast sits above the panel footer :: {"tBot":790,"fTop":798,"tRight":675,"pLeft":120}
+PASS [responsive] 1440px list: no horizontal scroll :: 1440/1440
+PASS [responsive] 1440px tabs fit without overflow :: {"ov":true,"right":true}
+PASS [responsive] 1440px: email 3 subject, chip and flag on one line :: {"wrap":"nowrap","sTop":554,"sBot":568,"cTop":551,"fTop":553,"cRight":1094,"lRight":1299}
+PASS [responsive] 1440px panel open: no horizontal scroll
+PASS [responsive] 1440px toast offset left of the panel :: {"tBot":824,"fTop":798,"tRight":829,"pLeft":845}
+PASS [errors] no page errors / console errors :: []
+
+150/150 passed

@@ -1,0 +1,42 @@
+## G1
+exit=1
+## G2
+exit=1
+## G3
+300:function linkBadge(l){return `<span class="badge ${l.status==='Converted'||l.status==='Cancelled'?'other':'linked'}">${escapeHtml(l.status)}</span>`;}
+438: document.querySelector('#lk-results').innerHTML=opts.map(([rid,prop,st])=>{const dis=used.includes(rid),chk=!dis&&first;if(chk)first=false;return `<label class="opt"><input type="radio" name="lk" value="${rid}"${dis
+exit=0
+## G4
+11
+## G5
+335: +`<div class="panelfoot"><span class="small muted">${fl&&e.recommended?'Rec
+## G6
+272:L('SR','SR0001','Service Request','Open','AI · 29/10/2026')
+275:L('SR','SR0003','Service Request','Converted','AI · 21/09/2026')
+375:L('SR',sid,'Service Request','Open',ME+' · '+TODAY)
+420:L('SR',sid,'Service Request','Open',ME+' · '+TODAY)
+## G7
+exit=0
+## G8
+59:#panel .ai .change,#panel .dismissed .change{border:0;background:none;color:
+61:.dismissed{margin:0 0 14px;padding:8px 10px;border
+288: a purpose is open and the email is not dismissed.
+289:const isFlagged=e=>!!e.pending&&!e.dismissed;
+328:topPropagation();dismissEmail(${e.id})">Dismiss</button>`:'');
+329: const dis=e.dismissed?`<div class="dismissed">Dismissed by ${escapeHtml(e.dismissed.
+329:by)} · ${escapeHtml(e.dismissed.date)} · <button type="button" class="c
+329:hange" onclick="event.stopPropagation();flagAgain(${e.id})">Flag again</button></div>`:''
+348:topPropagation();dismissEmail(${e.id})">Dismiss</button>`:'');
+376:  Object.assign(e,{dismissed:null,pending:'Create a Quote Request or
+378:// CR02 (PRD v3 s.3.1): Dismiss follows the flag. It clears the open pu
+381:l:'Cancel',run:'closeDialog()'},{label:'Dismiss',primary:true,run:`closeDialog();doDism
+382: doDismiss(e.id);}
+383:function doDismiss(id){const e=find(id),sr=e.links.find(l=
+385: e.dismissed={by:ME,date:TODAY,pending:e.pending,rec
+386:esh();toast(sr?sr.id+' cancelled. Email dismissed':'Email dismissed');}
+387:// Flag again fully reverses Dismiss, including reopening an SR that Dismiss
+388:function flagAgain(id){const e=find(id),d=e.dismissed;if(!
+390:e an action.',recommended:d.recommended,dismissed:null});
+395: if(!e.links.length)Object.assign(e,{dismissed:null,pending:'All links removed. Choose
+425: Object.assign(e,{dismissed:null,pending:null,recommended:null,ai:'
+443: Object.assign(e,{dismissed:null,pending:null,recommended:null,ai:'
