@@ -84,6 +84,7 @@ body{background:#f2f4f9;color:#333c45;font-family:Arial,Helvetica,sans-serif;fon
 #panel .th-who{min-width:0;font-size:12px;line-height:1.45;overflow-wrap:break-word}
 #panel .th-from b{color:#1d2433}
 #panel .th-addr,#panel .th-you{color:#6b7480}
+#panel .th-em{display:inline-block;max-width:100%}#panel .th-nw{white-space:nowrap}
 #panel .th-line{color:#6b7480;font-size:11px}
 #panel .th-date{font-size:11px;color:#6b7480;white-space:nowrap;padding-top:1px}
 #panel .th-body{margin:10px 0 0 38px}
@@ -91,17 +92,21 @@ body{background:#f2f4f9;color:#333c45;font-family:Arial,Helvetica,sans-serif;fon
 #panel .th-atth{display:flex;justify-content:space-between;align-items:center;gap:10px}
 #panel .th-dlall{border:0;background:none;color:#0b7bff;font-weight:700;font-size:11px;padding:2px 0;cursor:pointer}
 #panel .th-dlall:hover{text-decoration:underline}
-#panel .th-att{margin-top:8px;padding:6px 8px 6px 10px}
-#panel .th-aname{min-width:0;overflow-wrap:anywhere}
-#panel .th-btns{display:flex;gap:6px;flex:none}
-#panel .th-ico{position:relative;width:28px;height:28px;border:1px solid #c9d2dd;background:#fff;border-radius:4px;color:#344c64;display:flex;align-items:center;justify-content:center;padding:0;font-size:14px;line-height:1}
+#panel .th-agrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:8px}
+#panel .th-att{min-width:0;height:30px;padding:0 3px 0 7px;gap:5px}
+#panel .th-clip{flex:none;font-size:11px;line-height:1}
+#panel .th-aname{min-width:0;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11px;line-height:1.3}
+#panel .th-btns{display:flex;gap:3px;flex:none}
+#panel .th-ico{position:relative;width:22px;height:22px;border:1px solid #c9d2dd;background:#fff;border-radius:4px;color:#344c64;display:flex;align-items:center;justify-content:center;padding:0;font-size:12px;line-height:1}
 #panel .th-ico:hover{background:#eef4fd;border-color:#0b7bff;color:#0b7bff}
 #panel .th-ico:focus-visible{outline:2px solid #1a6dff;outline-offset:1px}
-#panel .th-ico svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-#panel .th-ico::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#25313d;color:#fff;font-size:10px;font-weight:600;padding:4px 7px;border-radius:3px;white-space:nowrap;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .12s;z-index:3}
+#panel .th-ico svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#panel .th-ico::after{content:attr(data-tip);position:absolute;top:calc(100% + 5px);left:50%;transform:translateX(-50%);background:#25313d;color:#fff;font-size:10px;font-weight:600;padding:4px 7px;border-radius:3px;white-space:nowrap;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .12s;z-index:3}
 #panel .th-ico:last-child::after{left:auto;right:0;transform:none}
+#panel .th-ico.th-up::after{top:auto;bottom:calc(100% + 5px)}
 #panel .th-ico:hover::after,#panel .th-ico:focus-visible::after{opacity:1;visibility:visible}
-@media(max-width:650px){#panel .ph-bar,#panel .ph-sub{padding-left:12px;padding-right:12px}#panel .th-list{padding:8px}#panel .th-body,#panel .th-atts{margin-left:0}#panel .th-head{grid-template-columns:minmax(0,1fr) auto}#panel .th-av{display:none}}
+@media(max-width:650px){#panel .ph-bar,#panel .ph-sub{padding-left:12px;padding-right:12px}#panel .th-list{padding:8px}#panel .th-body,#panel .th-atts{margin-left:0}#panel .th-head{grid-template-columns:minmax(0,1fr) auto}#panel .th-av{display:none}#panel .th-agrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){#panel .th-agrid{grid-template-columns:minmax(0,1fr)}}
 .ib-fromrow{display:flex;align-items:baseline;gap:6px;min-width:0}.ib-fromrow .ib-from{min-width:0}.ib-tc{flex:none;font-size:11px;color:#8a929c;font-weight:400}
 #panel .kebab{border:1px solid #dce0e5;background:#fff;border-radius:4px;padding:2px 8px}
 #panel .pending{padding:9px 10px;background:#fff5e8;color:#916020;border-bottom:1px solid #e8ebef}
@@ -356,13 +361,17 @@ const MAILBOX='developer@i4tglobal.onmicrosoft.com';
 const threadOf=e=>e.thread&&e.thread.length?e.thread:[{fromName:e.sender,from:e.address,to:[MAILBOX],cc:[],date:e.date,body:e.body,attachments:e.attachments||[]}];
 emails.forEach(e=>{if(e.thread)e.attachments=[...new Set(e.thread.flatMap(m=>m.attachments||[]))];});
 const TH_DL='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M4 16v4h16v-4"/></svg>';
-function thMsg(m){const me=m.from===MAILBOX,att=m.attachments||[],list=a=>a.map(escapeHtml).join(', ');
+// Addresses wrap only before '<' or after '@': the whole address moves to the next line when it fits, otherwise it breaks at the <wbr> after '@'.
+const thAddr=s=>String(s).split(/(<?[^\s<>@,]+@[^\s<>,]+>?)/).map((p,i)=>{if(!(i%2))return escapeHtml(p);const k=p.indexOf('@')+1;return `<span class="th-em"><span class="th-nw">${escapeHtml(p.slice(0,k))}</span><wbr><span class="th-nw">${escapeHtml(p.slice(k))}</span></span>`;}).join('');
+// Attachment tooltips sit below the button; flip above when there is no room below inside the thread scroller.
+function thTip(b){const l=b.closest('.th-list');if(l)b.classList.toggle('th-up',b.getBoundingClientRect().bottom+28>l.getBoundingClientRect().top+l.clientTop+l.clientHeight);}
+function thMsg(m){const me=m.from===MAILBOX,att=m.attachments||[],list=a=>a.map(thAddr).join(', ');
  return `<article class="th-msg${me?' th-me':''}"><div class="th-head"><span class="th-av" aria-hidden="true">${escapeHtml((m.fromName||m.from).charAt(0).toUpperCase())}</span>`
- +`<div class="th-who"><div class="th-from"><b>${escapeHtml(m.fromName)}</b>${me?' <span class="th-you">(you)</span>':''} <span class="th-addr">&lt;${escapeHtml(m.from)}&gt;</span></div>`
+ +`<div class="th-who"><div class="th-from"><b>${escapeHtml(m.fromName)}</b>${me?' <span class="th-you">(you)</span>':''} <span class="th-addr">${thAddr('<'+m.from+'>')}</span></div>`
  +`<div class="th-line">to ${list(m.to||[])}</div>${(m.cc||[]).length?`<div class="th-line">Cc ${list(m.cc)}</div>`:''}</div>`
  +`<time class="th-date">${escapeHtml(m.date)}</time></div><div class="message th-body">${escapeHtml(m.body)}</div>`
- +(att.length?`<div class="th-atts"><div class="th-atth"><strong>Attachments (${att.length})</strong><button type="button" class="th-dlall" onclick="event.stopPropagation();attDownloadAll(${att.length})">Download All</button></div>`
-  +att.map(a=>`<div class="attachment th-att"><span class="th-aname">📎 ${escapeHtml(a)}</span><span class="th-btns"><button type="button" class="th-ico" data-tip="Download" aria-label="Download ${escapeHtml(a)}" data-f="${escapeHtml(a)}" onclick="event.stopPropagation();attDownload(this.dataset.f)">${TH_DL}</button><button type="button" class="th-ico" data-tip="Preview" aria-label="Preview ${escapeHtml(a)}" data-f="${escapeHtml(a)}" onclick="event.stopPropagation();attPreview(this.dataset.f)"><span aria-hidden="true">↗</span></button></span></div>`).join('')+'</div>':'')
+ +(att.length?`<div class="th-atts"><div class="th-atth"><strong>Attachments (${att.length})</strong><button type="button" class="th-dlall" onclick="event.stopPropagation();attDownloadAll(${att.length})">Download All</button></div><div class="th-agrid">`
+  +att.map(a=>`<div class="attachment th-att"><span class="th-clip" aria-hidden="true">📎</span><span class="th-aname" title="${escapeHtml(a)}">${escapeHtml(a)}</span><span class="th-btns"><button type="button" class="th-ico" data-tip="Download" aria-label="Download ${escapeHtml(a)}" data-f="${escapeHtml(a)}" onmouseenter="thTip(this)" onfocus="thTip(this)" onclick="event.stopPropagation();attDownload(this.dataset.f)">${TH_DL}</button><button type="button" class="th-ico" data-tip="Preview" aria-label="Preview ${escapeHtml(a)}" data-f="${escapeHtml(a)}" onmouseenter="thTip(this)" onfocus="thTip(this)" onclick="event.stopPropagation();attPreview(this.dataset.f)"><span aria-hidden="true">↗</span></button></span></div>`).join('')+'</div></div>':'')
  +'</article>';}
 function thMarkup(e){const t=threadOf(e);return `<div class="section" id="threadBox"><h3>✉ &nbsp; Email thread (${t.length})</h3><div class="th-list" role="region" tabindex="0" aria-label="Email thread, newest first">${t.slice().reverse().map(thMsg).join('')}</div></div>`;}
 // CR05: prototype attachments. Download saves a small text placeholder named after the file; Preview opens a sample page in a new tab.
