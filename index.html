@@ -306,6 +306,108 @@ textarea.nwo-in{height:88px;padding:8px;resize:vertical}.nwo-in::placeholder{col
 #panel .nwo-ail .ok{color:#17a34a;font-weight:700}#panel .nwo-ail .no{color:#b26b00;font-weight:700}#panel .nwo-ail .todo .v{color:#916020}
 #panel .nwo-ailh{margin-top:10px;font-size:11px;font-weight:700;color:#344254}
 @media(max-width:800px){.nwo-grid2,.nwo-grid3{grid-template-columns:1fr}.nwo-w1,.nwo-w2{width:100%}}
+/* Link to QR modal (lqr-): in-page overlay, Quote Request selector, attachment tiles, document preview */
+body.lqr-lock{overflow:hidden}
+.lqr-shade{position:fixed;inset:0;z-index:120;background:#0b162866;display:flex;align-items:center;justify-content:center;padding:20px}
+.lqr-shade[hidden]{display:none}
+.lqr-modal{display:flex;flex-direction:column;width:min(1000px,100%);height:min(90vh,100%);background:#fff;border-radius:4px;box-shadow:0 15px 60px #11182760;overflow:hidden;outline:none;color:#25313d}
+.lqr-modal svg{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lqr-modal svg.lqr-ico{stroke:none}
+.lqr-head{flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px 9px 18px;background:#f1f2f4;border-bottom:1px solid #dfe3e8}
+.lqr-head h2{margin:0;font-size:16px;font-weight:700;color:#25313d}
+.lqr-x{width:32px;height:32px;border:0;border-radius:50%;background:none;color:#25313d;font-size:24px;line-height:1}
+.lqr-x:hover{background:#e2e6eb}
+.lqr-modal button:focus-visible,.lqr-modal input:focus-visible,.lqr-scroll:focus-visible{outline:2px solid #1a6dff;outline-offset:1px}
+.lqr-body{flex:1;min-height:0;display:flex;flex-direction:column;gap:14px;padding:16px 18px;overflow:auto;overscroll-behavior:contain}
+.lqr-top{flex:none;display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.lqr-fld{width:320px;max-width:100%}
+.lqr-lab{display:flex;align-items:center;gap:8px;min-height:20px;margin:0 0 5px;font-size:12px;font-weight:500;color:#25313d}
+.lqr-req{color:#d92d20}
+.lqr-aitag{display:inline-flex;align-items:center;gap:4px;padding:1px 6px;border:1px solid #d9d1f6;border-radius:3px;background:#f2effd;color:#6a4fd8;font-size:10px;font-weight:600;white-space:nowrap}
+.lqr-combo{position:relative}
+.lqr-sel{display:flex;align-items:stretch;min-height:48px;border:1px solid #c9d2dd;border-radius:4px;background:#fff}
+.lqr-sel:hover{border-color:#087bfa}
+.lqr-selbtn{flex:1;min-width:0;display:block;padding:6px 4px 6px 9px;border:0;border-radius:4px 0 0 4px;background:none;color:inherit;text-align:left}
+.lqr-l1{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:12.5px;color:#1d2433}.lqr-l1 b{margin-right:6px}
+.lqr-l2{display:flex;align-items:center;gap:4px;margin-top:3px;overflow:hidden;white-space:nowrap;font-size:11px;color:#6b7480}
+.lqr-l2 svg{flex:none;width:12px;height:12px}.lqr-l2 span{min-width:0;overflow:hidden;text-overflow:ellipsis}.lqr-l2 span:first-of-type{flex:none;max-width:45%;margin-right:6px}
+.lqr-clear{flex:none;width:32px;border:0;border-radius:0 4px 4px 0;background:none;color:#6b7480;font-size:18px}
+.lqr-clear:hover{background:#f7f8fa;color:#d92d20}
+.lqr-search{position:relative}
+.lqr-search svg{position:absolute;left:10px;top:17px;width:14px;height:14px;color:#6b7480}
+.lqr-search input{width:100%;height:48px;padding:0 10px 0 31px;border:1px solid #c9d2dd;border-radius:4px;background:#fff;font-size:12px;color:#1d2433}
+.lqr-search input:focus{outline:none;border-color:#087bfa;box-shadow:0 0 0 2px #9cc6ff80}
+.lqr-search input::placeholder{color:#8a929c}
+.lqr-list{position:absolute;z-index:5;left:0;right:0;top:calc(100% + 3px);max-height:290px;margin:0;padding:4px 0;overflow-y:auto;list-style:none;background:#fff;border:1px solid #c9d2dd;border-radius:4px;box-shadow:0 6px 18px #0003}
+.lqr-list[hidden]{display:none}
+.lqr-opt{padding:7px 10px;cursor:pointer}
+.lqr-opt:hover,.lqr-opt.lqr-act{background:#eaf2fd}
+.lqr-opt.lqr-dis{background:#fafafa;cursor:not-allowed}
+.lqr-o1{display:flex;align-items:baseline;gap:6px;font-size:12px;color:#1d2433}.lqr-o1 b{flex:none}
+.lqr-dis .lqr-o1,.lqr-dis .lqr-o2{color:#9aa1aa}
+.lqr-o2{display:block;margin-top:2px;font-size:11px;color:#6b7480}
+.lqr-used{flex:none;margin-left:auto;padding:1px 6px;border-radius:3px;background:#e5e7eb;color:#4b5563;font-size:10px;white-space:nowrap}
+.lqr-none{padding:10px;font-size:12px;color:#6b7480}
+.lqr-view{display:inline-flex;align-items:center;gap:6px;height:34px;margin-bottom:7px;padding:0 16px;border:0;border-radius:17px;background:#087bfa;color:#fff;font-size:12px;font-weight:600}
+.lqr-view svg{width:15px;height:15px}.lqr-view:hover:not(:disabled){filter:brightness(.93)}
+.lqr-strip{flex:none;display:flex;align-items:flex-start;gap:12px;padding:12px;overflow-x:auto;overscroll-behavior-x:contain;background:#f3f4f6;border-radius:4px}
+.lqr-tile{position:relative;flex:none;width:87px}
+.lqr-tbtn{display:block;width:100%;padding:0;border:0;background:none;color:inherit}
+.lqr-thumb{display:flex;align-items:center;justify-content:center;width:87px;height:85px;border:2px solid #dfe3e8;border-radius:4px;background:#fff}
+.lqr-tbtn:hover .lqr-thumb{border-color:#9cc6ff}.lqr-on .lqr-thumb,.lqr-on .lqr-tbtn:hover .lqr-thumb{border-color:#087bfa}
+.lqr-thumb .lqr-ico{width:36px;height:42px}
+.lqr-k-img{background:#e9edf2 repeating-linear-gradient(45deg,#e1e6ec 0 6px,#eef1f5 6px 12px)}.lqr-k-img .lqr-ico{width:46px;height:38px}
+.lqr-tname{display:block;margin-top:5px;padding:2px 4px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;border:1px solid #d5dae1;border-radius:3px;background:#fff;font-size:10px;text-align:center}
+.lqr-chk{position:absolute;top:6px;right:6px;width:15px;height:15px;margin:0;accent-color:#087bfa;cursor:pointer}
+.lqr-tag{position:absolute;top:6px;left:6px;z-index:1;padding:2px 5px;border-radius:3px;background:#25313d;color:#fff;font-size:9px;font-weight:700;pointer-events:none}
+.lqr-up{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:170px;height:85px;margin-left:auto;border:2px dashed #087bfa;border-radius:5px;background:#fff;color:#25313d;font-size:13px}
+.lqr-up svg{width:20px;height:20px;color:#087bfa}.lqr-up small{font-size:9.5px;color:#6b7480}.lqr-up:hover{background:#f7fbff}
+.lqr-viewer{flex:1 0 380px;display:flex;min-height:380px;border:1px solid #dfe3e8;border-radius:4px;overflow:hidden}
+.lqr-thumbs{flex:none;width:150px;display:flex;flex-direction:column;align-items:center;gap:12px;padding:12px 0;overflow-y:auto;background:#eef0f3;border-right:1px solid #dfe3e8}
+.lqr-thumbs:empty{display:none}
+.lqr-pg{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px}
+.lqr-mini{border:2px solid transparent;border-radius:2px;background:#fff;box-shadow:0 1px 3px #0002}
+.lqr-mini .lqr-page{margin:0;font-size:2px;box-shadow:none}
+.lqr-pg.lqr-on .lqr-mini{border-color:#087bfa}
+.lqr-pgb{padding:0 6px;border:0;border-radius:3px;background:none;color:#4d5660;font-size:11px}
+.lqr-pgb::after{content:"";position:absolute;inset:0}
+.lqr-pg.lqr-on .lqr-pgb{background:#087bfa;color:#fff;font-weight:700}
+.lqr-pane{position:relative;flex:1;min-width:0;background:#d9dde3}
+.lqr-tools{position:absolute;top:10px;left:50%;z-index:2;display:flex;align-items:center;gap:2px;padding:3px 6px;transform:translateX(-50%);background:#2d3640;color:#fff;border-radius:5px;box-shadow:0 2px 8px #0004}
+.lqr-tools button{display:flex;align-items:center;justify-content:center;width:28px;height:26px;padding:0;border:0;border-radius:3px;background:none;color:#fff}
+.lqr-tools button:hover:not(:disabled){background:#ffffff26}.lqr-tools svg{width:15px;height:15px}
+.lqr-zv{min-width:42px;font-size:11px;text-align:center}
+.lqr-tsep{width:1px;height:16px;margin:0 4px;background:#ffffff40}
+.lqr-scroll{position:absolute;inset:0;padding:54px 20px 24px;overflow:auto;overscroll-behavior:contain}
+.lqr-scroll .lqr-page{font-size:calc(10px*var(--z,1))}
+.lqr-page{position:relative;width:56em;min-height:79em;margin:0 auto 2em;padding:4.5em 4.5em 5em;background:#fff;box-shadow:0 1px 4px #0003;color:#25313d;line-height:1.45}
+.lqr-page.lqr-ipage{min-height:42em;padding:0}
+.lqr-dh{display:flex;justify-content:space-between;align-items:flex-start;gap:2em;margin-bottom:2em;padding-bottom:1.6em;border-bottom:.25em solid #1a6dff}
+.lqr-dfrom{display:flex;gap:1.2em;font-size:1.05em}.lqr-dfrom b{font-size:1.3em}
+.lqr-dlogo{flex:none;display:flex;align-items:center;justify-content:center;width:3.4em;height:3.4em;border-radius:.6em;background:#f36f19;color:#fff;font-size:1.3em;font-weight:700}
+.lqr-dt{font-size:2.2em;font-weight:700;letter-spacing:.06em;color:#1d2433;text-align:right}.lqr-dt small{display:block;font-size:.5em;letter-spacing:0;color:#6b7480}
+.lqr-dmeta{display:flex;justify-content:space-between;gap:3em;margin-bottom:2.4em;font-size:1.1em}
+.lqr-dkv{display:grid;grid-template-columns:auto auto;gap:.35em 1.6em}.lqr-dkv span,.lqr-dto span{color:#6b7480}
+.lqr-dto{display:flex;flex-direction:column;max-width:20em;text-align:right}
+.lqr-dtbl{width:100%;border-collapse:collapse;font-size:1.1em}
+.lqr-dtbl th{padding:.6em .8em;background:#1a6dff;color:#fff;font-weight:600;text-align:left}
+.lqr-dtbl td{padding:.7em .8em;border-bottom:.1em solid #e3e7ee}
+.lqr-dtbl th:not(:first-child),.lqr-dtbl td:not(:first-child){text-align:right;white-space:nowrap}
+.lqr-dsum{display:grid;grid-template-columns:auto 9em;gap:.5em 1.6em;justify-content:end;margin-top:1.6em;font-size:1.1em;text-align:right}
+.lqr-dsum span{color:#6b7480}.lqr-dsum .lqr-dtot{padding-top:.5em;border-top:.15em solid #25313d;color:#1d2433;font-size:1.15em;font-weight:700}
+.lqr-dh3{margin:0 0 .8em;font-size:1.4em}
+.lqr-dl{margin:0 0 2em;padding-left:1.6em;font-size:1.1em}.lqr-dl li{margin-bottom:.5em}
+.lqr-dp{margin:0 0 1.2em;font-size:1.1em}
+.lqr-dsign{display:grid;grid-template-columns:2fr 2fr 1fr;gap:2em;margin-top:5em;font-size:1.05em;color:#6b7480}.lqr-dsign span{padding-top:.6em;border-top:.1em solid #8a929c}
+.lqr-pfoot{position:absolute;left:4.5em;right:4.5em;bottom:2em;margin:0;font-size:.95em;color:#8a929c;text-align:center}
+.lqr-pimg{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8em;min-height:35em;background:#e9edf2 repeating-linear-gradient(45deg,#e1e6ec 0 1.2em,#eef1f5 1.2em 2.4em);font-size:1.2em;color:#4d5660}
+.lqr-pimg .lqr-ico{width:9em;height:7.5em}.lqr-pimg small{font-size:.85em;color:#6b7480}
+.lqr-na{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:100%;padding:20px;text-align:center;color:#4d5660}
+.lqr-na .lqr-ico{width:44px;height:52px}.lqr-na b{font-size:14px;color:#25313d}.lqr-na span{max-width:360px;font-size:12px}
+.lqr-foot{flex:none;display:flex;justify-content:flex-end;gap:8px;padding:10px 18px;background:#f1f2f4;border-top:1px solid #dfe3e8}
+.lqr-submit{min-width:110px;padding:9px 26px;border:0;border-radius:17px;background:#087bfa;color:#fff;font-size:12px;font-weight:700}
+.lqr-submit:hover:not(:disabled){filter:brightness(.93)}
+@media(max-width:700px){.lqr-shade{padding:0}.lqr-modal{width:100%;height:100%;border-radius:0}.lqr-body{padding:12px}.lqr-fld{width:100%}.lqr-view{margin-bottom:0}.lqr-thumbs{display:none}.lqr-viewer{flex-basis:440px;min-height:440px}.lqr-scroll{padding:50px 10px 16px}.lqr-foot{padding:10px 12px}}
 </style>
 </head><body>
 <header class="top"><span class="hamb">☰</span><span class="logo"><em>i4T</em>Maintenance</span><span class="brand-note">Strata&nbsp; | &nbsp;<b>iREALTY</b></span><span class="topspacer"></span><span style="font-size:17px">♧</span><span class="avatar"></span><span class="username"><b>Jane Thornton</b></span><span class="role">Manager | Administrator | Compliance Manager</span><span class="ps-gear" style="font-size:19px" onclick="showSettings()" onkeydown="psKey(event,showSettings)" role="button" tabindex="0" title="Profile &amp; Account Settings" aria-label="Profile &amp; Account Settings">⚙</span></header>
@@ -355,7 +457,7 @@ textarea.nwo-in{height:88px;padding:8px;resize:vertical}.nwo-in::placeholder{col
 <div class="ps-card"><h3 class="ps-h ps-attn-h">For Your Attention</h3><div class="ps-empty"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>No Data Available</div></div></div></div></section><section id="woFormView" class="ps-hide" aria-labelledby="nwoTitle"></section><section id="woIntegratedView" class="ps-hide" aria-label="Work Orders and Calendar"><iframe id="woIntegratedFrame" title="Work Orders and Calendar" loading="eager"></iframe></section></main></div>
  <div class="devlabel">PROTOTYPE · Demonstration data · No live i4T connection</div>
 <div class="overlay" id="overlay" onclick="closePanel()"></div><aside class="panel" id="panel" aria-label="Selected email details"><div id="panelContent"></div></aside><div class="menu" id="menu"></div>
-<div class="dialogshade" id="shade"><div class="dialog" role="dialog" aria-modal="true"><div class="dhead"><span id="dialogTitle"></span><button class="close" onclick="closeDialog()">×</button></div><div class="dcontent" id="dialogContent"></div><div class="dfoot" id="dialogFoot"></div></div></div><div class="toast" id="toast"></div>
+<div class="dialogshade" id="shade"><div class="dialog" role="dialog" aria-modal="true"><div class="dhead"><span id="dialogTitle"></span><button class="close" onclick="closeDialog()">×</button></div><div class="dcontent" id="dialogContent"></div><div class="dfoot" id="dialogFoot"></div></div></div><div class="lqr-shade" id="lqrShade" hidden></div><div class="toast" id="toast"></div>
 <script>
 const L=(type,id,role,status,by,docs,from)=>({type,id,role,status,by,docs:docs||[],from:from||null});
 const emails=[
@@ -496,7 +598,8 @@ function runAction(k,id,mode='add',idx=null){hideMenu();const e=find(id),t=mode=
 /* replaceIdx: index of the link that is removed (SR: cancelled) when the action completes */
 function doAction(k,id,replaceIdx){const e=find(id);
  if(k==='create-qr'||k==='create-wo'){createForm(k,e);return;}
- if(k==='link-wo'||k==='link-qr'){linkForm(k,e,replaceIdx);return;}}
+ if(k==='link-qr'){openLinkQR(e,replaceIdx);return;}
+ if(k==='link-wo'){linkForm(k,e,replaceIdx);return;}}
 function dropOld(e,idx){if(idx===null||idx===undefined)return;const l=e.links[idx];if(!l)return;if(l.type==='SR'){l.status='Cancelled';if(srRegistry[l.id])srRegistry[l.id].status='Cancelled';}else e.links.splice(idx,1);}
 // CR02 (PRD v3 s.3.1): Dismiss follows the flag. It clears the open purpose only; links stay.
 function dismissEmail(id){hideMenu();const e=find(id);if(!isFlagged(e))return;
@@ -553,23 +656,154 @@ function nwoShowEmail(){const e=find(nwoEmailId);if(!e)return;const f=e.fields||
 function nwoFiles(i){document.querySelector('#nwoFileList').textContent=i.files.length?'Selected: '+[...i.files].map(f=>f.name).join(', '):'';}
 function nwoDone(msg){showInbox();toast(msg);}
 const WO_OPTIONS=[['WO615003','SP12345 – Lot 12 plumbing repairs','Completed'],['WO620021','HARBOUR VIEW SP4852 – hot water unit','Issued'],['WO619624','RESVU – ESTATE – maintenance works','Completed'],['WO613048','RESVU – ESTATE – lift service','Completed']];
-const QR_OPTIONS=[['QR002208','HARBOUR VIEW SP4852 – roof membrane repair','Open'],['QR002210','RESVU – ESTATE – switchboard upgrade','Received'],['QR002201','SP12345 – gutter clean','Received']];
-function linkForm(k,e,replaceIdx){const isQR=k==='link-qr',att=e.attachments||[];
- showDialog(isQR?'Link to Quote Request':'Link to Work Order',`<div class="field"><label for="lk-q">Search ${isQR?'Quote Request':'Work Order'} by number or property</label><input id="lk-q" oninput="renderLinkResults('${k}',${e.id})" placeholder="e.g. ${isQR?'QR002208':'WO615003'}"></div>`
+/* Link to Work Order pop-up (Link to Quote Request uses the Link to QR modal below) */
+function linkForm(k,e,replaceIdx){const att=e.attachments||[];
+ showDialog('Link to Work Order',`<div class="field"><label for="lk-q">Search Work Order by number or property</label><input id="lk-q" oninput="renderLinkResults('${k}',${e.id})" placeholder="e.g. WO615003"></div>`
   +`<div class="field"><label>Results</label><div id="lk-results"></div></div>`
-  +(isQR?`<div class="field"><label for="lk-c">Quote is from</label><select id="lk-c"><option>${escapeHtml(e.sender)} (invited)</option><option>TopCover Roofing (invited)</option></select></div>`:'')
-  +`<div class="field"><label>Use as ${isQR?'quote':'invoice'}</label>${att.map((a,i)=>`<label class="opt"><input type="radio" name="lka" value="${escapeHtml(a)}" ${i===0?'checked':''}> ${escapeHtml(a)} <span class="optnote small muted">${i===0?(isQR?'Quote':'Invoice'):'Additional document'}</span></label>`).join('')||'<div class="lk-none">No attachments</div>'}</div>`,
+  +`<div class="field"><label>Use as invoice</label>${att.map((a,i)=>`<label class="opt"><input type="radio" name="lka" value="${escapeHtml(a)}" ${i===0?'checked':''}> ${escapeHtml(a)} <span class="optnote small muted">${i===0?'Invoice':'Additional document'}</span></label>`).join('')||'<div class="lk-none">No attachments</div>'}</div>`,
   [{label:'Cancel',run:'closeDialog()'},{label:'Link',primary:true,run:`submitLink('${k}',${e.id},${replaceIdx})`}]);
  renderLinkResults(k,e.id);}
 function renderLinkResults(k,id){const e=find(id),q=(document.querySelector('#lk-q')?.value||'').toLowerCase(),used=e.links.map(l=>l.id);let first=true;
- const opts=(k==='link-qr'?QR_OPTIONS:WO_OPTIONS).filter(o=>(o[0]+' '+o[1]).toLowerCase().includes(q));
+ const opts=WO_OPTIONS.filter(o=>(o[0]+' '+o[1]).toLowerCase().includes(q));
  document.querySelector('#lk-results').innerHTML=opts.map(([rid,prop,st])=>{const dis=used.includes(rid),chk=!dis&&first;if(chk)first=false;return `<label class="opt"><input type="radio" name="lk" value="${rid}"${dis?' disabled':''}${chk?' checked':''}> <b>${rid}</b> ${escapeHtml(prop)} <span class="badge ${dis?'archived':'other'}">${dis?'Already linked':escapeHtml(st)}</span></label>`;}).join('')||'<div class="lk-none">No matching records</div>';}
 function submitLink(k,id,replaceIdx){const r=document.querySelector('input[name=lk]:checked');if(!r){toast('Select a record first');return;}
- const e=find(id),isQR=k==='link-qr',doc=document.querySelector('input[name=lka]:checked')?.value;
+ const e=find(id),doc=document.querySelector('input[name=lka]:checked')?.value;
  dropOld(e,replaceIdx);
- e.links.push(L(isQR?'QR':'WO',r.value,isQR?'Quote':'Invoice',isQR?'Received':'Invoice submitted',ME+' · '+nowStamp(),doc?[doc]:[]));
- Object.assign(e,{dismissed:null,pending:null,recommended:null,ai:'Linked to '+r.value+' by Jane Thornton.',why:isQR?'Added as the contractor\'s quote. The Quote Request moved to Received.':'Added as the invoice on the Work Order.'});
+ e.links.push(L('WO',r.value,'Invoice','Invoice submitted',ME+' · '+nowStamp(),doc?[doc]:[]));
+ Object.assign(e,{dismissed:null,pending:null,recommended:null,ai:'Linked to '+r.value+' by Jane Thornton.',why:'Added as the invoice on the Work Order.'});
  closeDialog();refresh();toast('Linked to '+r.value);}
+/* Link to QR modal (lqr-): in-page overlay for every Link to Quote Request entry point. Prototype data, no backend.
+   Quote Requests below are existing QRs awaiting a quotation from the invited suppliers. */
+const LQR_QRS=[
+ {id:'QR002208',title:'Roof membrane repair',prop:'HARBOUR VIEW SP4852',addr:'18 Harbour View Parade, Kirribilli NSW 2061',sup:['Roofline Contractors','TopCover Roofing'],status:'Awaiting quote'},
+ {id:'QR002212',title:'Roof leak inspection – Level 6',prop:'HARBOUR VIEW SP4852',addr:'18 Harbour View Parade, Kirribilli NSW 2061',sup:['TopCover Roofing','Facilities Support'],status:'Awaiting quote'},
+ {id:'QR002210',title:'Switchboard upgrade',prop:'RESVU – ESTATE',addr:'25 Estate Drive, Parramatta NSW 2150',sup:['Spark Electrical','Facilities Support'],status:'Awaiting quote'},
+ {id:'QR002206',title:'Intercom repair – main entrance',prop:'RESVU – ESTATE',addr:'25 Estate Drive, Parramatta NSW 2150',sup:['Spark Electrical'],status:'Awaiting quote'},
+ {id:'QR002204',title:'Hot water system replacement – Lot 4',prop:'SP12345',addr:'7 Station Street, Strathfield NSW 2135',sup:['ABC Plumbing'],status:'Awaiting quote'},
+ {id:'QR002201',title:'Gutter clean',prop:'SP12345',addr:'7 Station Street, Strathfield NSW 2135',sup:['ABC Plumbing','Facilities Support'],status:'Awaiting quote'}];
+const LQR_AI={12:'QR002208'}; // Quote Request identified by AI for an email (best match on property, scope and invited supplier)
+const LQR_I={
+ bld:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V4h11v17M15 9h5v12M2 21h20M7.5 8h2M7.5 12h2M7.5 16h2M11 8h1M11 12h1M11 16h1"/></svg>',
+ pin:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0114 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+ eye:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+ find:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>',
+ up:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v4h16v-4"/></svg>',
+ pdf:'<svg class="lqr-ico" viewBox="0 0 40 48" aria-hidden="true"><path d="M4 2h22l10 10v34H4z" fill="#fff" stroke="#d93025" stroke-width="2"/><path d="M26 2v10h10" fill="#fde7e5" stroke="#d93025" stroke-width="2"/><rect x="0" y="25" width="32" height="13" rx="2" fill="#d93025"/><text x="16" y="34.5" text-anchor="middle" font-size="9" font-weight="700" fill="#fff" font-family="Arial,sans-serif">PDF</text></svg>',
+ img:'<svg class="lqr-ico" viewBox="0 0 48 40" aria-hidden="true"><rect x="2" y="2" width="44" height="36" rx="3" fill="#fff" stroke="#8a96a6" stroke-width="2"/><circle cx="15" cy="13" r="4" fill="#b8c2cf"/><path d="M6 33l11-12 8 8 6-6 11 10z" fill="#9aa6b5"/></svg>',
+ file:'<svg class="lqr-ico" viewBox="0 0 40 48" aria-hidden="true"><path d="M4 2h22l10 10v34H4z" fill="#fff" stroke="#7a8594" stroke-width="2"/><path d="M26 2v10h10" fill="#eef0f3" stroke="#7a8594" stroke-width="2"/><path d="M11 22h18M11 28h18M11 34h12" stroke="#b8c0cb" stroke-width="2"/></svg>',
+ zout:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4M8 11h6"/></svg>',
+ zin:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4M8 11h6M11 8v6"/></svg>',
+ dl:TH_DL,
+ print:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4v-7h16v7h-2M7 14h10v7H7z"/></svg>'};
+// Sample documents drawn in the preview (prototype content per file; other PDFs use a generic document built from the email)
+const LQR_DOCS={
+ 'Roofline_Quote_311.pdf':{no:'Q-311',date:'30/10/2026',valid:'29/11/2026',ref:'Roof membrane repair',to:'The Owners – HARBOUR VIEW SP4852',addr:'18 Harbour View Parade, Kirribilli NSW 2061',
+  from:{name:'Roofline Contractors',addr:'4/22 Industrial Road, Brookvale NSW 2100',mail:'admin@roofline.com.au',ph:'02 9905 3110',abn:'51 824 753 556'},
+  items:[['Site inspection and roof membrane condition report',1,280],['Remove damaged membrane section (m²)',24,45],['Supply and install torch-on membrane (m²)',24,95],['Reseal flashings and upstands',1,640],['Waste removal and site clean-up',1,220]],
+  scope:['Inspect the roof membrane above Level 6 and record the damaged areas.','Cut out and remove the blistered membrane section (approx. 24 m²).','Prime the substrate and install a two-layer torch-on membrane.','Reseal flashings and upstands around the roof penetrations.','Flood test the repaired area and remove all waste from site.'],
+  excl:['Repairs to internal ceilings or finishes.','Replacement of roof sheeting or structural timbers.','Work outside normal business hours.']},
+ 'Quote_Q-8812.pdf':{no:'Q-8812',date:'30/10/2026',valid:'29/11/2026',ref:'QR002210 – Switchboard upgrade',to:'The Owners – RESVU – ESTATE',addr:'25 Estate Drive, Parramatta NSW 2150',
+  from:{name:'Spark Electrical',addr:'Unit 3, 8 Fennell Street, North Parramatta NSW 2151',mail:'quotes@sparkelectrical.com.au',ph:'02 9630 4471',abn:'33 615 902 118'},
+  items:[['Isolate supply and remove existing main switchboard',1,850],['Supply and install new main switchboard enclosure',1,3200],['RCBO protection for common area circuits',12,95],['Test, tag and certify installation',1,420]],
+  scope:['Arrange the power outage with the building manager.','Replace the main switchboard and label all circuits.','Test and certify the installation.'],excl:['Rewiring of individual lots.']}};
+const lqrKind=n=>/\.pdf$/i.test(n)?'pdf':/\.(jpe?g|png|gif|webp)$/i.test(n)?'img':'file';
+const lqrMoney=v=>'$'+v.toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2});
+const lqrNorm=s=>String(s).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+let lqr=null;
+function openLinkQR(e,replaceIdx){hideMenu();closeDialog();
+ const used=e.links.map(l=>l.id),ai=LQR_AI[e.id]&&!used.includes(LQR_AI[e.id])?LQR_AI[e.id]:null,att=e.attachments||[],a=document.activeElement;
+ lqr={id:e.id,replaceIdx:replaceIdx??null,qr:ai,ai,editing:!ai,q:'',open:false,active:-1,items:[],ticked:att.map(()=>true),prev:att.length?Math.max(0,att.findIndex(n=>lqrKind(n)==='pdf')):-1,zoom:100,page:0,
+  ret:a&&a!==document.body&&!a.closest('#menu,#shade,#lqrShade')?a:null};
+ const sh=document.querySelector('#lqrShade');
+ sh.innerHTML=`<div class="lqr-modal" role="dialog" aria-modal="true" aria-labelledby="lqrTitle" tabindex="-1"><div class="lqr-head"><h2 id="lqrTitle">Link to QR</h2><button type="button" class="lqr-x" aria-label="Close Link to QR" onclick="lqrClose()">×</button></div>`
+ +`<div class="lqr-body"><div class="lqr-top"><div class="lqr-fld"><div class="lqr-lab"><span id="lqrLab">Quote Request <span class="lqr-req" aria-hidden="true">*</span></span><span id="lqrAiTag"></span></div><div class="lqr-combo" id="lqrCombo"></div></div>`
+ +`<button type="button" class="lqr-view" id="lqrView" onclick="lqrViewQR()">${LQR_I.eye}View Quote Request</button></div>`
+ +`<div class="lqr-strip" id="lqrTiles" role="group" aria-label="Attachments to upload with the quote"></div><div class="lqr-viewer" id="lqrViewer"></div></div>`
+ +`<div class="lqr-foot"><button type="button" class="lqr-submit" id="lqrSubmit" onclick="lqrSubmit()">Submit</button></div></div>`;
+ sh.hidden=false;document.body.classList.add('lqr-lock');
+ lqrField();lqrTiles();lqrViewer();lqrSync();
+ (document.querySelector('#lqrSelBtn')||document.querySelector('#lqrInput')).focus();}
+function lqrClose(){if(!lqr)return;const r=lqr.ret,sh=document.querySelector('#lqrShade');lqr=null;sh.hidden=true;sh.innerHTML='';document.body.classList.remove('lqr-lock');
+ const t=[r,document.querySelector('#panel.visible .ai .smore'),document.querySelector('#panel.visible .close')].find(x=>x&&x.isConnected&&x.offsetParent!==null);if(t)t.focus();}
+const lqrRec=()=>lqr.qr?LQR_QRS.find(r=>r.id===lqr.qr):null;
+const lqrReady=()=>!!(lqr&&lqr.qr&&lqr.ticked.some(Boolean));
+function lqrSync(){const r=lqrRec();
+ document.querySelector('#lqrAiTag').innerHTML=r&&r.id===lqr.ai?'<span class="lqr-aitag"><span aria-hidden="true">✦</span>Suggested by AI</span>':'';
+ document.querySelector('#lqrView').disabled=!r;document.querySelector('#lqrSubmit').disabled=!lqrReady();}
+// Quote Request field: selected record card (× clears) or a search combobox (QR number, property / plan name, invited supplier)
+function lqrField(){const s=lqr,r=lqrRec(),c=document.querySelector('#lqrCombo');
+ if(r&&!s.editing){c.innerHTML=`<div class="lqr-sel"><button type="button" class="lqr-selbtn" id="lqrSelBtn" aria-haspopup="listbox" aria-labelledby="lqrLab lqrSelTxt" title="Change Quote Request" onclick="lqrEdit()"><span id="lqrSelTxt"><span class="lqr-l1"><b>${escapeHtml(r.id)}</b> ${escapeHtml(r.title)}</span>`
+  +`<span class="lqr-l2">${LQR_I.bld}<span>${escapeHtml(r.prop)}</span>${LQR_I.pin}<span>${escapeHtml(r.addr)}</span></span></span></button><button type="button" class="lqr-clear" aria-label="Clear Quote Request" onclick="lqrClear()">×</button></div>`;return;}
+ c.innerHTML=`<div class="lqr-search">${LQR_I.find}<input id="lqrInput" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="lqrList" aria-labelledby="lqrLab" autocomplete="off" placeholder="Search by QR number, property or supplier" value="${escapeHtml(s.q)}" oninput="lqrType(this.value)" onclick="lqrOpenList()" onkeydown="lqrKey(event)" onblur="lqrBlur()"></div>`
+  +`<ul class="lqr-list" id="lqrList" role="listbox" aria-label="Quote Requests" hidden onmousedown="event.preventDefault()"></ul>`;
+ lqrList();}
+function lqrItems(){const used=find(lqr.id).links.map(l=>l.id),q=lqrNorm(lqr.q);
+ return LQR_QRS.filter(r=>!q||[r.id,r.prop,...r.sup].some(v=>lqrNorm(v).includes(q))).map(r=>({r,dis:used.includes(r.id)}));}
+function lqrList(){const s=lqr,ul=document.querySelector('#lqrList'),inp=document.querySelector('#lqrInput');if(!ul)return;
+ s.items=lqrItems();if(s.active>=s.items.length)s.active=-1;ul.hidden=!s.open;inp.setAttribute('aria-expanded',String(s.open));
+ ul.innerHTML=s.items.map(({r,dis},i)=>`<li role="option" id="lqrOpt${i}" class="lqr-opt${i===s.active?' lqr-act':''}${dis?' lqr-dis':''}" aria-selected="${i===s.active}"${dis?' aria-disabled="true"':''} onclick="lqrPick(${i})"><span class="lqr-o1"><b>${escapeHtml(r.id)}</b><span>${escapeHtml(r.title)}</span>${dis?'<span class="lqr-used">Already linked</span>':''}</span><span class="lqr-o2">${escapeHtml(r.prop)} · ${escapeHtml(r.sup.join(', '))}</span></li>`).join('')
+  ||'<li class="lqr-none" role="presentation">No matching Quote Requests</li>';
+ if(s.open&&s.active>=0){inp.setAttribute('aria-activedescendant','lqrOpt'+s.active);ul.querySelector('.lqr-act').scrollIntoView({block:'nearest'});}else inp.removeAttribute('aria-activedescendant');}
+const lqrFirst=()=>lqr.items.findIndex(x=>!x.dis);
+function lqrType(v){lqr.q=v;lqr.open=true;lqr.items=lqrItems();lqr.active=v.trim()?lqrFirst():-1;lqrList();}
+function lqrOpenList(){if(lqr.open)return;lqr.open=true;lqr.active=-1;lqrList();}
+function lqrKey(ev){const s=lqr;
+ if(ev.key==='ArrowDown'||ev.key==='ArrowUp'){ev.preventDefault();if(!s.open)s.active=-1;s.open=true;s.items=lqrItems();const n=s.items.length,d=ev.key==='ArrowDown'?1:-1;
+  for(let k=1,i=s.active;k<=n;k++){i=(i+d+n+(i<0&&d<0?1:0))%n;if(!s.items[i].dis){s.active=i;break;}}lqrList();}
+ else if(ev.key==='Enter'){ev.preventDefault();if(s.open&&s.active>=0)lqrPick(s.active);}}
+function lqrPick(i){const it=lqr.items[i];if(!it||it.dis)return;Object.assign(lqr,{qr:it.r.id,editing:false,open:false,q:'',active:-1});lqrField();lqrSync();document.querySelector('#lqrSelBtn').focus();}
+function lqrEdit(){Object.assign(lqr,{editing:true,q:'',open:true});lqr.items=lqrItems();lqr.active=lqr.items.findIndex(x=>x.r.id===lqr.qr);lqrField();document.querySelector('#lqrInput').focus();}
+function lqrClear(){Object.assign(lqr,{qr:null,editing:true,q:'',open:false,active:-1});lqrField();lqrSync();document.querySelector('#lqrInput').focus();}
+// Leaving the search closes the list; with a Quote Request still selected the field shows the record again
+function lqrBlur(){setTimeout(()=>{if(!lqr||!document.querySelector('#lqrInput'))return;const c=document.querySelector('#lqrCombo');if(c.contains(document.activeElement))return;
+ lqr.open=false;if(lqr.qr){lqr.editing=false;lqrField();}else lqrList();},0);}
+function lqrViewQR(){if(lqr&&lqr.qr)toast('Opens '+lqr.qr+' (prototype)');}
+// Attachment tiles: one per email attachment (all thread messages); the checkbox picks the files uploaded with the quote, the tile picks the preview
+function lqrTiles(){const s=lqr,att=find(s.id).attachments||[],qi=att.findIndex(n=>lqrKind(n)==='pdf');
+ document.querySelector('#lqrTiles').innerHTML=att.map((n,i)=>{const on=i===s.prev,k=lqrKind(n);
+  return `<div class="lqr-tile${on?' lqr-on':''}">${i===qi?'<span class="lqr-tag">Quote</span>':''}<button type="button" class="lqr-tbtn" aria-pressed="${on}" aria-label="Preview ${escapeHtml(n)}" title="${escapeHtml(n)}" onclick="lqrPrev(${i})"><span class="lqr-thumb lqr-k-${k}">${LQR_I[k]}</span><span class="lqr-tname">${escapeHtml(n)}</span></button>`
+  +`<input type="checkbox" class="lqr-chk"${s.ticked[i]?' checked':''} aria-label="Upload ${escapeHtml(n)} with the quote" onchange="lqrTick(${i},this.checked)"></div>`;}).join('')
+  +`<button type="button" class="lqr-up" onclick="toast('Upload is not available in this prototype')">${LQR_I.up}<b>Upload</b><small>(Allowed File Types: PDF, JPG, PNG)</small></button>`;}
+function lqrTick(i,v){lqr.ticked[i]=v;lqrSync();}
+function lqrPrev(i){lqr.prev=i;lqr.page=0;document.querySelectorAll('#lqrTiles .lqr-tile').forEach((t,j)=>{t.classList.toggle('lqr-on',j===i);t.querySelector('.lqr-tbtn').setAttribute('aria-pressed',String(j===i));});lqrViewer();}
+function lqrDoc(e,n){if(LQR_DOCS[n])return LQR_DOCS[n];const d=(n.match(/\d+/g)||['1001']).pop(),sp=(e.fields||{})['Strata Plan'];
+ return {no:'Q-'+d,date:e.date.slice(0,10),valid:'—',ref:e.subject,to:'The Owners – '+(sp||'Strata Plan'),addr:'Address as per Quote Request',from:{name:e.sender,addr:'',mail:e.address,ph:'',abn:''},
+  items:[['Works as described in the email: '+e.subject,1,1200]],scope:['Carry out the works described in the email.'],excl:['Any work not listed above.']};}
+function lqrPdfPages(e,n){const d=lqrDoc(e,n),sub=d.items.reduce((t,[,q,p])=>t+q*p,0),gst=Math.round(sub*10)/100,f=d.from,h=escapeHtml,P=i=>`<p class="lqr-pfoot">${h(f.name)} · Quotation ${h(d.no)} · Page ${i} of 3</p>`;
+ const head=`<div class="lqr-dh"><div class="lqr-dfrom"><span class="lqr-dlogo" aria-hidden="true">${h(f.name.charAt(0))}</span><div><b>${h(f.name)}</b>${f.abn?`<br>ABN ${h(f.abn)}`:''}${f.addr?`<br>${h(f.addr)}`:''}<br>${h(f.mail)}${f.ph?` · ${h(f.ph)}`:''}</div></div><div class="lqr-dt">QUOTATION<small>${h(d.no)}</small></div></div>`;
+ return [head+`<div class="lqr-dmeta"><div class="lqr-dkv">${[['Quote No',d.no],['Quote date',d.date],['Valid until',d.valid],['Reference',d.ref],['Amount (inc. GST)',lqrMoney(sub+gst)]].map(([k,v])=>`<span>${k}</span><b>${h(v)}</b>`).join('')}</div>`
+   +`<div class="lqr-dto"><span>Quote for</span><b>${h(d.to)}</b>${h(d.addr)}</div></div>`
+   +`<table class="lqr-dtbl"><thead><tr><th>Description</th><th>Qty</th><th>Unit price</th><th>Amount</th></tr></thead><tbody>${d.items.map(([t,q,p])=>`<tr><td>${h(t)}</td><td>${q}</td><td>${lqrMoney(p)}</td><td>${lqrMoney(q*p)}</td></tr>`).join('')}</tbody></table>`
+   +`<div class="lqr-dsum"><span>Subtotal</span><b>${lqrMoney(sub)}</b><span>GST (10%)</span><b>${lqrMoney(gst)}</b><span class="lqr-dtot">Total (inc. GST)</span><b class="lqr-dtot">${lqrMoney(sub+gst)}</b></div>`+P(1),
+  head+`<h3 class="lqr-dh3">Scope of works</h3><ol class="lqr-dl">${d.scope.map(x=>`<li>${h(x)}</li>`).join('')}</ol><h3 class="lqr-dh3">Exclusions</h3><ul class="lqr-dl">${d.excl.map(x=>`<li>${h(x)}</li>`).join('')}</ul>`+P(2),
+  head+`<h3 class="lqr-dh3">Terms and acceptance</h3><p class="lqr-dp">This quotation is valid until ${h(d.valid)}. Prices include GST. Payment is due 14 days from the invoice date. Work starts within 10 business days of acceptance, weather permitting.</p><p class="lqr-dp">To accept, sign below or reply to ${h(f.mail)} quoting ${h(d.no)}.</p>`
+   +`<div class="lqr-dsign"><span>Accepted by (name)</span><span>Signature</span><span>Date</span></div>`+P(3)];}
+function lqrViewer(){const s=lqr,e=find(s.id),n=(e.attachments||[])[s.prev],k=n?lqrKind(n):'',h=escapeHtml;
+ const pages=k==='pdf'?lqrPdfPages(e,n):k==='img'?[`<div class="lqr-pimg">${LQR_I.img}<b>${h(n)}</b><small>Image preview (prototype)</small></div>`]:[],can=pages.length>0,cls='lqr-page'+(k==='img'?' lqr-ipage':'');
+ document.querySelector('#lqrViewer').innerHTML=`<div class="lqr-thumbs" aria-label="Pages">${pages.map((p,i)=>`<div class="lqr-pg${i===s.page?' lqr-on':''}"><div class="lqr-mini" aria-hidden="true"><div class="${cls}">${p}</div></div><button type="button" class="lqr-pgb" aria-label="Go to page ${i+1}"${i===s.page?' aria-current="page"':''} onclick="lqrGo(${i})">${i+1}</button></div>`).join('')}</div>`
+ +`<div class="lqr-pane"><div class="lqr-tools" role="toolbar" aria-label="Document tools"><button type="button" id="lqrZout" aria-label="Zoom out" onclick="lqrZoom(-25)">${LQR_I.zout}</button><span class="lqr-zv" id="lqrZv" aria-live="polite">${s.zoom}%</span><button type="button" id="lqrZin" aria-label="Zoom in" onclick="lqrZoom(25)">${LQR_I.zin}</button><span class="lqr-tsep" aria-hidden="true"></span>`
+ +`<button type="button" aria-label="Download"${n?'':' disabled'} onclick="lqrFileToast('Downloading')">${LQR_I.dl}</button><button type="button" aria-label="Print"${can?'':' disabled'} onclick="lqrFileToast('Printing')">${LQR_I.print}</button></div>`
+ +`<div class="lqr-scroll" id="lqrScroll" tabindex="0" aria-label="Document preview${n?' – '+h(n):''}" style="--z:${s.zoom/100}" onscroll="lqrOnScroll()">${can?pages.map((p,i)=>`<div class="${cls}" id="lqrPage${i}">${p}</div>`).join('')
+  :`<div class="lqr-na">${LQR_I.file}<b>${n?'Preview not available':'No attachments'}</b><span>${n?h(n)+' cannot be previewed here. Download the file to view it.':'This email has no attachments to upload with the quote.'}</span></div>`}</div></div>`;
+ lqrZoomUi(can);}
+function lqrFileToast(verb){const n=(find(lqr.id).attachments||[])[lqr.prev];if(n)toast(verb+' '+n+' (prototype)');}
+function lqrZoomUi(can){document.querySelector('#lqrZv').textContent=lqr.zoom+'%';document.querySelector('#lqrZout').disabled=!can||lqr.zoom<=50;document.querySelector('#lqrZin').disabled=!can||lqr.zoom>=200;}
+function lqrZoom(d){lqr.zoom=Math.min(200,Math.max(50,lqr.zoom+d));document.querySelector('#lqrScroll').style.setProperty('--z',lqr.zoom/100);lqrZoomUi(true);}
+function lqrMark(i){lqr.page=i;document.querySelectorAll('#lqrViewer .lqr-pg').forEach((t,j)=>{t.classList.toggle('lqr-on',j===i);const b=t.querySelector('.lqr-pgb');if(j===i)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});}
+function lqrGo(i){const sc=document.querySelector('#lqrScroll'),p=document.querySelector('#lqrPage'+i);if(p)sc.scrollTop=p.offsetTop-52;lqrMark(i);}
+function lqrOnScroll(){const sc=document.querySelector('#lqrScroll'),ps=[...sc.querySelectorAll('.lqr-page')];if(!ps.length)return;
+ let i=sc.scrollTop+sc.clientHeight>=sc.scrollHeight-2?ps.length-1:0;if(!i)ps.forEach((p,j)=>{if(p.offsetTop-60<=sc.scrollTop)i=j;});if(i!==lqr.page)lqrMark(i);}
+// Submit: same data effects as the earlier Link to Quote Request pop-up; only the ticked files go to the Quote Request
+function lqrSubmit(){if(!lqrReady())return;const s=lqr,e=find(s.id),id=s.qr,docs=(e.attachments||[]).filter((n,i)=>s.ticked[i]);
+ dropOld(e,s.replaceIdx);
+ e.links.push(L('QR',id,'Quote','Received',ME+' · '+nowStamp(),docs));
+ Object.assign(e,{dismissed:null,pending:null,recommended:null,ai:'Linked to '+id+' by Jane Thornton.',why:'Added as the contractor\'s quote. The Quote Request moved to Received.'});
+ refresh();lqrClose();toast('Quote linked to '+id);}
+// Esc closes the open list first, then the modal; Tab stays inside the modal (capture phase, before the page's own Esc handler)
+window.addEventListener('keydown',ev=>{if(!lqr)return;
+ if(ev.key==='Escape'){ev.preventDefault();ev.stopPropagation();if(lqr.open){lqr.open=false;lqrList();}else lqrClose();return;}
+ if(ev.key!=='Tab')return;const f=[...document.querySelectorAll('#lqrShade button:not(:disabled),#lqrShade input:not(:disabled),#lqrShade [tabindex="0"]')].filter(x=>x.offsetParent!==null);if(!f.length)return;
+ const i=f.indexOf(document.activeElement);if(ev.shiftKey&&i<=0){ev.preventDefault();f[f.length-1].focus();}else if(!ev.shiftKey&&(i<0||i===f.length-1)){ev.preventDefault();f[0].focus();}},true);
 function openRecord(rid){hideMenu();const e=emails.find(x=>x.links.some(l=>l.id===rid));
  if(rid.startsWith('SR')){const em=e||find(srRegistry[rid]?.email);if(em)showSRDetails(em.id,rid);else toast('Service Request not found');return;}
  if(!e){toast('Record not found');return;}
