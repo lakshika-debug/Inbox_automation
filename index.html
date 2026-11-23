@@ -310,14 +310,14 @@ textarea.nwo-in{height:88px;padding:8px;resize:vertical}.nwo-in::placeholder{col
 body.lqr-lock{overflow:hidden}
 .lqr-shade{position:fixed;inset:0;z-index:120;background:#0b162866;display:flex;align-items:center;justify-content:center;padding:20px}
 .lqr-shade[hidden]{display:none}
-.lqr-modal{display:flex;flex-direction:column;width:min(1000px,100%);height:min(90vh,100%);background:#fff;border-radius:4px;box-shadow:0 15px 60px #11182760;overflow:hidden;outline:none;color:#25313d}
+.lqr-modal{display:flex;flex-direction:column;width:min(1200px,100%);height:min(90vh,100%);background:#fff;border-radius:4px;box-shadow:0 15px 60px #11182760;overflow:hidden;outline:none;color:#25313d}
 .lqr-modal svg{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .lqr-modal svg.lqr-ico{stroke:none}
-.lqr-head{flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px 9px 18px;background:#f1f2f4;border-bottom:1px solid #dfe3e8}
-.lqr-head h2{margin:0;font-size:16px;font-weight:700;color:#25313d}
-.lqr-x{width:32px;height:32px;border:0;border-radius:50%;background:none;color:#25313d;font-size:24px;line-height:1}
-.lqr-x:hover{background:#e2e6eb}
-.lqr-modal button:focus-visible,.lqr-modal input:focus-visible,.lqr-scroll:focus-visible{outline:2px solid #1a6dff;outline-offset:1px}
+.lqr-head{flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px 10px 18px;background:#f3f4f6;border-bottom:1px solid #e5e7eb}
+.lqr-head h2{margin:0;font-size:16px;font-weight:700;color:#1d2433}
+.lqr-x{display:flex;align-items:center;justify-content:center;width:30px;height:30px;padding:0 0 2px;border:1px solid #e1e5ea;border-radius:50%;background:#fff;color:#25313d;font-size:20px;line-height:1;box-shadow:0 1px 2px #0000000f}
+.lqr-x:hover{background:#eef1f5}
+.lqr-modal button:focus-visible,.lqr-modal input:focus-visible,.lqr-modal select:focus-visible,.lqr-scroll:focus-visible{outline:2px solid #1a6dff;outline-offset:1px}
 .lqr-body{flex:1;min-height:0;display:flex;flex-direction:column;gap:14px;padding:16px 18px;overflow:auto;overscroll-behavior:contain}
 .lqr-top{flex:none;display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap}
 .lqr-fld{width:320px;max-width:100%}
@@ -350,33 +350,37 @@ body.lqr-lock{overflow:hidden}
 .lqr-none{padding:10px;font-size:12px;color:#6b7480}
 .lqr-view{display:inline-flex;align-items:center;gap:6px;height:34px;margin-bottom:7px;padding:0 16px;border:0;border-radius:17px;background:#087bfa;color:#fff;font-size:12px;font-weight:600}
 .lqr-view svg{width:15px;height:15px}.lqr-view:hover:not(:disabled){filter:brightness(.93)}
-.lqr-strip{flex:none;display:flex;align-items:flex-start;gap:12px;padding:12px;overflow-x:auto;overscroll-behavior-x:contain;background:#f3f4f6;border-radius:4px}
-.lqr-tile{position:relative;flex:none;width:87px}
-.lqr-tbtn{display:block;width:100%;padding:0;border:0;background:none;color:inherit}
-.lqr-thumb{display:flex;align-items:center;justify-content:center;width:87px;height:85px;border:2px solid #dfe3e8;border-radius:4px;background:#fff}
-.lqr-tbtn:hover .lqr-thumb{border-color:#9cc6ff}.lqr-on .lqr-thumb,.lqr-on .lqr-tbtn:hover .lqr-thumb{border-color:#087bfa}
-.lqr-thumb .lqr-ico{width:36px;height:42px}
-.lqr-k-img{background:#e9edf2 repeating-linear-gradient(45deg,#e1e6ec 0 6px,#eef1f5 6px 12px)}.lqr-k-img .lqr-ico{width:46px;height:38px}
-.lqr-tname{display:block;margin-top:5px;padding:2px 4px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;border:1px solid #d5dae1;border-radius:3px;background:#fff;font-size:10px;text-align:center}
-.lqr-chk{position:absolute;top:6px;right:6px;width:15px;height:15px;margin:0;accent-color:#087bfa;cursor:pointer}
-.lqr-tag{position:absolute;top:6px;left:6px;z-index:1;padding:2px 5px;border-radius:3px;background:#25313d;color:#fff;font-size:9px;font-weight:700;pointer-events:none}
-.lqr-up{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:170px;height:85px;margin-left:auto;border:2px dashed #087bfa;border-radius:5px;background:#fff;color:#25313d;font-size:13px}
-.lqr-up svg{width:20px;height:20px;color:#087bfa}.lqr-up small{font-size:9.5px;color:#6b7480}.lqr-up:hover{background:#f7fbff}
-.lqr-viewer{flex:1 0 380px;display:flex;min-height:380px;border:1px solid #dfe3e8;border-radius:4px;overflow:hidden}
-.lqr-thumbs{flex:none;width:150px;display:flex;flex-direction:column;align-items:center;gap:12px;padding:12px 0;overflow-y:auto;background:#eef0f3;border-right:1px solid #dfe3e8}
+.lqr-strip{flex:none;display:flex;align-items:stretch;gap:12px;padding:2px 2px 14px;overflow-x:auto;overscroll-behavior-x:contain;background:#fff;border-bottom:1px solid #e5e7eb}
+.lqr-up{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:100px;height:110px;padding:6px;border:0;border-radius:6px;background:#f3f4f6;color:#1d2433;font-size:12px;line-height:1.2;text-align:center}
+.lqr-up:hover{background:#e9ecf0}.lqr-up b{margin-top:3px}.lqr-up small{font-size:8.5px;line-height:11px;color:#6b7480}
+.lqr-upi{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:#25313d;color:#fff}.lqr-upi svg{width:16px;height:16px}
+.lqr-tile{position:relative;flex:none;width:105px;height:110px;border:1px solid #dfe3e8;border-radius:6px;background:#fff}
+.lqr-tile:hover{border-color:#9cc6ff}.lqr-tile.lqr-on{border-color:#087bfa;box-shadow:0 0 0 1px #087bfa}
+.lqr-tbtn{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;height:100%;padding:21px 6px 6px;border:0;border-radius:6px;background:none;color:inherit}
+.lqr-thumb{flex:none;display:flex;align-items:center;justify-content:center;width:40px;height:32px}
+.lqr-thumb .lqr-ico{width:30px;height:30px}
+.lqr-k-img{border-radius:4px;background:#e9edf2 repeating-linear-gradient(45deg,#e1e6ec 0 5px,#eef1f5 5px 10px)}.lqr-k-img .lqr-ico{width:30px;height:25px}.lqr-k-file .lqr-ico{width:26px;height:31px}
+.lqr-tname{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;max-width:100%;overflow:hidden;overflow-wrap:anywhere;font-size:10px;line-height:13px;text-align:center;color:#25313d}
+.lqr-pill{flex:none;padding:1px 6px;border-radius:8px;background:#dcf5e3;color:#167a3a;font-size:8.5px;font-weight:700;line-height:11px;letter-spacing:.03em}
+.lqr-chk{position:absolute;top:5px;right:5px;width:14px;height:14px;margin:0;accent-color:#087bfa;cursor:pointer}
+.lqr-tag{position:absolute;top:5px;left:5px;z-index:1;padding:1px 4px;border-radius:2px;background:#087bfa;color:#fff;font-size:8.5px;font-weight:700;line-height:12px;letter-spacing:.03em;pointer-events:none}
+.lqr-main{flex:1 0 380px;display:flex;min-height:380px;border:1px solid #e5e7eb;border-radius:4px;overflow:hidden}
+.lqr-viewer{flex:1;min-width:0;display:flex}
+.lqr-thumbs{flex:none;width:58px;display:flex;flex-direction:column;align-items:center;gap:10px;padding:10px 3px;overflow-y:auto;background:#fff;border-right:1px solid #e5e7eb}
 .lqr-thumbs:empty{display:none}
-.lqr-pg{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px}
-.lqr-mini{border:2px solid transparent;border-radius:2px;background:#fff;box-shadow:0 1px 3px #0002}
-.lqr-mini .lqr-page{margin:0;font-size:2px;box-shadow:none}
-.lqr-pg.lqr-on .lqr-mini{border-color:#087bfa}
-.lqr-pgb{padding:0 6px;border:0;border-radius:3px;background:none;color:#4d5660;font-size:11px}
+.lqr-pg{position:relative;display:flex;align-items:flex-start;gap:3px}
+.lqr-mini{border:2px solid transparent;border-radius:2px;background:#fff;box-shadow:0 0 0 1px #dfe3e8}
+.lqr-mini .lqr-page{margin:0;font-size:.6px;box-shadow:none}
+.lqr-pg.lqr-on .lqr-mini{border-color:#087bfa;box-shadow:none}
+.lqr-pgb{width:10px;padding:0;border:0;background:none;color:#6b7480;font-size:10px;line-height:12px;text-align:right}
 .lqr-pgb::after{content:"";position:absolute;inset:0}
-.lqr-pg.lqr-on .lqr-pgb{background:#087bfa;color:#fff;font-weight:700}
-.lqr-pane{position:relative;flex:1;min-width:0;background:#d9dde3}
-.lqr-tools{position:absolute;top:10px;left:50%;z-index:2;display:flex;align-items:center;gap:2px;padding:3px 6px;transform:translateX(-50%);background:#2d3640;color:#fff;border-radius:5px;box-shadow:0 2px 8px #0004}
+.lqr-pg.lqr-on .lqr-pgb{color:#087bfa;font-weight:700}
+.lqr-pane{position:relative;flex:1;min-width:0;background:#eceef1}
+.lqr-tools{position:absolute;top:10px;left:50%;z-index:2;display:flex;align-items:center;gap:2px;padding:3px 6px;transform:translateX(-50%);background:#2d3640;color:#fff;border-radius:6px;box-shadow:0 2px 8px #0004;white-space:nowrap;max-width:calc(100% - 12px)}
 .lqr-tools button{display:flex;align-items:center;justify-content:center;width:28px;height:26px;padding:0;border:0;border-radius:3px;background:none;color:#fff}
 .lqr-tools button:hover:not(:disabled){background:#ffffff26}.lqr-tools svg{width:15px;height:15px}
-.lqr-zv{min-width:42px;font-size:11px;text-align:center}
+.lqr-zsel{min-width:0;flex:0 1 auto;height:24px;margin:0 3px;padding:0 4px;border:1px solid #ffffff33;border-radius:3px;background:#3a4450;color:#fff;font-size:11px;cursor:pointer}
+.lqr-zsel:disabled{opacity:.45;cursor:not-allowed}
 .lqr-tsep{width:1px;height:16px;margin:0 4px;background:#ffffff40}
 .lqr-scroll{position:absolute;inset:0;padding:54px 20px 24px;overflow:auto;overscroll-behavior:contain}
 .lqr-scroll .lqr-page{font-size:calc(10px*var(--z,1))}
@@ -404,10 +408,21 @@ body.lqr-lock{overflow:hidden}
 .lqr-pimg .lqr-ico{width:9em;height:7.5em}.lqr-pimg small{font-size:.85em;color:#6b7480}
 .lqr-na{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:100%;padding:20px;text-align:center;color:#4d5660}
 .lqr-na .lqr-ico{width:44px;height:52px}.lqr-na b{font-size:14px;color:#25313d}.lqr-na span{max-width:360px;font-size:12px}
+.lqr-side{flex:none;width:320px;padding:14px 16px;overflow-y:auto;background:#fff;border-left:1px solid #e5e7eb}
+.lqr-side h3{margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid #e5e7eb;font-size:14px;font-weight:700;color:#1d2433}
+.lqr-slab{display:block;margin-bottom:8px;font-size:12px;font-weight:700;color:#25313d}
+.lqr-sw{position:relative;display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:#25313d;cursor:pointer}
+.lqr-sw input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.lqr-trk{position:relative;flex:none;width:34px;height:18px;border-radius:9px;background:#c9d2dd;transition:background .15s}
+.lqr-trk::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 1px 2px #0003;transition:transform .15s}
+.lqr-sw input:checked+.lqr-trk{background:#087bfa}.lqr-sw input:checked+.lqr-trk::after{transform:translateX(16px)}
+.lqr-sw input:focus-visible+.lqr-trk{outline:2px solid #1a6dff;outline-offset:2px}
+.lqr-sw:has(input:disabled){opacity:.5;cursor:not-allowed}.lqr-sw input:disabled{cursor:not-allowed}
 .lqr-foot{flex:none;display:flex;justify-content:flex-end;gap:8px;padding:10px 18px;background:#f1f2f4;border-top:1px solid #dfe3e8}
 .lqr-submit{min-width:110px;padding:9px 26px;border:0;border-radius:17px;background:#087bfa;color:#fff;font-size:12px;font-weight:700}
 .lqr-submit:hover:not(:disabled){filter:brightness(.93)}
-@media(max-width:700px){.lqr-shade{padding:0}.lqr-modal{width:100%;height:100%;border-radius:0}.lqr-body{padding:12px}.lqr-fld{width:100%}.lqr-view{margin-bottom:0}.lqr-thumbs{display:none}.lqr-viewer{flex-basis:440px;min-height:440px}.lqr-scroll{padding:50px 10px 16px}.lqr-foot{padding:10px 12px}}
+@media(max-width:900px){.lqr-tools{gap:0;padding:3px 4px}.lqr-tools button{flex:none;width:24px}.lqr-tsep{margin:0 2px}.lqr-zsel{font-size:10.5px;margin:0 2px}}
+@media(max-width:700px){.lqr-shade{padding:0}.lqr-modal{width:100%;height:100%;border-radius:0}.lqr-body{padding:12px}.lqr-fld{width:100%}.lqr-view{margin-bottom:0}.lqr-thumbs{display:none}.lqr-main{flex:none;flex-direction:column;min-height:0}.lqr-viewer{flex:none;height:440px}.lqr-side{width:auto;border-left:0;border-top:1px solid #e5e7eb}.lqr-scroll{padding:50px 10px 16px}.lqr-foot{padding:10px 12px}}
 </style>
 </head><body>
 <header class="top"><span class="hamb">☰</span><span class="logo"><em>i4T</em>Maintenance</span><span class="brand-note">Strata&nbsp; | &nbsp;<b>iREALTY</b></span><span class="topspacer"></span><span style="font-size:17px">♧</span><span class="avatar"></span><span class="username"><b>Jane Thornton</b></span><span class="role">Manager | Administrator | Compliance Manager</span><span class="ps-gear" style="font-size:19px" onclick="showSettings()" onkeydown="psKey(event,showSettings)" role="button" tabindex="0" title="Profile &amp; Account Settings" aria-label="Profile &amp; Account Settings">⚙</span></header>
@@ -687,8 +702,8 @@ const LQR_I={
  pin:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0114 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
  eye:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
  find:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>',
- up:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v4h16v-4"/></svg>',
- pdf:'<svg class="lqr-ico" viewBox="0 0 40 48" aria-hidden="true"><path d="M4 2h22l10 10v34H4z" fill="#fff" stroke="#d93025" stroke-width="2"/><path d="M26 2v10h10" fill="#fde7e5" stroke="#d93025" stroke-width="2"/><rect x="0" y="25" width="32" height="13" rx="2" fill="#d93025"/><text x="16" y="34.5" text-anchor="middle" font-size="9" font-weight="700" fill="#fff" font-family="Arial,sans-serif">PDF</text></svg>',
+ up:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 18H7a4.5 4.5 0 01-.6-8.96A6 6 0 0117.7 8.1 4.5 4.5 0 0117 18h-.5M12 20v-8M9 14.5l3-3 3 3"/></svg>',
+ pdf:'<svg class="lqr-ico" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#e5322d"/><path d="M10.5 6.5h7.5l4 4v6" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><text x="16" y="25" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff" font-family="Arial,sans-serif">PDF</text></svg>',
  img:'<svg class="lqr-ico" viewBox="0 0 48 40" aria-hidden="true"><rect x="2" y="2" width="44" height="36" rx="3" fill="#fff" stroke="#8a96a6" stroke-width="2"/><circle cx="15" cy="13" r="4" fill="#b8c2cf"/><path d="M6 33l11-12 8 8 6-6 11 10z" fill="#9aa6b5"/></svg>',
  file:'<svg class="lqr-ico" viewBox="0 0 40 48" aria-hidden="true"><path d="M4 2h22l10 10v34H4z" fill="#fff" stroke="#7a8594" stroke-width="2"/><path d="M26 2v10h10" fill="#eef0f3" stroke="#7a8594" stroke-width="2"/><path d="M11 22h18M11 28h18M11 34h12" stroke="#b8c0cb" stroke-width="2"/></svg>',
  zout:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4M8 11h6"/></svg>',
@@ -711,17 +726,18 @@ const lqrMoney=v=>'$'+v.toLocaleString('en-AU',{minimumFractionDigits:2,maximumF
 const lqrNorm=s=>String(s).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
 let lqr=null;
 function openLinkQR(e,replaceIdx){hideMenu();closeDialog();
- const used=e.links.map(l=>l.id),ai=LQR_AI[e.id]&&!used.includes(LQR_AI[e.id])?LQR_AI[e.id]:null,att=e.attachments||[],a=document.activeElement;
- lqr={id:e.id,replaceIdx:replaceIdx??null,qr:ai,ai,editing:!ai,q:'',open:false,active:-1,items:[],ticked:att.map(()=>true),prev:att.length?Math.max(0,att.findIndex(n=>lqrKind(n)==='pdf')):-1,zoom:100,page:0,
+ const used=e.links.map(l=>l.id),ai=LQR_AI[e.id]&&!used.includes(LQR_AI[e.id])?LQR_AI[e.id]:null,att=e.attachments||[],a=document.activeElement,qi=att.findIndex(n=>lqrKind(n)==='pdf');
+ // quote[i]: Document Type toggle 'Quotation' per file (first PDF on by default); zoom: 'auto' (Automatic Zoom, fit width) or a % from LQR_Z
+ lqr={id:e.id,replaceIdx:replaceIdx??null,qr:ai,ai,editing:!ai,q:'',open:false,active:-1,items:[],ticked:att.map(()=>true),quote:att.map((n,i)=>i===qi),prev:att.length?Math.max(0,qi):-1,zoom:'auto',page:0,
   ret:a&&a!==document.body&&!a.closest('#menu,#shade,#lqrShade')?a:null};
  const sh=document.querySelector('#lqrShade');
  sh.innerHTML=`<div class="lqr-modal" role="dialog" aria-modal="true" aria-labelledby="lqrTitle" tabindex="-1"><div class="lqr-head"><h2 id="lqrTitle">Link to QR</h2><button type="button" class="lqr-x" aria-label="Close Link to QR" onclick="lqrClose()">×</button></div>`
  +`<div class="lqr-body"><div class="lqr-top"><div class="lqr-fld"><div class="lqr-lab"><span id="lqrLab">Quote Request <span class="lqr-req" aria-hidden="true">*</span></span><span id="lqrAiTag"></span></div><div class="lqr-combo" id="lqrCombo"></div></div>`
  +`<button type="button" class="lqr-view" id="lqrView" onclick="lqrViewQR()">${LQR_I.eye}View Quote Request</button></div>`
- +`<div class="lqr-strip" id="lqrTiles" role="group" aria-label="Attachments to upload with the quote"></div><div class="lqr-viewer" id="lqrViewer"></div></div>`
+ +`<div class="lqr-strip" id="lqrTiles" role="group" aria-label="Attachments to upload with the quote"></div><div class="lqr-main"><div class="lqr-viewer" id="lqrViewer"></div><aside class="lqr-side" id="lqrSide" aria-labelledby="lqrSideH"></aside></div></div>`
  +`<div class="lqr-foot"><button type="button" class="lqr-submit" id="lqrSubmit" onclick="lqrSubmit()">Submit</button></div></div>`;
  sh.hidden=false;document.body.classList.add('lqr-lock');
- lqrField();lqrTiles();lqrViewer();lqrSync();
+ lqrField();lqrTiles();lqrSide();lqrViewer();lqrSync();
  (document.querySelector('#lqrSelBtn')||document.querySelector('#lqrInput')).focus();}
 function lqrClose(){if(!lqr)return;const r=lqr.ret,sh=document.querySelector('#lqrShade');lqr=null;sh.hidden=true;sh.innerHTML='';document.body.classList.remove('lqr-lock');
  const t=[r,document.querySelector('#panel.visible .ai .smore'),document.querySelector('#panel.visible .close')].find(x=>x&&x.isConnected&&x.offsetParent!==null);if(t)t.focus();}
@@ -759,13 +775,19 @@ function lqrBlur(){setTimeout(()=>{if(!lqr||!document.querySelector('#lqrInput')
  lqr.open=false;if(lqr.qr){lqr.editing=false;lqrField();}else lqrList();},0);}
 function lqrViewQR(){if(lqr&&lqr.qr)toast('Opens '+lqr.qr+' (prototype)');}
 // Attachment tiles: one per email attachment (all thread messages); the checkbox picks the files uploaded with the quote, the tile picks the preview
-function lqrTiles(){const s=lqr,att=find(s.id).attachments||[],qi=att.findIndex(n=>lqrKind(n)==='pdf');
- document.querySelector('#lqrTiles').innerHTML=att.map((n,i)=>{const on=i===s.prev,k=lqrKind(n);
-  return `<div class="lqr-tile${on?' lqr-on':''}">${i===qi?'<span class="lqr-tag">Quote</span>':''}<button type="button" class="lqr-tbtn" aria-pressed="${on}" aria-label="Preview ${escapeHtml(n)}" title="${escapeHtml(n)}" onclick="lqrPrev(${i})"><span class="lqr-thumb lqr-k-${k}">${LQR_I[k]}</span><span class="lqr-tname">${escapeHtml(n)}</span></button>`
-  +`<input type="checkbox" class="lqr-chk"${s.ticked[i]?' checked':''} aria-label="Upload ${escapeHtml(n)} with the quote" onchange="lqrTick(${i},this.checked)"></div>`;}).join('')
-  +`<button type="button" class="lqr-up" onclick="toast('Upload is not available in this prototype')">${LQR_I.up}<b>Upload</b><small>(Allowed File Types: PDF, JPG, PNG)</small></button>`;}
+function lqrTiles(){const s=lqr,att=find(s.id).attachments||[],el=document.querySelector('#lqrTiles'),x=el.scrollLeft;
+ el.innerHTML=`<button type="button" class="lqr-up" onclick="toast('Upload is not available in this prototype')"><span class="lqr-upi">${LQR_I.up}</span><b>Upload</b><small>Drop files here or click to add</small><small>PDF, JPG, PNG up to 2MB</small></button>`
+  +att.map((n,i)=>{const on=i===s.prev,k=lqrKind(n),q=s.quote[i],h=escapeHtml(n);
+  return `<div class="lqr-tile${on?' lqr-on':''}">${q?'<span class="lqr-tag">QUOTATION</span>':''}<button type="button" class="lqr-tbtn" aria-pressed="${on}" aria-label="Preview ${h}${q?' (Quotation)':''}" title="${h}" onclick="lqrPrev(${i})"><span class="lqr-thumb lqr-k-${k}">${LQR_I[k]}</span><span class="lqr-tname">${h}</span>${q?'<span class="lqr-pill">QUOTATION</span>':''}</button>`
+  +`<input type="checkbox" class="lqr-chk"${s.ticked[i]?' checked':''} aria-label="Upload ${h} with the quote" onchange="lqrTick(${i},this.checked)"></div>`;}).join('');
+ el.scrollLeft=x;}
+// Document Classification side panel: Document Type toggle for the previewed file
+function lqrSide(){const s=lqr,n=(find(s.id).attachments||[])[s.prev],on=!!(n&&s.quote[s.prev]);
+ document.querySelector('#lqrSide').innerHTML=`<h3 id="lqrSideH">Document Classification</h3><div class="lqr-sfld" role="group" aria-labelledby="lqrDtLab"><span class="lqr-slab" id="lqrDtLab">Document Type</span>`
+  +`<label class="lqr-sw"><input type="checkbox" role="switch" id="lqrQt"${on?' checked':''}${n?'':' disabled'} onchange="lqrQuote(this.checked)"><span class="lqr-trk" aria-hidden="true"></span><span>Quotation</span></label></div>`;}
+function lqrQuote(v){if(lqr.prev<0)return;lqr.quote[lqr.prev]=v;lqrTiles();}
 function lqrTick(i,v){lqr.ticked[i]=v;lqrSync();}
-function lqrPrev(i){lqr.prev=i;lqr.page=0;document.querySelectorAll('#lqrTiles .lqr-tile').forEach((t,j)=>{t.classList.toggle('lqr-on',j===i);t.querySelector('.lqr-tbtn').setAttribute('aria-pressed',String(j===i));});lqrViewer();}
+function lqrPrev(i){lqr.prev=i;lqr.page=0;document.querySelectorAll('#lqrTiles .lqr-tile').forEach((t,j)=>{t.classList.toggle('lqr-on',j===i);t.querySelector('.lqr-tbtn').setAttribute('aria-pressed',String(j===i));});lqrSide();lqrViewer();}
 function lqrDoc(e,n){if(LQR_DOCS[n])return LQR_DOCS[n];const d=(n.match(/\d+/g)||['1001']).pop(),sp=(e.fields||{})['Strata Plan'];
  return {no:'Q-'+d,date:e.date.slice(0,10),valid:'—',ref:e.subject,to:'The Owners – '+(sp||'Strata Plan'),addr:'Address as per Quote Request',from:{name:e.sender,addr:'',mail:e.address,ph:'',abn:''},
   items:[['Works as described in the email: '+e.subject,1,1200]],scope:['Carry out the works described in the email.'],excl:['Any work not listed above.']};}
@@ -780,29 +802,38 @@ function lqrPdfPages(e,n){const d=lqrDoc(e,n),sub=d.items.reduce((t,[,q,p])=>t+q
    +`<div class="lqr-dsign"><span>Accepted by (name)</span><span>Signature</span><span>Date</span></div>`+P(3)];}
 function lqrViewer(){const s=lqr,e=find(s.id),n=(e.attachments||[])[s.prev],k=n?lqrKind(n):'',h=escapeHtml;
  const pages=k==='pdf'?lqrPdfPages(e,n):k==='img'?[`<div class="lqr-pimg">${LQR_I.img}<b>${h(n)}</b><small>Image preview (prototype)</small></div>`]:[],can=pages.length>0,cls='lqr-page'+(k==='img'?' lqr-ipage':'');
- document.querySelector('#lqrViewer').innerHTML=`<div class="lqr-thumbs" aria-label="Pages">${pages.map((p,i)=>`<div class="lqr-pg${i===s.page?' lqr-on':''}"><div class="lqr-mini" aria-hidden="true"><div class="${cls}">${p}</div></div><button type="button" class="lqr-pgb" aria-label="Go to page ${i+1}"${i===s.page?' aria-current="page"':''} onclick="lqrGo(${i})">${i+1}</button></div>`).join('')}</div>`
- +`<div class="lqr-pane"><div class="lqr-tools" role="toolbar" aria-label="Document tools"><button type="button" id="lqrZout" aria-label="Zoom out" onclick="lqrZoom(-25)">${LQR_I.zout}</button><span class="lqr-zv" id="lqrZv" aria-live="polite">${s.zoom}%</span><button type="button" id="lqrZin" aria-label="Zoom in" onclick="lqrZoom(25)">${LQR_I.zin}</button><span class="lqr-tsep" aria-hidden="true"></span>`
- +`<button type="button" aria-label="Download"${n?'':' disabled'} onclick="lqrFileToast('Downloading')">${LQR_I.dl}</button><button type="button" aria-label="Print"${can?'':' disabled'} onclick="lqrFileToast('Printing')">${LQR_I.print}</button></div>`
- +`<div class="lqr-scroll" id="lqrScroll" tabindex="0" aria-label="Document preview${n?' – '+h(n):''}" style="--z:${s.zoom/100}" onscroll="lqrOnScroll()">${can?pages.map((p,i)=>`<div class="${cls}" id="lqrPage${i}">${p}</div>`).join('')
+ document.querySelector('#lqrViewer').innerHTML=`<div class="lqr-thumbs" aria-label="Pages">${pages.map((p,i)=>`<div class="lqr-pg${i===s.page?' lqr-on':''}"><button type="button" class="lqr-pgb" aria-label="Go to page ${i+1}"${i===s.page?' aria-current="page"':''} onclick="lqrGo(${i})">${i+1}</button><div class="lqr-mini" aria-hidden="true"><div class="${cls}">${p}</div></div></div>`).join('')}</div>`
+ +`<div class="lqr-pane"><div class="lqr-tools" role="toolbar" aria-label="Document tools"><button type="button" aria-label="Search in document"${can?'':' disabled'} onclick="toast('Search in document is not available in this prototype')">${LQR_I.find}</button><span class="lqr-tsep" aria-hidden="true"></span>`
+ +`<button type="button" id="lqrZout" aria-label="Zoom out" onclick="lqrZoom(-1)">${LQR_I.zout}</button><button type="button" id="lqrZin" aria-label="Zoom in" onclick="lqrZoom(1)">${LQR_I.zin}</button>`
+ +`<select class="lqr-zsel" id="lqrZsel" aria-label="Zoom" onchange="lqrZset(this.value)">${[['auto','Automatic Zoom'],...LQR_Z.map(v=>[v,v+'%'])].map(([v,t])=>`<option value="${v}">${t}</option>`).join('')}</select><span class="lqr-tsep" aria-hidden="true"></span>`
+ +`<button type="button" aria-label="Print"${can?'':' disabled'} onclick="lqrFileToast('Printing')">${LQR_I.print}</button><button type="button" aria-label="Download"${n?'':' disabled'} onclick="lqrFileToast('Downloading')">${LQR_I.dl}</button></div>`
+ +`<div class="lqr-scroll" id="lqrScroll" tabindex="0" aria-label="Document preview${n?' – '+h(n):''}" onscroll="lqrOnScroll()">${can?pages.map((p,i)=>`<div class="${cls}" id="lqrPage${i}">${p}</div>`).join('')
   :`<div class="lqr-na">${LQR_I.file}<b>${n?'Preview not available':'No attachments'}</b><span>${n?h(n)+' cannot be previewed here. Download the file to view it.':'This email has no attachments to upload with the quote.'}</span></div>`}</div></div>`;
- lqrZoomUi(can);}
+ lqrApply();}
 function lqrFileToast(verb){const n=(find(lqr.id).attachments||[])[lqr.prev];if(n)toast(verb+' '+n+' (prototype)');}
-function lqrZoomUi(can){document.querySelector('#lqrZv').textContent=lqr.zoom+'%';document.querySelector('#lqrZout').disabled=!can||lqr.zoom<=50;document.querySelector('#lqrZin').disabled=!can||lqr.zoom>=200;}
-function lqrZoom(d){lqr.zoom=Math.min(200,Math.max(50,lqr.zoom+d));document.querySelector('#lqrScroll').style.setProperty('--z',lqr.zoom/100);lqrZoomUi(true);}
+// Zoom levels match the zoom select; 'Automatic Zoom' fits the 56em page (560px at 100%) to the pane width
+const LQR_Z=[50,75,100,125,150,200];
+function lqrPct(){const sc=document.querySelector('#lqrScroll');if(lqr.zoom!=='auto')return lqr.zoom;if(!sc)return 100;const c=getComputedStyle(sc);return (sc.clientWidth-parseFloat(c.paddingLeft)-parseFloat(c.paddingRight)-1)/5.6;}
+function lqrApply(){const sc=document.querySelector('#lqrScroll'),can=!!sc.querySelector('.lqr-page'),z=lqrPct(),sel=document.querySelector('#lqrZsel');sc.style.setProperty('--z',z/100);
+ sel.value=String(lqr.zoom);sel.disabled=!can;document.querySelector('#lqrZout').disabled=!can||z<=LQR_Z[0]+.5;document.querySelector('#lqrZin').disabled=!can||z>=LQR_Z[LQR_Z.length-1]-.5;}
+function lqrZoom(d){const z=lqrPct(),n=d>0?LQR_Z.find(v=>v>z+.5):[...LQR_Z].reverse().find(v=>v<z-.5);if(n==null)return;lqr.zoom=n;lqrApply();}
+function lqrZset(v){lqr.zoom=v==='auto'?'auto':+v;lqrApply();}
+window.addEventListener('resize',()=>{if(lqr&&lqr.zoom==='auto'&&document.querySelector('#lqrScroll'))lqrApply();});
 function lqrMark(i){lqr.page=i;document.querySelectorAll('#lqrViewer .lqr-pg').forEach((t,j)=>{t.classList.toggle('lqr-on',j===i);const b=t.querySelector('.lqr-pgb');if(j===i)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});}
 function lqrGo(i){const sc=document.querySelector('#lqrScroll'),p=document.querySelector('#lqrPage'+i);if(p)sc.scrollTop=p.offsetTop-52;lqrMark(i);}
 function lqrOnScroll(){const sc=document.querySelector('#lqrScroll'),ps=[...sc.querySelectorAll('.lqr-page')];if(!ps.length)return;
  let i=sc.scrollTop+sc.clientHeight>=sc.scrollHeight-2?ps.length-1:0;if(!i)ps.forEach((p,j)=>{if(p.offsetTop-60<=sc.scrollTop)i=j;});if(i!==lqr.page)lqrMark(i);}
 // Submit: same data effects as the earlier Link to Quote Request pop-up; only the ticked files go to the Quote Request
-function lqrSubmit(){if(!lqrReady())return;const s=lqr,e=find(s.id),id=s.qr,docs=(e.attachments||[]).filter((n,i)=>s.ticked[i]);
+function lqrSubmit(){if(!lqrReady())return;const s=lqr,e=find(s.id),id=s.qr,att=e.attachments||[],docs=att.filter((n,i)=>s.ticked[i]);
  dropOld(e,s.replaceIdx);
- e.links.push(L('QR',id,'Quote','Received',ME+' · '+nowStamp(),docs));
+ const l=L('QR',id,'Quote','Received',ME+' · '+nowStamp(),docs);l.quoteDocs=att.filter((n,i)=>s.ticked[i]&&s.quote[i]); // ticked files classified as Quotation (data only)
+ e.links.push(l);
  Object.assign(e,{dismissed:null,pending:null,recommended:null,ai:'Linked to '+id+' by Jane Thornton.',why:'Added as the contractor\'s quote. The Quote Request moved to Received.'});
  refresh();lqrClose();toast('Quote linked to '+id);}
 // Esc closes the open list first, then the modal; Tab stays inside the modal (capture phase, before the page's own Esc handler)
 window.addEventListener('keydown',ev=>{if(!lqr)return;
  if(ev.key==='Escape'){ev.preventDefault();ev.stopPropagation();if(lqr.open){lqr.open=false;lqrList();}else lqrClose();return;}
- if(ev.key!=='Tab')return;const f=[...document.querySelectorAll('#lqrShade button:not(:disabled),#lqrShade input:not(:disabled),#lqrShade [tabindex="0"]')].filter(x=>x.offsetParent!==null);if(!f.length)return;
+ if(ev.key!=='Tab')return;const f=[...document.querySelectorAll('#lqrShade button:not(:disabled),#lqrShade input:not(:disabled),#lqrShade select:not(:disabled),#lqrShade [tabindex="0"]')].filter(x=>x.offsetParent!==null);if(!f.length)return;
  const i=f.indexOf(document.activeElement);if(ev.shiftKey&&i<=0){ev.preventDefault();f[f.length-1].focus();}else if(!ev.shiftKey&&(i<0||i===f.length-1)){ev.preventDefault();f[0].focus();}},true);
 function openRecord(rid){hideMenu();const e=emails.find(x=>x.links.some(l=>l.id===rid));
  if(rid.startsWith('SR')){const em=e||find(srRegistry[rid]?.email);if(em)showSRDetails(em.id,rid);else toast('Service Request not found');return;}
